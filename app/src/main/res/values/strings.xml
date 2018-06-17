@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">KSmartDiet</string>
+    <string name="client_data_error">Ошибка клиентских данных</string>
+    <string name="sign_in_error">Ошибка при авторизации</string>
 </resources>
