@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ExtendableList">
+        <attr name="el_label_text" format="string" />
+    </declare-styleable>
+
+</resources>

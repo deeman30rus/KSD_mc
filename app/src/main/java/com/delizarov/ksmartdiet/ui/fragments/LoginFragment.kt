@@ -1,4 +1,4 @@
-package com.delizarov.ksmartdiet.ui.fargments
+package com.delizarov.ksmartdiet.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.delizarov.ksmartdiet.BuildConfig
-import com.delizarov.ksmartdiet.NavController
+import com.delizarov.ksmartdiet.navigation.NavController
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.presentation.LoginPresenter
 import com.delizarov.ksmartdiet.presentation.LoginView

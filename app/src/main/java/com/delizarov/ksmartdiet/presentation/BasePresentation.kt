@@ -1,7 +1,5 @@
 package com.delizarov.ksmartdiet.presentation
 
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-
 interface BaseView
 
 abstract class BasePresenter<T : BaseView> {
@@ -12,7 +10,7 @@ abstract class BasePresenter<T : BaseView> {
         this.view = view
     }
 
-    fun onViewCreated() {
+    open fun onViewCreated() {
 
     }
 }

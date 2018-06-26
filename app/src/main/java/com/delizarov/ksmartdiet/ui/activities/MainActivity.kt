@@ -2,10 +2,11 @@ package com.delizarov.ksmartdiet.ui.activities
 
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
-import com.delizarov.ksmartdiet.NavController
+import com.delizarov.ksmartdiet.navigation.NavController
 import com.delizarov.ksmartdiet.R
-import com.delizarov.ksmartdiet.ui.fargments.DietFragment
-import com.delizarov.ksmartdiet.ui.fargments.LoginFragment
+import com.delizarov.ksmartdiet.navigation.ScreenKeys
+import com.delizarov.ksmartdiet.ui.fragments.DietFragment
+import com.delizarov.ksmartdiet.ui.fragments.LoginFragment
 
 class MainActivity : BaseActivity(), NavController {
     private lateinit var fm: FragmentManager
@@ -38,7 +39,7 @@ class MainActivity : BaseActivity(), NavController {
 
         fm
                 .beginTransaction()
-                .replace(R.id.container, fragment)
+                .replace(R.id.container, fragment, ScreenKeys.DietScreenKey)
                 .commit()
     }
 

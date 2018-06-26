@@ -2,4 +2,18 @@
     <string name="app_name">KSmartDiet</string>
     <string name="client_data_error">Ошибка клиентских данных</string>
     <string name="sign_in_error">Ошибка при авторизации</string>
+    <string name="save_caption">Сохранить</string>
+    <string name="plan_days_amount">Число дней планирования</string>
+    <string name="meal_types">Названия трапез</string>
+    <string name="empty_meal_types_error">Список пуст, либо содержит пустые строки</string>
+
+    <string-array name="plan_days">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
 </resources>
