@@ -3,8 +3,8 @@ package com.delizarov.ksmartdiet.di
 import android.app.Application
 import com.delizarov.ksmartdiet.ui.activities.MainActivity
 import com.delizarov.ksmartdiet.ui.activities.StartActivity
-import com.delizarov.ksmartdiet.ui.fargments.DietFragment
-import com.delizarov.ksmartdiet.ui.fargments.LoginFragment
+import com.delizarov.ksmartdiet.ui.fragments.DietFragment
+import com.delizarov.ksmartdiet.ui.fragments.LoginFragment
 import dagger.Component
 import javax.inject.Singleton
 

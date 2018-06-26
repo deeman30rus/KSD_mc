@@ -1,4 +1,4 @@
-package com.delizarov.ksmartdiet
+package com.delizarov.ksmartdiet.navigation
 
 interface NavController {
 
