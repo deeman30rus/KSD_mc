@@ -4,11 +4,13 @@ import com.delizarov.ksmartdiet.domain.interactors.ReadDietSettingsUseCase
 import com.delizarov.ksmartdiet.domain.interactors.SaveDietSettingsUseCase
 import com.delizarov.ksmartdiet.domain.models.DietSettings
 import io.reactivex.android.schedulers.AndroidSchedulers
+import org.joda.time.DateTime
 import javax.inject.Inject
 
 interface DietView : BaseView {
     fun showDietSettingsDialog()
     fun dismissDietSettingsDialog()
+    fun showPlanDaysMenu(planDays: Int)
 }
 
 class DietPresenter @Inject constructor(
@@ -23,6 +25,7 @@ class DietPresenter @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
 
+                    renderDietScreen(it)
                 }, {
 
                     view.showDietSettingsDialog()
@@ -37,7 +40,17 @@ class DietPresenter @Inject constructor(
                 .subscribe({}, {}, {
 
                     view.dismissDietSettingsDialog()
+                    renderDietScreen(settings)
                 })
         
+    }
+
+    private fun renderDietScreen(settings: DietSettings) {
+
+        view.showPlanDaysMenu(settings.planDays)
+    }
+
+    fun onSelectedDateChanged(it: DateTime?) {
+
     }
 }

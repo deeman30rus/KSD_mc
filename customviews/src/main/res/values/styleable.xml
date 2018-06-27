@@ -4,4 +4,8 @@
         <attr name="el_label_text" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="SelectNearDateView" >
+        <attr name="snd_background" format="color"/>
+    </declare-styleable>
+
 </resources>
