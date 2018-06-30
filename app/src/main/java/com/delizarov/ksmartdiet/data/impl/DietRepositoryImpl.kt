@@ -5,10 +5,14 @@ import android.content.SharedPreferences
 import com.delizarov.ksmartdiet.data.DietRepository
 import com.delizarov.ksmartdiet.domain.DietSettingsNotFoundException
 import com.delizarov.ksmartdiet.domain.models.DietSettings
+import com.delizarov.ksmartdiet.domain.models.Meal
+import com.delizarov.ksmartdiet.domain.models.MealType
+import com.delizarov.ksmartdiet.domain.models.Recipe
 import io.reactivex.Observable
 import javax.inject.Inject
 import com.google.gson.Gson
 import io.reactivex.ObservableOnSubscribe
+import org.joda.time.DateTime
 
 
 class DietRepositoryImpl @Inject constructor(ctx: Context) : DietRepository {
@@ -51,8 +55,20 @@ class DietRepositoryImpl @Inject constructor(ctx: Context) : DietRepository {
             }
 
 
-    companion object {
+    override fun readMealsForDate(date: DateTime): Observable<Meal> {
 
+        val meals = listOf(
+                Meal(MealType("askdjf", 1), Recipe("fgjdfkj;ld")),
+                Meal(MealType("askdjf", 2), Recipe("fgjdfkj;ld")),
+                Meal(MealType("askdjf", 3), Recipe("fgjdfkj;ld")),
+                Meal(MealType("askdjf", 4), Recipe("fgjdfkj;ld"))
+        )
+
+        return Observable.fromIterable(meals)
+    }
+
+    companion object {
         private const val DIET_PREFERENCES = "diet_prefs"
+
     }
 }

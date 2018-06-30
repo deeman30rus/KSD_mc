@@ -2,5 +2,10 @@ package com.delizarov.ksmartdiet.domain.models
 
 class MealType(
         val name: String,
-        private val order: Int
+        val order: Int
+)
+
+class Meal(
+        val type: MealType,
+        val recipe: Recipe
 )
