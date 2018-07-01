@@ -1,23 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/m_amber_500">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="delicious pancakes"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="367dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pancakes" />
+
+    <View
+        android:id="@+id/background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/trapeze_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <TextView
+        android:id="@+id/meal_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="@color/amber_300"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:text="Завтрак" />
+
+    <TextView
+        android:id="@+id/recipe_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_black"
+        android:textColor="@color/amber_300"
+        android:textSize="19sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meal_type"
+        tools:text="Американские блинчики с корицей" />
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/tags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_title" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <ImageView
+        android:id="@+id/cook_time_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/icon_timer_blue_700" />
+
+    <TextView
+        android:id="@+id/cook_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_regular"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cook_time_icon"
+        app:layout_constraintStart_toEndOf="@+id/cook_time_icon"
+        app:layout_constraintTop_toTopOf="@+id/cook_time_icon"
+        tools:text="8 минут"
+        />
+
+    <ImageView
+        android:id="@+id/calories_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/icon_calories_deep_orange_400" />
+
+    <TextView
+        android:id="@+id/calories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_regular"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/calories_icon"
+        app:layout_constraintEnd_toStartOf="@+id/calories_icon"
+        app:layout_constraintTop_toTopOf="@+id/calories_icon"
+        tools:text="350 ккал"
+        />
+
+
 </android.support.constraint.ConstraintLayout>

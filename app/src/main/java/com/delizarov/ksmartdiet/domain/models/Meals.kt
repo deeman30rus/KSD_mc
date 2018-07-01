@@ -5,7 +5,7 @@ class MealType(
         val order: Int
 )
 
-class Meal(
+data class Meal(
         val type: MealType,
         val recipe: Recipe
 )

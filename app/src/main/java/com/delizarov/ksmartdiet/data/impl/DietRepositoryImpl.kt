@@ -57,11 +57,17 @@ class DietRepositoryImpl @Inject constructor(ctx: Context) : DietRepository {
 
     override fun readMealsForDate(date: DateTime): Observable<Meal> {
 
+        val pancakes = Recipe(
+                "Американские панкейки с корицей",
+                15,
+                300,
+                setOf("сладкое", "печёное")
+        )
+
         val meals = listOf(
-                Meal(MealType("askdjf", 1), Recipe("fgjdfkj;ld")),
-                Meal(MealType("askdjf", 2), Recipe("fgjdfkj;ld")),
-                Meal(MealType("askdjf", 3), Recipe("fgjdfkj;ld")),
-                Meal(MealType("askdjf", 4), Recipe("fgjdfkj;ld"))
+                Meal(MealType("Завтрак", 1), pancakes),
+                Meal(MealType("Обед", 2), pancakes),
+                Meal(MealType("Ужин", 3), pancakes)
         )
 
         return Observable.fromIterable(meals)

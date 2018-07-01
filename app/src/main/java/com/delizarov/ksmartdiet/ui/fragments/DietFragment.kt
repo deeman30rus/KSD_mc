@@ -79,6 +79,7 @@ class DietFragment : BaseFragment(), DietView {
 
     override fun showDailyMeals(meals: List<Meal>) {
 
+        adapter.clear()
         adapter.addAll(meals)
     }
 

@@ -1,5 +1,8 @@
 package com.delizarov.ksmartdiet.domain.models
 
-class Recipe(
-        val title: String
+data class Recipe(
+        val title: String,
+        val cookTime: Int,
+        val calories: Int,
+        val tags: Set<String>
 )
