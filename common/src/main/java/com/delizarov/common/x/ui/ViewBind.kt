@@ -1,4 +1,4 @@
-package com.delizarov.common.ui.x
+package com.delizarov.common.x.ui
 
 import android.app.Activity
 import android.app.Dialog

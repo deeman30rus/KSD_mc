@@ -4,12 +4,13 @@ import android.graphics.Color
 import android.view.View
 import android.widget.TextView
 import com.delizarov.common.ui.viewholders.ViewHolderBase
-import com.delizarov.common.ui.x.bind
+import com.delizarov.common.x.ui.bind
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.models.Meal
 import com.google.android.flexbox.FlexboxLayout
 import fisk.chipcloud.ChipCloud
 import fisk.chipcloud.ChipCloudConfig
+
 
 class MealViewHolder(itemView: View) : ViewHolderBase<Meal>(itemView) {
 

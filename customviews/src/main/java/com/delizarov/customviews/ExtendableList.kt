@@ -14,7 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.delizarov.common.ui.adapters.SortedListAdapter
 import com.delizarov.common.ui.viewholders.ViewHolderBase
-import com.delizarov.common.ui.x.bind
+import com.delizarov.common.x.ui.bind
 import com.delizarov.customviews.models.OrderedEntry
 
 class ExtendableList(ctx: Context?, attrs: AttributeSet?, defStyleAttr: Int) : ConstraintLayout(ctx, attrs, defStyleAttr) {

@@ -9,13 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.delizarov.common.ui.adapters.SortedListAdapter
 import com.delizarov.common.ui.viewholders.ViewHolderBase
-import com.delizarov.common.ui.x.bind
+import com.delizarov.common.x.ui.bind
 import com.delizarov.customviews.SelectNearDateView
 import com.delizarov.ksmartdiet.navigation.NavController
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.models.Meal
-import com.delizarov.ksmartdiet.domain.models.MealType
-import com.delizarov.ksmartdiet.domain.models.Recipe
 import com.delizarov.ksmartdiet.presentation.DietPresenter
 import com.delizarov.ksmartdiet.presentation.DietView
 import com.delizarov.ksmartdiet.ui.dialogs.DietSettingsDialog

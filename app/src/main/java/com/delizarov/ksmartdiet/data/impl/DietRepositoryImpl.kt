@@ -3,78 +3,114 @@ package com.delizarov.ksmartdiet.data.impl
 import android.content.Context
 import android.content.SharedPreferences
 import com.delizarov.ksmartdiet.data.DietRepository
+import com.delizarov.ksmartdiet.data.db.DietDB
+import com.delizarov.ksmartdiet.data.db.toDBEntity
+import com.delizarov.ksmartdiet.data.db.toMealType
 import com.delizarov.ksmartdiet.domain.DietSettingsNotFoundException
-import com.delizarov.ksmartdiet.domain.models.DietSettings
-import com.delizarov.ksmartdiet.domain.models.Meal
-import com.delizarov.ksmartdiet.domain.models.MealType
-import com.delizarov.ksmartdiet.domain.models.Recipe
+import com.delizarov.ksmartdiet.domain.models.*
 import io.reactivex.Observable
-import javax.inject.Inject
-import com.google.gson.Gson
-import io.reactivex.ObservableOnSubscribe
 import org.joda.time.DateTime
+import javax.inject.Inject
 
 
-class DietRepositoryImpl @Inject constructor(ctx: Context) : DietRepository {
+class DietRepositoryImpl @Inject constructor(
+        ctx: Context,
+        val db: DietDB
+) : DietRepository {
 
-    private val preferences: SharedPreferences
+    private val recipes = mapOf(
+            1L to Recipe("Американские блинчики с корицей", 10, 304, setOf("Сладкое", "Печёное")),
+            2L to Recipe("Оввяная каша", 10, 304, setOf("Сладкое", "Печёное")),
+            3L to Recipe("Яичница", 10, 304, setOf("Сладкое", "Печёное")),
+            4L to Recipe("Картошка", 10, 304, setOf("Сладкое", "Печёное")),
+            5L to Recipe("Ленивцы", 10, 304, setOf("Сладкое", "Печёное"))
+    )
 
-    init {
-        preferences = ctx.getSharedPreferences(DIET_PREFERENCES, Context.MODE_PRIVATE)
+    override fun readRation(): List<Ration> {
+
+        return listOf()
     }
+
+    override fun getCurrentRation(): Ration {
+
+        return Ration(
+                "Всеядный",
+                "",
+                recipes.values.toSet()
+        )
+    }
+
+    private val preferences: SharedPreferences = ctx.getSharedPreferences(DIET_PREFERENCES, Context.MODE_PRIVATE)
+
 
     override fun getDietSettings(): Observable<DietSettings> = Observable.create {
 
+        val planDays = preferences.getInt(DIET_SETTINGS_PLAN_DAYS, -1)
 
-        val gson = Gson()
-        val json = preferences.getString(DIET_PREFERENCES, "")
-
-        if (json.isEmpty())
+        if (planDays == -1)
             it.onError(DietSettingsNotFoundException())
         else {
-            val settings = gson.fromJson<DietSettings>(json, DietSettings::class.java)
+
+//            val mealTypes = db
+//                    .mealTypeDao()
+//                    .getMealTypes()
+//                    .map { it.toMealType() }
+//                    .toList()
+
+//            val settings = DietSettings(emptyList() mealTypes, planDays)
+            val settings = DietSettings(emptyList(), planDays)
+
             it.onNext(settings)
         }
 
         it.onComplete()
     }
 
-    override fun saveDietSettings(dietSettings: DietSettings) : Observable<Any> =
+    override fun writeDietSettings(dietSettings: DietSettings): Observable<Any> =
             Observable.create {
-
-                val gson = Gson()
-                val json = gson.toJson(dietSettings)
 
                 preferences
                         .edit()
-                        .putString(DIET_PREFERENCES, json)
+                        .putInt(DIET_SETTINGS_PLAN_DAYS, dietSettings.planDays)
                         .apply()
+
+//                dietSettings.mealTypes.forEach {
+//                    db.mealTypeDao().addMealType(it.toDBEntity())
+//                }
 
                 it.onComplete()
 
             }
 
 
-    override fun readMealsForDate(date: DateTime): Observable<Meal> {
+    override fun getMealsForDate(date: DateTime): List<Meal> = getMealsForPeriod(date, date, null)
 
-        val pancakes = Recipe(
-                "Американские панкейки с корицей",
-                15,
-                300,
-                setOf("сладкое", "печёное")
-        )
+    override fun getMealsForPeriod(dateFrom: DateTime, dateTo: DateTime, mealType: MealType?): List<Meal> {
+            return if (mealType == null)
+                 emptyList()
+            // db.mealDao().getMeals(dateFrom, dateTo)
+            else
+                emptyList()
+//                db.mealDao().getMeals(dateFrom, dateTo, mealType.toDBEntity()))
+//                    .map {
+//                        Meal(
+//                                MealType("", 1), recipes[it.recipeId] ?: DEFAULT_RECIPE, it.date
+//                        )
+//                    }
+//                    .toList()
+    }
 
-        val meals = listOf(
-                Meal(MealType("Завтрак", 1), pancakes),
-                Meal(MealType("Обед", 2), pancakes),
-                Meal(MealType("Ужин", 3), pancakes)
-        )
+    override fun writeMeal(meal: Meal) {
 
-        return Observable.fromIterable(meals)
+//        db.mealDao().addMeal(meal)
     }
 
     companion object {
+
+        private const val DIET_SETTINGS_PLAN_DAYS = "plan_days"
+
         private const val DIET_PREFERENCES = "diet_prefs"
 
+        private val DEFAULT_RECIPE = Recipe("default", 0, 0, emptySet())
     }
 }

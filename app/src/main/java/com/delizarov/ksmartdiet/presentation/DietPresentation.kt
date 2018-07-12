@@ -67,16 +67,16 @@ class DietPresenter @Inject constructor(
 
     fun onSelectedDateChanged(it: DateTime) {
 
-        val params = DateParams(it)
-
-        getMealUseCase
-                .observable(params)
-                .observeOn(AndroidSchedulers.mainThread())
-                .toList()
-                .subscribe{meals ->
-
-                    view.showDailyMeals(meals)
-                }
+//        val params = DateParams(it)
+//
+//        getMealUseCase
+//                .observable(params)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .toList()
+//                .subscribe{meals ->
+//
+//                    view.showDailyMeals(meals)
+//                }
 
 
     }

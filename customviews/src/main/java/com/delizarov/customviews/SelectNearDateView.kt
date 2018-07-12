@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.PopupMenu
 import android.widget.TextView
-import com.delizarov.common.ui.x.bind
+import com.delizarov.common.x.ui.bind
 import org.joda.time.DateTime
 
 class SelectNearDateView(ctx: Context?, attrs: AttributeSet?, defStyleAttr: Int) : ConstraintLayout(ctx, attrs, defStyleAttr) {

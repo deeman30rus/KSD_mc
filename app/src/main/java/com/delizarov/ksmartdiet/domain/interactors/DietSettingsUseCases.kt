@@ -2,7 +2,6 @@ package com.delizarov.ksmartdiet.domain.interactors
 
 import com.delizarov.ksmartdiet.data.DietRepository
 import com.delizarov.ksmartdiet.domain.models.DietSettings
-import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -22,7 +21,7 @@ class SaveDietSettingsUseCase @Inject constructor(
 ) : UseCase<Any, DietSettings>() {
 
     override fun createObservable(params: DietSettings?) =
-            dietRepository.saveDietSettings(params!!)
+            dietRepository.writeDietSettings(params!!)
                     .subscribeOn(Schedulers.newThread())
 
 }

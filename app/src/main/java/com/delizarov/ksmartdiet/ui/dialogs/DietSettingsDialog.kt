@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.Window
 import android.widget.ArrayAdapter
 import android.widget.Button
-import com.delizarov.common.ui.x.bind
+import com.delizarov.common.x.ui.bind
 import com.delizarov.customviews.ExtendableList
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.models.DietSettings
