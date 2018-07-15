@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.delizarov.ksmartdiet.BuildConfig
-import com.delizarov.ksmartdiet.navigation.NavController
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.presentation.LoginPresenter
 import com.delizarov.ksmartdiet.presentation.LoginView
@@ -21,15 +20,13 @@ import javax.inject.Inject
 
 
 class LoginFragment : BaseFragment(), LoginView {
+    override fun injectComponents() {
+
+        appComponent.inject(this)
+    }
 
     @Inject
     lateinit var presenter: LoginPresenter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        getAppComponent().inject(this)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -83,9 +80,9 @@ class LoginFragment : BaseFragment(), LoginView {
         }
     }
 
-    override fun displayDietScreen() {
+    override fun displaySettingsScreen() {
 
-        navController.navToDietView()
+        navController.fwdToSettingsScreen()
     }
 
     override fun showSignInError() {
@@ -109,20 +106,5 @@ class LoginFragment : BaseFragment(), LoginView {
     companion object {
 
         const val RC_SIGN_IN = 1
-
-        fun build(block: Builder.() -> Unit) = Builder().apply(block).build()
-    }
-
-    class Builder {
-
-        lateinit var navController: NavController
-
-        fun build(): LoginFragment {
-
-            val fragment = LoginFragment()
-            fragment.navController = navController
-
-            return fragment
-        }
     }
 }

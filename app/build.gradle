@@ -53,6 +53,7 @@ dependencies {
     //local
     implementation project(':common')
     implementation project(':customviews')
+    implementation project(':navigation')
 
     //room
     implementation 'android.arch.persistence.room:runtime:1.1.1'

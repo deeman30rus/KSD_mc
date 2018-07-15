@@ -1,5 +1,6 @@
 package com.delizarov.ksmartdiet.data
 
+import com.delizarov.ksmartdiet.domain.DietSettingsNotFoundException
 import com.delizarov.ksmartdiet.domain.models.*
 import io.reactivex.Observable
 import org.joda.time.DateTime
@@ -15,6 +16,12 @@ interface UserRepository {
 
 interface DietRepository {
 
+    /**
+     * Возвращает объект настроек приложения, если настройки не были заданы, то кидает DietSettingsNotFoundException
+     *
+     * @return объект настроек приложения
+     * @throws DietSettingsNotFoundException - если настройки не заданы
+     * */
     fun getDietSettings(): Observable<DietSettings>
 
     fun writeDietSettings(dietSettings: DietSettings): Observable<Any>

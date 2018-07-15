@@ -11,7 +11,6 @@ import com.delizarov.common.ui.adapters.SortedListAdapter
 import com.delizarov.common.ui.viewholders.ViewHolderBase
 import com.delizarov.common.x.ui.bind
 import com.delizarov.customviews.SelectNearDateView
-import com.delizarov.ksmartdiet.navigation.NavController
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.models.Meal
 import com.delizarov.ksmartdiet.presentation.DietPresenter
@@ -22,6 +21,10 @@ import org.joda.time.DateTime
 import javax.inject.Inject
 
 class DietFragment : BaseFragment(), DietView {
+
+    override fun injectComponents() {
+        appComponent.inject(this)
+    }
 
     @Inject
     lateinit var presenter: DietPresenter
@@ -44,12 +47,6 @@ class DietFragment : BaseFragment(), DietView {
 
             holder.bind(get(position))
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        getAppComponent().inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -95,23 +92,4 @@ class DietFragment : BaseFragment(), DietView {
 
         currentDate.entries = days
     }
-
-    companion object {
-
-        fun build(block: Builder.() -> Unit) = Builder().apply(block).build()
-    }
-
-    class Builder {
-
-        lateinit var navController: NavController
-
-        fun build(): DietFragment {
-
-            val fragment = DietFragment()
-            fragment.navController = navController
-
-            return fragment
-        }
-    }
-
 }

@@ -8,6 +8,8 @@ import com.delizarov.ksmartdiet.data.UserRepository
 import com.delizarov.ksmartdiet.data.db.DietDB
 import com.delizarov.ksmartdiet.data.impl.DietRepositoryImpl
 import com.delizarov.ksmartdiet.data.impl.UserRepositoryImpl
+import com.delizarov.ksmartdiet.ui.activities.BaseActivity
+import com.delizarov.ksmartdiet.ui.activities.MainActivity
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

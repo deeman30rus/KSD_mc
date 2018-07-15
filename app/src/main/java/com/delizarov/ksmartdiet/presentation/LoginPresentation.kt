@@ -4,13 +4,12 @@ import com.delizarov.ksmartdiet.domain.interactors.SaveIdTokenUseCase
 import com.delizarov.ksmartdiet.domain.interactors.SaveUserInfoUseCase
 import com.delizarov.ksmartdiet.domain.models.UserInfo
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 interface LoginView : BaseView {
     fun displaySignInWithGoogle()
     fun showSignInError()
-    fun displayDietScreen()
+    fun displaySettingsScreen()
     fun showClientDataError()
 }
 
@@ -40,7 +39,7 @@ class LoginPresenter @Inject constructor(
                             .observable(UserInfo(displayName ?: ""))
                             .observeOn(AndroidSchedulers.mainThread())
                             .doOnComplete {
-                                view.displayDietScreen()
+                                view.displaySettingsScreen()
                             }
                             .subscribe()
                 }
