@@ -9,7 +9,7 @@ import javax.inject.Inject
 interface LoginView : BaseView {
     fun displaySignInWithGoogle()
     fun showSignInError()
-    fun displaySettingsScreen()
+    fun displayDietScreen()
     fun showClientDataError()
 }
 
@@ -39,7 +39,7 @@ class LoginPresenter @Inject constructor(
                             .observable(UserInfo(displayName ?: ""))
                             .observeOn(AndroidSchedulers.mainThread())
                             .doOnComplete {
-                                view.displaySettingsScreen()
+                                view.displayDietScreen()
                             }
                             .subscribe()
                 }

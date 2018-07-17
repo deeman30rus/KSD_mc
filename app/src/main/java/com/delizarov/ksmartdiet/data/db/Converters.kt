@@ -5,9 +5,11 @@ import com.delizarov.ksmartdiet.domain.models.MealType
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 
-fun MealTypeEntity.toMealType() = MealType(this.name, this.order)
+val MealTypeEntity.kModel: MealType
+    get() = MealType(this.name, this.order)
 
-fun MealType.toDBEntity() = MealTypeEntity(this.name, this.order)
+val MealType.dbEntity: MealTypeEntity
+    get() = MealTypeEntity(this.name, this.order)
 
 class Converters {
 

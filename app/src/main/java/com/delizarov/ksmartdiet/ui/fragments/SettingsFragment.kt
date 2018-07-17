@@ -20,9 +20,11 @@ class SettingsFragment : BaseFragment() {
     @Inject
     lateinit var saveDietSettingsUseCase: SaveDietSettingsUseCase
 
-    private lateinit var planDays: MaterialSpinner // by bind(R.id.plan_days_amount)
-    private lateinit var saveButton: Button // by bind(R.id.save)
-    private lateinit var mealTypes: ExtendableList // by bind(R.id.meal_types)
+    private lateinit var planDays: MaterialSpinner
+    private lateinit var saveButton: Button
+    private lateinit var mealTypes: ExtendableList
+
+    private var navToDietScreenAfterSave: Boolean = false
 
     override fun injectComponents() {
         appComponent.inject(this)
@@ -65,12 +67,30 @@ class SettingsFragment : BaseFragment() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({}, {}, {
 
-                        navController.fwdToDailyDietScreen()
-                        //renderDietScreen(settings)
+                        if (navToDietScreenAfterSave)
+                            navController.fwdToDailyDietScreen()
                     })
-
         }
 
         return v
+    }
+
+
+    companion object {
+        inline fun build(block: Builder.() -> Unit) = Builder().apply(block).build()
+    }
+
+    class Builder {
+
+        var navToDietScreenAfterSave: Boolean = false
+
+        fun build(): SettingsFragment {
+
+            val fragment = SettingsFragment()
+
+            fragment.navToDietScreenAfterSave = this.navToDietScreenAfterSave
+
+            return fragment
+        }
     }
 }

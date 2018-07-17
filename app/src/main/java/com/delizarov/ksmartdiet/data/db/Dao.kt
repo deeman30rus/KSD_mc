@@ -23,9 +23,9 @@ interface MealDao {
 @Dao
 interface MealTypeDao {
 
-//    @Insert
-//    fun addMealType(mealType: MealTypeEntity)
-//
-//    @Query("select * from meal_types")
-//    fun getMealTypes(): List<MealTypeEntity>
+    @Insert
+    fun addMealType(mealType: MealTypeEntity)
+
+    @Query("select * from meal_types")
+    fun getMealTypes(): List<MealTypeEntity>
 }

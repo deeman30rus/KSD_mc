@@ -80,9 +80,9 @@ class LoginFragment : BaseFragment(), LoginView {
         }
     }
 
-    override fun displaySettingsScreen() {
+    override fun displayDietScreen() {
 
-        navController.fwdToSettingsScreen()
+        navController.fwdToDailyDietScreen()
     }
 
     override fun showSignInError() {

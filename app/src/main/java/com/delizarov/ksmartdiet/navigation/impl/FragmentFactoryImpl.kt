@@ -21,7 +21,13 @@ class FragmentFactoryImpl : FragmentFactory() {
 
     private fun <T, R> createLoginFragment(data1: T?, data2: R?) = LoginFragment()
 
-    private fun <T, R> createSettingsFragment(data1: T?, data2: R?) = SettingsFragment()
+    private fun <T, R> createSettingsFragment(data1: T?, data2: R?) =
+            when(data1) {
+                is Boolean -> SettingsFragment.build {
+                    navToDietScreenAfterSave = data1
+                }
+                else -> SettingsFragment()
+            }
 
     private fun <T, R> createDailyDietFragment(data1: T?, data2: R?) = DietFragment()
 }

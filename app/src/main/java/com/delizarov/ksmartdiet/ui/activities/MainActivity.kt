@@ -2,8 +2,6 @@ package com.delizarov.ksmartdiet.ui.activities
 
 import android.os.Bundle
 import com.delizarov.ksmartdiet.R
-import com.delizarov.ksmartdiet.domain.models.DietSettings
-import com.delizarov.ksmartdiet.domain.models.UserInfo
 import com.delizarov.ksmartdiet.navigation.NavigationController
 import com.delizarov.ksmartdiet.navigation.ScreenKeys
 import com.delizarov.ksmartdiet.navigation.impl.FragmentFactoryImpl
@@ -37,7 +35,7 @@ class MainActivity : BaseActivity() {
 
     private fun navToLoginView() = navController.fwdToSignInScreen()
 
-    private fun navToSettingsView() = navController.fwdToSettingsScreen()
+    private fun navToSettingsView() = navController.fwdToSettingsScreen(true)
 
     private fun navToDietView() = navController.fwdToDailyDietScreen()
 

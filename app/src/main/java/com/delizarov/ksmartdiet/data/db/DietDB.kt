@@ -6,7 +6,7 @@ import android.arch.persistence.room.TypeConverters
 
 @Database(
         version = 1,
-        entities = [(MealEntity::class)]
+        entities = [(MealTypeEntity::class)]
         )
 @TypeConverters(
     Converters::class

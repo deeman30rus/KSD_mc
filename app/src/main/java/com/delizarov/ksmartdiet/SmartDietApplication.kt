@@ -21,7 +21,7 @@ class SmartDietApplication : Application() {
     }
 
     val db: DietDB by lazy {
-        Room.databaseBuilder(this, DietDB::class.java, "app.db").build()
+        Room.databaseBuilder(this, DietDB::class.java, DIET_DB_NAME).build()
     }
 
 
@@ -41,5 +41,10 @@ class SmartDietApplication : Application() {
         // чтобы свойство проинициализировалось на этапе запуска приложения,
         // а не во время его работы
         Log.v("smart diet application", if (db.isOpen) "db is open" else "sb is closed")
+    }
+
+    private companion object {
+
+        const val DIET_DB_NAME = "app.db"
     }
 }

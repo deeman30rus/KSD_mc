@@ -3,9 +3,7 @@ package com.delizarov.ksmartdiet.data.impl
 import android.content.Context
 import android.content.SharedPreferences
 import com.delizarov.ksmartdiet.data.DietRepository
-import com.delizarov.ksmartdiet.data.db.DietDB
-import com.delizarov.ksmartdiet.data.db.toDBEntity
-import com.delizarov.ksmartdiet.data.db.toMealType
+import com.delizarov.ksmartdiet.data.db.*
 import com.delizarov.ksmartdiet.domain.DietSettingsNotFoundException
 import com.delizarov.ksmartdiet.domain.models.*
 import io.reactivex.Observable
@@ -51,14 +49,13 @@ class DietRepositoryImpl @Inject constructor(
             it.onError(DietSettingsNotFoundException())
         else {
 
-//            val mealTypes = db
-//                    .mealTypeDao()
-//                    .getMealTypes()
-//                    .map { it.toMealType() }
-//                    .toList()
+            val mealTypes = db
+                    .mealTypeDao()
+                    .getMealTypes()
+                    .map { it.kModel }
+                    .toList()
 
-//            val settings = DietSettings(emptyList() mealTypes, planDays)
-            val settings = DietSettings(emptyList(), planDays)
+            val settings = DietSettings(mealTypes, planDays)
 
             it.onNext(settings)
         }
@@ -74,12 +71,11 @@ class DietRepositoryImpl @Inject constructor(
                         .putInt(DIET_SETTINGS_PLAN_DAYS, dietSettings.planDays)
                         .apply()
 
-//                dietSettings.mealTypes.forEach {
-//                    db.mealTypeDao().addMealType(it.toDBEntity())
-//                }
+                dietSettings.mealTypes.forEach {
+                    db.mealTypeDao().addMealType(it.dbEntity)
+                }
 
                 it.onComplete()
-
             }
 
 

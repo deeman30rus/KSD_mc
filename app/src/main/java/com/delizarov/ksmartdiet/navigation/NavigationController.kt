@@ -1,8 +1,6 @@
 package com.delizarov.ksmartdiet.navigation
 
 import android.support.v4.app.FragmentManager
-import com.delizarov.ksmartdiet.domain.models.DietSettings
-import com.delizarov.ksmartdiet.domain.models.UserInfo
 import com.delizarov.navigation.FragmentFactory
 
 class NavigationController(
@@ -35,12 +33,10 @@ class NavigationController(
                 .commit()
     }
 
-    fun fwdToSettingsScreen() {
-
-        // userInfo - необязательный параметр, он нужен только при первом входе, чтобы передать его в основной экран
+    fun fwdToSettingsScreen(navigateToDietScreenAfterSave: Boolean) {
 
         val sKey = ScreenKeys.SettingsScreenKey
-        val fragment = fragmentFactory.create(sKey)
+        val fragment = fragmentFactory.create(sKey, navigateToDietScreenAfterSave)
 
         fm
                 .beginTransaction()
