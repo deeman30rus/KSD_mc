@@ -10,19 +10,21 @@ import io.reactivex.Observable
 import org.joda.time.DateTime
 import javax.inject.Inject
 
+//todo удалить когда рецепты станут подконтрольны базе
+val gRecipes = mapOf(
+        1L to Recipe(1L, "Американские блинчики с корицей", 10, 304, setOf("Сладкое", "Печёное")),
+        2L to Recipe(2L, "Оввяная каша", 10, 304, setOf("Сладкое", "Печёное")),
+        3L to Recipe(3L, "Яичница", 10, 304, setOf("Сладкое", "Печёное")),
+        4L to Recipe(4L, "Картошка", 10, 304, setOf("Сладкое", "Печёное")),
+        5L to Recipe(5L, "Ленивцы", 10, 304, setOf("Сладкое", "Печёное"))
+)
 
 class DietRepositoryImpl @Inject constructor(
         ctx: Context,
         val db: DietDB
 ) : DietRepository {
 
-    private val recipes = mapOf(
-            1L to Recipe("Американские блинчики с корицей", 10, 304, setOf("Сладкое", "Печёное")),
-            2L to Recipe("Оввяная каша", 10, 304, setOf("Сладкое", "Печёное")),
-            3L to Recipe("Яичница", 10, 304, setOf("Сладкое", "Печёное")),
-            4L to Recipe("Картошка", 10, 304, setOf("Сладкое", "Печёное")),
-            5L to Recipe("Ленивцы", 10, 304, setOf("Сладкое", "Печёное"))
-    )
+    private val recipes = gRecipes
 
     override fun readRation(): List<Ration> {
 
@@ -82,23 +84,26 @@ class DietRepositoryImpl @Inject constructor(
     override fun getMealsForDate(date: DateTime): List<Meal> = getMealsForPeriod(date, date, null)
 
     override fun getMealsForPeriod(dateFrom: DateTime, dateTo: DateTime, mealType: MealType?): List<Meal> {
-            return if (mealType == null)
-                 emptyList()
-            // db.mealDao().getMeals(dateFrom, dateTo)
-            else
-                emptyList()
-//                db.mealDao().getMeals(dateFrom, dateTo, mealType.toDBEntity()))
-//                    .map {
-//                        Meal(
-//                                MealType("", 1), recipes[it.recipeId] ?: DEFAULT_RECIPE, it.date
-//                        )
-//                    }
-//                    .toList()
+        return if (mealType == null)
+            db
+                    .mealDao()
+                    .getMeals(dateFrom, dateTo)
+                    .asSequence()
+                    .map { it.kModel(recipes[it.recipeId] ?: DEFAULT_RECIPE) }
+                    .toList()
+        else
+            db
+                    .mealDao()
+                    .getMeals(dateFrom, dateTo, mealType.name)
+                    .map {
+                        it.kModel
+                    }
+                    .toList()
     }
 
     override fun writeMeal(meal: Meal) {
 
-//        db.mealDao().addMeal(meal)
+        db.mealDao().addMeal(meal.dbEntity)
     }
 
     companion object {
@@ -107,6 +112,7 @@ class DietRepositoryImpl @Inject constructor(
 
         private const val DIET_PREFERENCES = "diet_prefs"
 
-        private val DEFAULT_RECIPE = Recipe("default", 0, 0, emptySet())
+        //todo спрятать когда рецепты станут подконтрольны базе
+        val DEFAULT_RECIPE = Recipe(-1L, "default", 0, 0, emptySet())
     }
 }

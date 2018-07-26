@@ -26,9 +26,9 @@ class GetMealUseCase @Inject constructor(
     private fun mealsObservable(params: MealReadParams?) =
             when (params) {
                 is DateParams ->
-                    Observable.fromIterable(mealsForDate(params.date, params.settings))
+                    Observable.defer { Observable.fromIterable(mealsForDate(params.date, params.settings)) }
                 else -> Observable.empty<Meal>()
-            }
+            }.subscribeOn(Schedulers.newThread())
 
     private fun mealsForDate(date: DateTime, settings: DietSettings): List<Meal> {
 
@@ -37,12 +37,19 @@ class GetMealUseCase @Inject constructor(
         if (meals.size == settings.mealTypes.size)
             return meals
 
-        val notContained = meals.filter { it.type !in settings.mealTypes }.map(Meal::type).toList()
+        val presented = meals
+                .map { it.type }
+                .toSet()
+
+        val notContained = settings
+                .mealTypes
+                .filter { it !in presented }
+                .toList()
 
         val mutableMeals = meals.toMutableList()
 
         for (type in notContained) {
-            val meal = createMeal(date, type)
+            val meal = pickUpMeal(date, type)
 
             dietRepository.writeMeal(meal)
 
@@ -53,7 +60,7 @@ class GetMealUseCase @Inject constructor(
 
     }
 
-    private fun createMeal(date: DateTime, type: MealType): Meal {
+    private fun pickUpMeal(date: DateTime, type: MealType): Meal {
 
         val dateFrom = date.minusDays(3).withTimeAtStartOfDay()
         val dateTo = date.plusDays(1).withTimeAtStartOfDay()
@@ -69,7 +76,6 @@ class GetMealUseCase @Inject constructor(
                 recipe,
                 date
         )
-
     }
 
     private fun decide(ration: Ration, prevMeals: List<Meal>): Recipe = ration.recipes.pickRandom()

@@ -1,6 +1,7 @@
 package com.delizarov.ksmartdiet.presentation
 
 import com.delizarov.ksmartdiet.domain.DietSettingsNotFoundException
+import com.delizarov.ksmartdiet.domain.interactors.DateParams
 import com.delizarov.ksmartdiet.domain.interactors.GetMealUseCase
 import com.delizarov.ksmartdiet.domain.interactors.ReadDietSettingsUseCase
 import com.delizarov.ksmartdiet.domain.models.DietSettings
@@ -21,6 +22,8 @@ class DietPresenter @Inject constructor(
         private val getMealUseCase: GetMealUseCase
 ) : BasePresenter<DietView>() {
 
+    private lateinit var settings: DietSettings
+
     override fun onViewCreated() {
 
         readDietSettingsUseCase
@@ -28,7 +31,8 @@ class DietPresenter @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
 
-                    renderDietScreen(it)
+                    settings = it
+                    renderDietScreen(settings)
                 }, {
 
                     when (it) {
@@ -53,16 +57,15 @@ class DietPresenter @Inject constructor(
 
     fun onSelectedDateChanged(it: DateTime) {
 
-//        val params = DateParams(it)
-//
-//        getMealUseCase
-//                .observable(params)
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .toList()
-//                .subscribe{meals ->
-//
-//                    view.showDailyMeals(meals)
-//                }
+        val params = DateParams(it, settings)
+
+        getMealUseCase
+                .observable(params)
+                .observeOn(AndroidSchedulers.mainThread())
+                .toList()
+                .subscribe { meals ->
+                    view.showDailyMeals(meals)
+                }
 
 
     }
