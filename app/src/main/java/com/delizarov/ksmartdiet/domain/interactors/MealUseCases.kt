@@ -16,7 +16,8 @@ class DateParams(
 ) : MealReadParams()
 
 class GetMealUseCase @Inject constructor(
-        private val dietRepository: DietRepository
+        private val dietRepository: DietRepository,
+        private val strategy: MealPickStrategy
 ) : UseCase<Meal, MealReadParams>() {
 
     override fun createObservable(params: MealReadParams?): Observable<Meal> =
@@ -69,7 +70,7 @@ class GetMealUseCase @Inject constructor(
 
         val ration = dietRepository.getCurrentRation()
 
-        val recipe = decide(ration, prevMeals)
+        val recipe = strategy.pickMeal(ration, prevMeals)
 
         return Meal(
                 type,
@@ -77,6 +78,4 @@ class GetMealUseCase @Inject constructor(
                 date
         )
     }
-
-    private fun decide(ration: Ration, prevMeals: List<Meal>): Recipe = ration.recipes.pickRandom()
 }

@@ -8,6 +8,8 @@ import com.delizarov.ksmartdiet.data.UserRepository
 import com.delizarov.ksmartdiet.data.db.DietDB
 import com.delizarov.ksmartdiet.data.impl.DietRepositoryImpl
 import com.delizarov.ksmartdiet.data.impl.UserRepositoryImpl
+import com.delizarov.ksmartdiet.domain.models.DiversityStrategy
+import com.delizarov.ksmartdiet.domain.models.MealPickStrategy
 import com.delizarov.ksmartdiet.ui.activities.BaseActivity
 import com.delizarov.ksmartdiet.ui.activities.MainActivity
 import dagger.Module
@@ -37,4 +39,11 @@ class DataRepositoryModule(app: Application) {
 
     @Provides
     fun provideDietDB():DietDB = app.db
+}
+
+@Module
+class DietModule {
+
+    @Provides
+    fun providesMealPickStrategy(strategy: DiversityStrategy): MealPickStrategy = strategy
 }

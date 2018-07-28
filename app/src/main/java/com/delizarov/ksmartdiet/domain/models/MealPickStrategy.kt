@@ -1,23 +1,30 @@
 package com.delizarov.ksmartdiet.domain.models
 
 import com.delizarov.common.x.pickRandom
+import javax.inject.Inject
 
 interface MealPickStrategy {
 
     fun pickMeal(ration: Ration, meals: List<Meal>): Recipe
 }
 
-sealed class DiversityStrategy : MealPickStrategy {
+class DiversityStrategy @Inject constructor() : MealPickStrategy {
 
     override fun pickMeal(ration: Ration, meals: List<Meal>): Recipe {
+
+        val tags = meals
+                .asSequence()
+                .flatMap {
+                    it.recipe.tags.asSequence()
+                }.toList()
 
         val seq = ration
                 .recipes
                 .asSequence()
                 .map {
-                    RecipeRate(it, 0)
+                    RecipeRate(it, tags.intersect(it.tags).size)
                 }
-                .sortedByDescending { it.rate }
+                .sortedBy { it.rate }
 
         val maxRate = seq.maxBy { it.rate }?.rate ?: 0
 
