@@ -4,6 +4,7 @@ import com.delizarov.ksmartdiet.domain.DietSettingsNotFoundException
 import com.delizarov.ksmartdiet.domain.interactors.DateParams
 import com.delizarov.ksmartdiet.domain.interactors.GetMealUseCase
 import com.delizarov.ksmartdiet.domain.interactors.ReadDietSettingsUseCase
+import com.delizarov.ksmartdiet.domain.interactors.SuggestMealUseCase
 import com.delizarov.ksmartdiet.domain.models.DietSettings
 import com.delizarov.ksmartdiet.domain.models.Meal
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,11 +16,14 @@ interface DietView : BaseView {
     fun showDailyMeals(meals: List<Meal>)
     fun displaySettingsScreen()
     fun close()
+    fun displayFeatureNotImplementedYet()
+    fun switchCurrentMealTo(oldMeal: Meal, newMeal: Meal)
 }
 
 class DietPresenter @Inject constructor(
         private val readDietSettingsUseCase: ReadDietSettingsUseCase,
-        private val getMealUseCase: GetMealUseCase
+        private val getMealUseCase: GetMealUseCase,
+        private val suggestMealUseCase: SuggestMealUseCase
 ) : BasePresenter<DietView>() {
 
     private lateinit var settings: DietSettings
@@ -68,5 +72,20 @@ class DietPresenter @Inject constructor(
                 }
 
 
+    }
+
+    fun onSuggestButtonClicked(currentMeal: Meal) {
+
+        suggestMealUseCase
+                .observable(currentMeal)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    view.switchCurrentMealTo(currentMeal, it)
+                }
+    }
+
+    fun onPickManuallyButtonClicked() {
+
+        view.displayFeatureNotImplementedYet()
     }
 }

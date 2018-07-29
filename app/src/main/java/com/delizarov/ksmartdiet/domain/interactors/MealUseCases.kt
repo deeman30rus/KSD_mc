@@ -1,12 +1,22 @@
 package com.delizarov.ksmartdiet.domain.interactors
 
-import com.delizarov.common.x.pickRandom
 import com.delizarov.ksmartdiet.data.DietRepository
 import com.delizarov.ksmartdiet.domain.models.*
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import org.joda.time.DateTime
 import javax.inject.Inject
+
+internal fun pickUpRecipe(dietRepository: DietRepository, strategy: MealPickStrategy, date: DateTime, type: MealType, excludedRecipes: List<Recipe>): Recipe {
+    val dateFrom = date.minusDays(3).withTimeAtStartOfDay()
+    val dateTo = date.plusDays(1).withTimeAtStartOfDay()
+
+    val prevMeals = dietRepository.getMealsForPeriod(dateFrom, dateTo, type)
+
+    val ration = dietRepository.getCurrentRation()
+
+    return strategy.pickMeal(ration, prevMeals, excludedRecipes)
+}
 
 sealed class MealReadParams
 
@@ -61,21 +71,40 @@ class GetMealUseCase @Inject constructor(
 
     }
 
-    private fun pickUpMeal(date: DateTime, type: MealType): Meal {
+    private fun pickUpMeal(date: DateTime, type: MealType) = Meal(
+            type,
+            pickUpRecipe(dietRepository, strategy, date, type, listOf()),
+            date
+    )
+}
 
-        val dateFrom = date.minusDays(3).withTimeAtStartOfDay()
-        val dateTo = date.plusDays(1).withTimeAtStartOfDay()
+class SuggestMealUseCase @Inject constructor(
+        private val dietRepository: DietRepository,
+        private val strategy: MealPickStrategy
+) : UseCase<Meal, Meal>() {
 
-        val prevMeals = dietRepository.getMealsForPeriod(dateFrom, dateTo, type)
+    override fun createObservable(params: Meal?): Observable<Meal> =
+            mealObservable(params)
+                    .subscribeOn(Schedulers.newThread())
 
-        val ration = dietRepository.getCurrentRation()
+    private fun mealObservable(selectedMeal: Meal?): Observable<Meal> {
 
-        val recipe = strategy.pickMeal(ration, prevMeals)
+        if (selectedMeal == null)
+            return Observable.empty<Meal>()
 
-        return Meal(
-                type,
-                recipe,
-                date
-        )
+        return Observable.fromCallable {
+
+            var r = pickUpRecipe(dietRepository, strategy, selectedMeal.date, selectedMeal.type, listOf(selectedMeal.recipe))
+            val meal = Meal(
+                    selectedMeal.type,
+                    r,
+                    selectedMeal.date
+            )
+
+            dietRepository.updateMeal(meal)
+
+            meal
+        }
     }
+
 }

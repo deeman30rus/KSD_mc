@@ -44,15 +44,36 @@
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
 
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
+    <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="24dp"
+        app:menu_icon="@drawable/icon_swap_white_24dp"
+        app:menu_openDirection="down"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        >
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/pick_meal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_food_white"
+            app:fab_size="mini"
+            app:fab_label="@string/pick_manually" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/suggest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_food_variant_white"
+            app:fab_size="mini"
+            app:fab_label="@string/suggest_meal" />
+
+    </com.github.clans.fab.FloatingActionMenu>
 
     <TextView
         android:id="@+id/meal_type"

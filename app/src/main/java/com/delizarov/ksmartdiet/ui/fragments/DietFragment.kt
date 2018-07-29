@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.delizarov.common.ui.adapters.SortedListAdapter
 import com.delizarov.common.ui.viewholders.ViewHolderBase
 import com.delizarov.common.x.ui.bind
@@ -33,7 +34,7 @@ class DietFragment : BaseFragment(), DietView {
     private val adapter = object : SortedListAdapter<Meal>(Meal::class.java, Comparator { o1, o2 -> Integer.compare(o1.type.order, o2.type.order) }) {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderBase<Meal> {
 
-            return MealViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.viewholder_meal, parent, false))
+            return MealViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.viewholder_meal, parent, false), presenter)
         }
 
         override fun onBindViewHolder(holder: ViewHolderBase<Meal>, position: Int) {
@@ -83,5 +84,16 @@ class DietFragment : BaseFragment(), DietView {
     override fun showPlanDaysMenu(days: List<DateTime>) {
 
         currentDate.entries = days
+    }
+
+    override fun switchCurrentMealTo(oldMeal: Meal, newMeal: Meal) {
+
+        adapter.remove(oldMeal)
+        adapter.add(newMeal)
+    }
+
+    override fun displayFeatureNotImplementedYet() {
+
+        Toast.makeText(context, "Feature is not implemented yet", Toast.LENGTH_LONG).show()
     }
 }

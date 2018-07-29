@@ -61,4 +61,11 @@ interface DietRepository {
      * @param meal: объект приёма пищи
      * */
     fun writeMeal(meal: Meal)
+
+    /**
+     * Обновить приём пищи
+     *
+     * @param meal: объект приёма пищи
+     * */
+    fun updateMeal(meal: Meal)
 }

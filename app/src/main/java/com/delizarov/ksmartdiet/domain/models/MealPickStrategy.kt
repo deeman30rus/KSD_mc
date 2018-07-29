@@ -5,12 +5,12 @@ import javax.inject.Inject
 
 interface MealPickStrategy {
 
-    fun pickMeal(ration: Ration, meals: List<Meal>): Recipe
+    fun pickMeal(ration: Ration, meals: List<Meal>, excludedRecipes: List<Recipe>): Recipe
 }
 
 class DiversityStrategy @Inject constructor() : MealPickStrategy {
 
-    override fun pickMeal(ration: Ration, meals: List<Meal>): Recipe {
+    override fun pickMeal(ration: Ration, meals: List<Meal>, excludedRecipes: List<Recipe>): Recipe {
 
         val tags = meals
                 .asSequence()
@@ -21,6 +21,7 @@ class DiversityStrategy @Inject constructor() : MealPickStrategy {
         val seq = ration
                 .recipes
                 .asSequence()
+                .filter { it !in excludedRecipes }
                 .map {
                     RecipeRate(it, tags.intersect(it.tags).size)
                 }
