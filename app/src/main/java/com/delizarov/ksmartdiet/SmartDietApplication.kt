@@ -9,6 +9,7 @@ import com.delizarov.ksmartdiet.di.ApplicationModule
 import com.delizarov.ksmartdiet.di.DaggerAppComponent
 import com.delizarov.ksmartdiet.di.DataRepositoryModule
 import com.facebook.stetho.Stetho
+import com.squareup.picasso.Picasso
 
 class SmartDietApplication : Application() {
 
@@ -28,9 +29,10 @@ class SmartDietApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        Stetho.initializeWithDefaults(this)
-
         initDB()
+
+        if (BuildConfig.DEBUG)
+            configDebugUtils()
 
         component.inject(this)
     }
@@ -41,6 +43,15 @@ class SmartDietApplication : Application() {
         // чтобы свойство проинициализировалось на этапе запуска приложения,
         // а не во время его работы
         Log.v("smart diet application", if (db.isOpen) "db is open" else "sb is closed")
+    }
+
+    private fun configDebugUtils() {
+
+        Picasso
+                .get()
+                .isLoggingEnabled = true
+
+        Stetho.initializeWithDefaults(this)
     }
 
     private companion object {

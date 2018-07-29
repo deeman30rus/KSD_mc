@@ -6,16 +6,20 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import com.delizarov.common.transformations.CircleTransform
 import com.delizarov.common.ui.adapters.SortedListAdapter
 import com.delizarov.common.ui.viewholders.ViewHolderBase
-import com.delizarov.common.x.ui.bind
 import com.delizarov.customviews.SelectNearDateView
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.models.Meal
+import com.delizarov.ksmartdiet.domain.models.UserInfo
 import com.delizarov.ksmartdiet.presentation.DietPresenter
 import com.delizarov.ksmartdiet.presentation.DietView
 import com.delizarov.ksmartdiet.ui.viewholders.MealViewHolder
+import com.squareup.picasso.Picasso
 import org.joda.time.DateTime
 import javax.inject.Inject
 
@@ -28,8 +32,10 @@ class DietFragment : BaseFragment(), DietView {
     @Inject
     lateinit var presenter: DietPresenter
 
-    private val currentDate: SelectNearDateView by bind(R.id.current_date)
-    private val meals: RecyclerView by bind(R.id.meals)
+    private lateinit var currentDate: SelectNearDateView
+    private lateinit var profilePic: ImageView
+    private lateinit var userName: TextView
+    private lateinit var meals: RecyclerView
 
     private val adapter = object : SortedListAdapter<Meal>(Meal::class.java, Comparator { o1, o2 -> Integer.compare(o1.type.order, o2.type.order) }) {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderBase<Meal> {
@@ -45,7 +51,14 @@ class DietFragment : BaseFragment(), DietView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        return inflater.inflate(R.layout.fragment_diet, container, false)
+        val v = inflater.inflate(R.layout.fragment_diet, container, false)
+
+        currentDate = v.findViewById(R.id.current_date)
+        profilePic = v.findViewById(R.id.profile_pic)
+        userName = v.findViewById(R.id.user_name)
+        meals = v.findViewById(R.id.meals)
+
+        return v
     }
 
     override fun onResume() {
@@ -64,6 +77,20 @@ class DietFragment : BaseFragment(), DietView {
 
         presenter.attachView(this)
         presenter.onViewCreated()
+    }
+
+    override fun renderUserInfo(it: UserInfo) {
+
+        userName.text = it.displayName
+
+        // todo placeholder if url null
+
+        Picasso
+                .get()
+                .load(it.photoUrl)
+                .transform(CircleTransform())
+                .into(profilePic)
+
     }
 
     override fun displaySettingsScreen() {

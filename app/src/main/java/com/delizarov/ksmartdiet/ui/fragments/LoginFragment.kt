@@ -71,7 +71,7 @@ class LoginFragment : BaseFragment(), LoginView {
         try {
             val account = completedTask.getResult(ApiException::class.java)
 
-            presenter.onSignInSuccess(account.displayName, account.idToken)
+            presenter.onSignInSuccess(account.displayName, account.idToken, account.photoUrl)
 
         } catch (e: ApiException) {
             e.printStackTrace()

@@ -20,15 +20,17 @@ class UserRepositoryImpl @Inject constructor(ctx: Context) : UserRepository {
     override fun getUserInfo(): Observable<UserInfo> =
             Observable.create {
 
-                val userInfo = preferences.getString(DISPLAY_NAME_KEY, null)
+                val displayName = preferences.getString(DISPLAY_NAME_KEY, null)
 
-                if (userInfo == null)
+                if (displayName == null)
                     it.onError(UserInfoNotFoundException())
-                else
-                    it.onNext(UserInfo(userInfo))
+                else {
+
+                    val photoUrl = preferences.getString(PHOTO_URL_KEY, null)
+                    it.onNext(UserInfo(displayName, photoUrl))
+                }
 
                 it.onComplete()
-
             }
 
     override fun saveUserInfo(userInfo: UserInfo?): Observable<Void> =
@@ -36,6 +38,7 @@ class UserRepositoryImpl @Inject constructor(ctx: Context) : UserRepository {
                 preferences
                         .edit()
                         .putString(DISPLAY_NAME_KEY, userInfo!!.displayName)
+                        .putString(PHOTO_URL_KEY, userInfo.photoUrl)
                         .apply()
 
                 it.onComplete()
@@ -58,5 +61,6 @@ class UserRepositoryImpl @Inject constructor(ctx: Context) : UserRepository {
 
         private const val TOKEN_ID_KEY = "token_id"
         private const val DISPLAY_NAME_KEY = "display_name_key"
+        private const val PHOTO_URL_KEY = "photo_url_key"
     }
 }

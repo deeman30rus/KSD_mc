@@ -1,12 +1,10 @@
 package com.delizarov.ksmartdiet.presentation
 
 import com.delizarov.ksmartdiet.domain.DietSettingsNotFoundException
-import com.delizarov.ksmartdiet.domain.interactors.DateParams
-import com.delizarov.ksmartdiet.domain.interactors.GetMealUseCase
-import com.delizarov.ksmartdiet.domain.interactors.ReadDietSettingsUseCase
-import com.delizarov.ksmartdiet.domain.interactors.SuggestMealUseCase
+import com.delizarov.ksmartdiet.domain.interactors.*
 import com.delizarov.ksmartdiet.domain.models.DietSettings
 import com.delizarov.ksmartdiet.domain.models.Meal
+import com.delizarov.ksmartdiet.domain.models.UserInfo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import org.joda.time.DateTime
 import javax.inject.Inject
@@ -18,11 +16,13 @@ interface DietView : BaseView {
     fun close()
     fun displayFeatureNotImplementedYet()
     fun switchCurrentMealTo(oldMeal: Meal, newMeal: Meal)
+    fun renderUserInfo(it: UserInfo)
 }
 
 class DietPresenter @Inject constructor(
         private val readDietSettingsUseCase: ReadDietSettingsUseCase,
         private val getMealUseCase: GetMealUseCase,
+        private val readUserInfoUseCase: ReadUserInfoUseCase,
         private val suggestMealUseCase: SuggestMealUseCase
 ) : BasePresenter<DietView>() {
 
@@ -44,6 +44,13 @@ class DietPresenter @Inject constructor(
                         else -> view.close()
                     }
                 })
+
+        readUserInfoUseCase
+                .observable()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    view.renderUserInfo(it)
+                }
     }
 
     private fun renderDietScreen(settings: DietSettings) {

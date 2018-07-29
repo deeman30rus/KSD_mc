@@ -1,5 +1,6 @@
 package com.delizarov.ksmartdiet.presentation
 
+import android.net.Uri
 import com.delizarov.ksmartdiet.domain.interactors.SaveIdTokenUseCase
 import com.delizarov.ksmartdiet.domain.interactors.SaveUserInfoUseCase
 import com.delizarov.ksmartdiet.domain.models.UserInfo
@@ -24,7 +25,7 @@ class LoginPresenter @Inject constructor(
         view.displaySignInWithGoogle()
     }
 
-    fun onSignInSuccess(displayName: String?, idToken: String?) {
+    fun onSignInSuccess(displayName: String?, idToken: String?, photoUrl: Uri?) {
 
         if (idToken == null) {
             view.showClientDataError()
@@ -36,7 +37,7 @@ class LoginPresenter @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnComplete {
                     saveUserInfoUseCase
-                            .observable(UserInfo(displayName ?: ""))
+                            .observable(UserInfo(displayName ?: "", photoUrl?.toString()))
                             .observeOn(AndroidSchedulers.mainThread())
                             .doOnComplete {
                                 view.displayDietScreen()
