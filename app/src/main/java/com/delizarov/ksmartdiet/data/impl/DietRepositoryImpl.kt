@@ -106,6 +106,11 @@ class DietRepositoryImpl @Inject constructor(
         db.mealDao().addMeal(meal.dbEntity)
     }
 
+    override fun updateMeal(meal: Meal) {
+
+        db.mealDao().updateMeal(meal.dbEntity)
+    }
+
     companion object {
 
         private const val DIET_SETTINGS_PLAN_DAYS = "plan_days"
