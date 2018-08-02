@@ -1,66 +1,47 @@
 package com.delizarov.ksmartdiet.ui.activities
 
 import android.os.Bundle
-import android.support.v4.app.FragmentManager
-import com.delizarov.ksmartdiet.navigation.NavController
 import com.delizarov.ksmartdiet.R
+import com.delizarov.ksmartdiet.navigation.NavigationController
 import com.delizarov.ksmartdiet.navigation.ScreenKeys
-import com.delizarov.ksmartdiet.ui.fragments.DietFragment
-import com.delizarov.ksmartdiet.ui.fragments.LoginFragment
+import com.delizarov.ksmartdiet.navigation.impl.FragmentFactoryImpl
 
-class MainActivity : BaseActivity(), NavController {
-    private lateinit var fm: FragmentManager
+class MainActivity : BaseActivity() {
+
+    val navController = NavigationController(
+            FragmentFactoryImpl(),
+            R.id.container,
+            supportFragmentManager
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.main_activity)
 
-        getAppComponent().inject(this)
-
-        fm = supportFragmentManager
-
-        val screen = intent.getIntExtra(SCREEN, NO_SCREEN)
+        val screen = intent.getStringExtra(SCREEN)
 
         when (screen) {
-            LOGIN_SCREEN -> navToLoginView()
-            DIET_SCREEN -> navToDietView()
-
-            NO_SCREEN -> finish()
+            ScreenKeys.SignInScreenKey -> navToLoginView()
+            ScreenKeys.SettingsScreenKey -> navToSettingsView()
+            ScreenKeys.DailyDietScreenKey -> navToDietView()
+            else -> finish()
         }
     }
 
-    override fun navToDietView() {
-
-        val fragment = DietFragment.build {
-
-            navController = this@MainActivity
-        }
-
-        fm
-                .beginTransaction()
-                .replace(R.id.container, fragment, ScreenKeys.DietScreenKey)
-                .commit()
+    override fun injectComponents() {
+        appComponent.inject(this)
     }
 
-    override fun navToLoginView() {
-        val fragment = LoginFragment.build {
+    private fun navToLoginView() = navController.fwdToSignInScreen()
 
-            navController = this@MainActivity
-        }
+    private fun navToSettingsView() = navController.fwdToSettingsScreen(true)
 
-        fm
-                .beginTransaction()
-                .replace(R.id.container, fragment)
-                .commit()
-    }
+    private fun navToDietView() = navController.fwdToDailyDietScreen()
+
 
     companion object {
 
         const val SCREEN = "Screen"
-
-        const val NO_SCREEN = -1
-        const val LOGIN_SCREEN = 1
-        const val DIET_SCREEN = 2
     }
 }

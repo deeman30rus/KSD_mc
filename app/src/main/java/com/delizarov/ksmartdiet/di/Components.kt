@@ -5,16 +5,19 @@ import com.delizarov.ksmartdiet.ui.activities.MainActivity
 import com.delizarov.ksmartdiet.ui.activities.StartActivity
 import com.delizarov.ksmartdiet.ui.fragments.DietFragment
 import com.delizarov.ksmartdiet.ui.fragments.LoginFragment
+import com.delizarov.ksmartdiet.ui.fragments.SettingsFragment
 import dagger.Component
+import dagger.Subcomponent
 import javax.inject.Singleton
 
 
 @Singleton
 @Component(
-        modules = arrayOf(
-                ApplicationModule::class,
-                DataRepositoryModule::class
-        )
+        modules = [
+            (ApplicationModule::class),
+            (DataRepositoryModule::class),
+            (DietModule::class)
+        ]
 )
 interface AppComponent {
 
@@ -27,4 +30,6 @@ interface AppComponent {
     fun inject(loginFragment: LoginFragment)
 
     fun inject(dietFragment: DietFragment)
+
+    fun inject(settingsFragment: SettingsFragment)
 }

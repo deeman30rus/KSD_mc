@@ -4,4 +4,13 @@
         <attr name="el_label_text" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="SelectNearDateView" >
+        <attr name="snd_background" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="DateStepper">
+        <attr name="start_date" format="string"/>
+        <attr name="max_days" format="integer" />
+    </declare-styleable>
+
 </resources>

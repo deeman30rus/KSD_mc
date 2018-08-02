@@ -4,8 +4,10 @@
     <string name="sign_in_error">Ошибка при авторизации</string>
     <string name="save_caption">Сохранить</string>
     <string name="plan_days_amount">Число дней планирования</string>
-    <string name="meal_types">Названия трапез</string>
+    <string name="meal_types">Названия приёмов пищи</string>
     <string name="empty_meal_types_error">Список пуст, либо содержит пустые строки</string>
+    <string name="pick_manually">Выбрать самому</string>
+    <string name="suggest_meal">Выбрать автоматически</string>
 
     <string-array name="plan_days">
         <item>1</item>

@@ -83,6 +83,8 @@
     <color name="m_blue_grey_500">#FF607D8B</color>
     <color name="m_blue_grey_700">#FF455A64</color>
 
+    <color name="white">#FFF</color>
+
     <!-- assigned colors -->
 
     <color name="text_label_error">@color/m_pink_a700</color>
