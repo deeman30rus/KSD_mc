@@ -53,12 +53,12 @@ class DateStepper(ctx: Context?, attrs: AttributeSet?, defStyleAttr: Int) : Cons
             date.text = value.toString(DATE_FORMAT) ?: ""
 
             if (value == startDate)
-                back.visibility = View.GONE
+                back.visibility = View.INVISIBLE
             else
                 back.visibility = View.VISIBLE
 
             if (value == maxDate.minusDays(1))
-                forward.visibility = View.GONE
+                forward.visibility = View.INVISIBLE
             else
                 forward.visibility = View.VISIBLE
 
