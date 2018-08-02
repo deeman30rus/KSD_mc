@@ -10,7 +10,7 @@ import org.joda.time.DateTime
 import javax.inject.Inject
 
 interface DietView : BaseView {
-    fun showPlanDaysMenu(days: List<DateTime>)
+    fun showPlanDaysMenu(daysAmount: Int)
     fun showDailyMeals(meals: List<Meal>)
     fun displaySettingsScreen()
     fun close()
@@ -55,15 +55,7 @@ class DietPresenter @Inject constructor(
 
     private fun renderDietScreen(settings: DietSettings) {
 
-        val curDate = DateTime()
-        val days = ArrayList<DateTime>()
-
-        days.add(curDate)
-
-        for (i in 1 until settings.planDays - 1)
-            days.add(curDate.plusDays(i))
-
-        view.showPlanDaysMenu(days)
+        view.showPlanDaysMenu(settings.planDays)
     }
 
     fun onSelectedDateChanged(it: DateTime) {

@@ -12,7 +12,7 @@ import android.widget.Toast
 import com.delizarov.common.transformations.CircleTransform
 import com.delizarov.common.ui.adapters.SortedListAdapter
 import com.delizarov.common.ui.viewholders.ViewHolderBase
-import com.delizarov.customviews.SelectNearDateView
+import com.delizarov.customviews.DateStepper
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.models.Meal
 import com.delizarov.ksmartdiet.domain.models.UserInfo
@@ -20,7 +20,6 @@ import com.delizarov.ksmartdiet.presentation.DietPresenter
 import com.delizarov.ksmartdiet.presentation.DietView
 import com.delizarov.ksmartdiet.ui.viewholders.MealViewHolder
 import com.squareup.picasso.Picasso
-import org.joda.time.DateTime
 import javax.inject.Inject
 
 class DietFragment : BaseFragment(), DietView {
@@ -32,7 +31,7 @@ class DietFragment : BaseFragment(), DietView {
     @Inject
     lateinit var presenter: DietPresenter
 
-    private lateinit var currentDate: SelectNearDateView
+    private lateinit var currentDate: DateStepper
     private lateinit var profilePic: ImageView
     private lateinit var userName: TextView
     private lateinit var meals: RecyclerView
@@ -58,17 +57,17 @@ class DietFragment : BaseFragment(), DietView {
         userName = v.findViewById(R.id.user_name)
         meals = v.findViewById(R.id.meals)
 
+        currentDate.onSelectedDateChangedListener = {
+
+            if (it != null)
+                presenter.onSelectedDateChanged(it)
+        }
+
         return v
     }
 
     override fun onResume() {
         super.onResume()
-
-        currentDate.onSelectedDateChangeListener = {
-
-            if (it != null)
-                presenter.onSelectedDateChanged(it)
-        }
 
         meals.adapter = adapter
 
@@ -108,9 +107,9 @@ class DietFragment : BaseFragment(), DietView {
         adapter.addAll(meals)
     }
 
-    override fun showPlanDaysMenu(days: List<DateTime>) {
+    override fun showPlanDaysMenu(daysAmount: Int) {
 
-        currentDate.entries = days
+        currentDate.maxDays = daysAmount
     }
 
     override fun switchCurrentMealTo(oldMeal: Meal, newMeal: Meal) {
