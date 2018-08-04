@@ -1,6 +1,6 @@
 package com.delizarov.ksmartdiet.presentation
 
-import com.delizarov.ksmartdiet.navigation.NavigationController
+import com.delizarov.navigation.NavigationController
 
 interface BaseView
 

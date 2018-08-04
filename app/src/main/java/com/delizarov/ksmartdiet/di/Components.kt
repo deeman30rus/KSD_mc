@@ -32,4 +32,16 @@ interface AppComponent {
     fun inject(dietFragment: DietFragment)
 
     fun inject(settingsFragment: SettingsFragment)
+
+    fun addMainActivityComponent(navModule: NavigationModule): MainActivityComponent
+}
+
+@Subcomponent(
+        modules = [
+            (NavigationModule::class)
+        ]
+)
+interface MainActivityComponent {
+
+    fun inject(mainActivity: MainActivity)
 }

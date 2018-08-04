@@ -2,17 +2,26 @@ package com.delizarov.ksmartdiet.ui.activities
 
 import android.os.Bundle
 import com.delizarov.ksmartdiet.R
-import com.delizarov.ksmartdiet.navigation.NavigationController
+import com.delizarov.ksmartdiet.di.MainActivityComponent
+import com.delizarov.ksmartdiet.di.NavigationModule
 import com.delizarov.ksmartdiet.navigation.ScreenKeys
-import com.delizarov.ksmartdiet.navigation.impl.FragmentFactoryImpl
+import com.delizarov.ksmartdiet.navigation.impl.FragmentScreenFactory
+import com.delizarov.navigation.NavigationController
+import com.delizarov.navigation.android.FragmentRouter
 
 class MainActivity : BaseActivity() {
 
-    val navController = NavigationController(
-            FragmentFactoryImpl(),
-            R.id.container,
-            supportFragmentManager
-    )
+    val navController = object : NavigationController(FragmentScreenFactory(), FragmentRouter(supportFragmentManager, R.id.container)) {
+        override fun closeNavigationTree() = finish()
+    }
+
+    private val mainActivityComponent: MainActivityComponent by lazy {
+
+        appComponent.addMainActivityComponent(
+                NavigationModule(navController)
+        )
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,15 +39,19 @@ class MainActivity : BaseActivity() {
     }
 
     override fun injectComponents() {
-        appComponent.inject(this)
+        mainActivityComponent.inject(this)
     }
 
-    private fun navToLoginView() = navController.fwdToSignInScreen()
+    private fun navToLoginView() = navController.setRoot(ScreenKeys.SignInScreenKey)
 
-    private fun navToSettingsView() = navController.fwdToSettingsScreen(true)
+    private fun navToSettingsView() = navController.setRoot(ScreenKeys.SettingsScreenKey)
 
-    private fun navToDietView() = navController.fwdToDailyDietScreen()
+    private fun navToDietView() = navController.setRoot(ScreenKeys.DailyDietScreenKey)
 
+    override fun onBackPressed() {
+
+        navController.back()
+    }
 
     companion object {
 

@@ -16,13 +16,18 @@ import com.delizarov.customviews.DateStepper
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.models.Meal
 import com.delizarov.ksmartdiet.domain.models.UserInfo
+import com.delizarov.ksmartdiet.navigation.ScreenKeys
 import com.delizarov.ksmartdiet.presentation.DietPresenter
 import com.delizarov.ksmartdiet.presentation.DietView
 import com.delizarov.ksmartdiet.ui.viewholders.MealViewHolder
+import com.delizarov.navigation.ScreenKey
+import com.delizarov.navigation.ScreenKeyHolder
 import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
-class DietFragment : BaseFragment(), DietView {
+class DietFragment : BaseFragment(), DietView, ScreenKeyHolder {
+
+    override val screenKey = ScreenKeys.DailyDietScreenKey
 
     override fun injectComponents() {
         appComponent.inject(this)
@@ -92,10 +97,8 @@ class DietFragment : BaseFragment(), DietView {
 
     }
 
-    override fun displaySettingsScreen() {
+    override fun displaySettingsScreen() = navController.setRoot(ScreenKeys.SettingsScreenKey, true)
 
-        navController.fwdToSettingsScreen(true)
-    }
 
     override fun close() {
         activity!!.finish()

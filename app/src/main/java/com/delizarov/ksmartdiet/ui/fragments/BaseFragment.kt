@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.delizarov.ksmartdiet.SmartDietApplication
 import com.delizarov.ksmartdiet.di.AppComponent
-import com.delizarov.ksmartdiet.navigation.NavigationController
 import com.delizarov.ksmartdiet.ui.activities.MainActivity
+import com.delizarov.navigation.NavigationController
 
 abstract class BaseFragment : Fragment() {
 
