@@ -120,4 +120,6 @@ class DietRepositoryImpl @Inject constructor(
         //todo спрятать когда рецепты станут подконтрольны базе
         val DEFAULT_RECIPE = default_recipe
     }
+
+    override fun getRecipeById(id: Long) = gRecipes[id] ?: DEFAULT_RECIPE
 }

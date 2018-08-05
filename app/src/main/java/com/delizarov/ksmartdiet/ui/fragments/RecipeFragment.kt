@@ -12,11 +12,21 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.delizarov.ksmartdiet.R
+import com.delizarov.ksmartdiet.domain.models.Recipe
 import com.delizarov.ksmartdiet.navigation.ScreenKeys
+import com.delizarov.ksmartdiet.presentation.RecipePresenter
+import com.delizarov.ksmartdiet.presentation.RecipeView
 import com.delizarov.navigation.ScreenKeyHolder
+import javax.inject.Inject
 
-class RecipeFragment : BaseFragment(), ScreenKeyHolder {
+class RecipeFragment : BaseFragment(), ScreenKeyHolder, RecipeView {
+
+    @Inject
+    lateinit var presenter: RecipePresenter
+
+    private var recipeId: Long = -1L
 
     override fun injectComponents() {
         appComponent.inject(this)
@@ -44,9 +54,41 @@ class RecipeFragment : BaseFragment(), ScreenKeyHolder {
         tabHeaders.addOnTabSelectedListener(HighlightTabSelectedListener(tabsPager, selectedColor, unselectedColor))
         tabHeaders.getTabAt(0)?.icon?.setIconColor(selectedColor)
 
+        presenter.attachView(this)
+
         return v
     }
+
+    override fun renderRecipe(recipe: Recipe) {
+
+        Toast.makeText(context, recipe.title, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        presenter.onViewCreated(recipeId)
+    }
+
+    companion object {
+        inline fun build(block: Builder.() -> Unit) = Builder().apply(block).build()
+    }
+
+    class Builder {
+
+        var recipeId: Long = -1
+
+        fun build(): RecipeFragment {
+
+            val fragment = RecipeFragment()
+
+            fragment.recipeId = this.recipeId
+
+            return fragment
+        }
+    }
 }
+
 
 enum class RecipeTab(
         @DrawableRes val iconResId: Int,
@@ -77,7 +119,7 @@ internal class RecipeFragmentTabsAdapter(val ctx: Context) : PagerAdapter() {
         return layout
     }
 
-    override fun getPageTitle(position: Int) = null
+    override fun getPageTitle(position: Int): CharSequence? = null
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) = container.removeView(`object` as View)
 }

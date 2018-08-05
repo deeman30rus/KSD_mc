@@ -1,6 +1,8 @@
 package com.delizarov.ksmartdiet.presentation
 
 import android.net.Uri
+import com.delizarov.common.presentation.BasePresenter
+import com.delizarov.common.presentation.BaseView
 import com.delizarov.ksmartdiet.domain.interactors.SaveIdTokenUseCase
 import com.delizarov.ksmartdiet.domain.interactors.SaveUserInfoUseCase
 import com.delizarov.ksmartdiet.domain.models.UserInfo

@@ -12,7 +12,6 @@ import com.delizarov.navigation.ScreenKeyHolder
 
 class FragmentScreenFactory : ScreenFactory() {
 
-
     override fun <T, R, S> createScreen(screenKey: ScreenKey, data1: T?, data2: R?, data3: S?): ScreenKeyHolder =
             when (screenKey) {
                 ScreenKeys.SignInScreenKey -> createLoginFragment(data1, data2, data3)
@@ -34,5 +33,12 @@ class FragmentScreenFactory : ScreenFactory() {
 
     private fun <T, R, S> createDailyDietFragment(data1: T?, data2: R?, data3: S?) = DietFragment()
 
-    private fun <T, R, S> createRecipeFragment(data1: T?, data2: R?, data3: S?) = RecipeFragment()
+    private fun <T, R, S> createRecipeFragment(data1: T?, data2: R?, data3: S?) =
+            when(data1) {
+                is Long -> RecipeFragment.build {
+                    recipeId = data1
+                }
+                else -> RecipeFragment()
+            }
+
 }

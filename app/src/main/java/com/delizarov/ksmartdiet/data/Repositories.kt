@@ -53,6 +53,11 @@ interface DietRepository {
      * */
     fun getCurrentRation(): Ration
 
+    /**
+     * Возвращает список рационов
+     *
+     * @return список рационов
+     * */
     fun readRation(): List<Ration>
 
     /**
@@ -68,4 +73,12 @@ interface DietRepository {
      * @param meal: объект приёма пищи
      * */
     fun updateMeal(meal: Meal)
+
+    /**
+     * Возвращает объект рецепта по заданному id
+     *
+     * @param id рецепта
+     * @return объект рецепта
+     * */
+    fun getRecipeById(id: Long): Recipe
 }

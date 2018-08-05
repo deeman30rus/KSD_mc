@@ -37,7 +37,7 @@ val pancakes = Recipe(
 
 val oatmeal = Recipe(
         2L,
-        "Оввяная каша",
+        "Овсяная каша",
         "Описание",
         listOf(),
         listOf(),

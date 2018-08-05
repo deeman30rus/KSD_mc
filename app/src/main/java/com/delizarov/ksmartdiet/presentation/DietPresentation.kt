@@ -1,5 +1,7 @@
 package com.delizarov.ksmartdiet.presentation
 
+import com.delizarov.common.presentation.BasePresenter
+import com.delizarov.common.presentation.BaseView
 import com.delizarov.ksmartdiet.domain.DietSettingsNotFoundException
 import com.delizarov.ksmartdiet.domain.interactors.*
 import com.delizarov.ksmartdiet.domain.models.DietSettings
@@ -29,7 +31,7 @@ class DietPresenter @Inject constructor(
 
     private lateinit var settings: DietSettings
 
-    override fun onViewCreated() {
+    override fun <R> onViewCreated(data: R?) {
 
         readDietSettingsUseCase
                 .observable()
