@@ -17,6 +17,7 @@ interface DietView : BaseView {
     fun displayFeatureNotImplementedYet()
     fun switchCurrentMealTo(oldMeal: Meal, newMeal: Meal)
     fun renderUserInfo(it: UserInfo)
+    fun showRecipeScreen(recipeId: Long?)
 }
 
 class DietPresenter @Inject constructor(
@@ -83,8 +84,8 @@ class DietPresenter @Inject constructor(
                 }
     }
 
-    fun onPickManuallyButtonClicked() {
+    fun onPickManuallyButtonClicked() = view.displayFeatureNotImplementedYet()
 
-        view.displayFeatureNotImplementedYet()
-    }
+
+    fun onMealClicked(recipeId: Long?) = view.showRecipeScreen(recipeId)
 }

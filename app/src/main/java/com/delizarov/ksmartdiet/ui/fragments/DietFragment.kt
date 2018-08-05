@@ -42,16 +42,14 @@ class DietFragment : BaseFragment(), DietView, ScreenKeyHolder {
     private lateinit var meals: RecyclerView
 
     private val adapter = object : SortedListAdapter<Meal>(Meal::class.java, Comparator { o1, o2 -> Integer.compare(o1.type.order, o2.type.order) }) {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderBase<Meal> {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderBase<Meal> =
+                MealViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.viewholder_meal, parent, false), presenter) { recipeId -> presenter.onMealClicked(recipeId) }
 
-            return MealViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.viewholder_meal, parent, false), presenter)
-        }
-
-        override fun onBindViewHolder(holder: ViewHolderBase<Meal>, position: Int) {
-
-            holder.bind(get(position))
-        }
+        override fun onBindViewHolder(holder: ViewHolderBase<Meal>, position: Int) = holder.bind(get(position))
     }
+
+    override fun showRecipeScreen(recipeId: Long?) = navController.forwardTo(ScreenKeys.RecipeScreenKey, recipeId)
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 

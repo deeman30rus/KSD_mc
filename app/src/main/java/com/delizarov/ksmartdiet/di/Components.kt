@@ -5,6 +5,7 @@ import com.delizarov.ksmartdiet.ui.activities.MainActivity
 import com.delizarov.ksmartdiet.ui.activities.StartActivity
 import com.delizarov.ksmartdiet.ui.fragments.DietFragment
 import com.delizarov.ksmartdiet.ui.fragments.LoginFragment
+import com.delizarov.ksmartdiet.ui.fragments.RecipeFragment
 import com.delizarov.ksmartdiet.ui.fragments.SettingsFragment
 import dagger.Component
 import dagger.Subcomponent
@@ -34,6 +35,8 @@ interface AppComponent {
     fun inject(settingsFragment: SettingsFragment)
 
     fun addMainActivityComponent(navModule: NavigationModule): MainActivityComponent
+
+    fun inject(recipeFragment: RecipeFragment)
 }
 
 @Subcomponent(
