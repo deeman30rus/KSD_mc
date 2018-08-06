@@ -22,4 +22,12 @@
         <item>6</item>
         <item>7</item>
     </string-array>
+
+    <string name="proteins">Протеины</string>
+    <string name="triglycerides">Жиры</string>
+    <string name="carbohydrates">Углеводы</string>
+
+    <string name="food_energy">Пищевая ценность</string>
+
+    <string name="calories">%d ккал</string>
 </resources>

@@ -6,6 +6,7 @@ import com.delizarov.ksmartdiet.domain.DietSettingsNotFoundException
 import com.delizarov.ksmartdiet.domain.interactors.*
 import com.delizarov.ksmartdiet.domain.models.DietSettings
 import com.delizarov.ksmartdiet.domain.models.Meal
+import com.delizarov.ksmartdiet.domain.models.Recipe
 import com.delizarov.ksmartdiet.domain.models.UserInfo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import org.joda.time.DateTime
@@ -19,7 +20,7 @@ interface DietView : BaseView {
     fun displayFeatureNotImplementedYet()
     fun switchCurrentMealTo(oldMeal: Meal, newMeal: Meal)
     fun renderUserInfo(it: UserInfo)
-    fun showRecipeScreen(recipeId: Long?)
+    fun showRecipeScreen(recipe: Recipe)
 }
 
 class DietPresenter @Inject constructor(
@@ -89,5 +90,5 @@ class DietPresenter @Inject constructor(
     fun onPickManuallyButtonClicked() = view.displayFeatureNotImplementedYet()
 
 
-    fun onMealClicked(recipeId: Long?) = view.showRecipeScreen(recipeId)
+    fun onMealClicked(meal: Meal) = view.showRecipeScreen(meal.recipe)
 }

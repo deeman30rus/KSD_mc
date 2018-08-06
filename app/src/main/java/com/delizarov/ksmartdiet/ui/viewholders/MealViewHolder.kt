@@ -17,7 +17,7 @@ import fisk.chipcloud.ChipCloudConfig
 class MealViewHolder(
         itemView: View,
         private val presenter: DietPresenter,
-        val onItemClickListener: (Long?) -> Unit
+        val onItemClickListener: (Meal) -> Unit
 ) : ViewHolderBase<Meal>(itemView) {
 
     private val mealType: TextView by bind(R.id.meal_type)
@@ -53,7 +53,7 @@ class MealViewHolder(
         recipeCalories.text = "${meal.recipe.calories} ккал"
 
         itemView.setOnClickListener {
-            onItemClickListener(meal.recipe.id)
+            onItemClickListener(meal)
         }
     }
 }

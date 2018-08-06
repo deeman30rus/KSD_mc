@@ -1,5 +1,6 @@
 package com.delizarov.ksmartdiet.navigation.impl
 
+import com.delizarov.ksmartdiet.domain.models.Recipe
 import com.delizarov.ksmartdiet.navigation.NoSuchScreenException
 import com.delizarov.ksmartdiet.navigation.ScreenKeys
 import com.delizarov.ksmartdiet.ui.fragments.DietFragment
@@ -35,8 +36,8 @@ class FragmentScreenFactory : ScreenFactory() {
 
     private fun <T, R, S> createRecipeFragment(data1: T?, data2: R?, data3: S?) =
             when(data1) {
-                is Long -> RecipeFragment.build {
-                    recipeId = data1
+                is Recipe -> RecipeFragment.build {
+                    recipe = data1
                 }
                 else -> RecipeFragment()
             }

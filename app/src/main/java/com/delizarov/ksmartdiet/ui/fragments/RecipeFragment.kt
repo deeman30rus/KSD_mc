@@ -12,21 +12,23 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.TextView
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.models.Recipe
 import com.delizarov.ksmartdiet.navigation.ScreenKeys
-import com.delizarov.ksmartdiet.presentation.RecipePresenter
-import com.delizarov.ksmartdiet.presentation.RecipeView
 import com.delizarov.navigation.ScreenKeyHolder
-import javax.inject.Inject
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
+import com.google.android.flexbox.FlexboxLayout
+import fisk.chipcloud.ChipCloud
+import fisk.chipcloud.ChipCloudConfig
+import java.util.*
 
-class RecipeFragment : BaseFragment(), ScreenKeyHolder, RecipeView {
+class RecipeFragment : BaseFragment(), ScreenKeyHolder {
 
-    @Inject
-    lateinit var presenter: RecipePresenter
-
-    private var recipeId: Long = -1L
+    private lateinit var recipe: Recipe
 
     override fun injectComponents() {
         appComponent.inject(this)
@@ -39,7 +41,7 @@ class RecipeFragment : BaseFragment(), ScreenKeyHolder, RecipeView {
         val v = inflater.inflate(R.layout.fragment_recipe, container, false)
 
         val tabsPager = v.findViewById<ViewPager>(R.id.tabs)
-        tabsPager.adapter = RecipeFragmentTabsAdapter(context!!)
+        tabsPager.adapter = RecipeFragmentTabsAdapter(context!!, recipe)
 
         val tabHeaders = v.findViewById<TabLayout>(R.id.tab_header)
         tabHeaders.setupWithViewPager(tabsPager)
@@ -54,20 +56,7 @@ class RecipeFragment : BaseFragment(), ScreenKeyHolder, RecipeView {
         tabHeaders.addOnTabSelectedListener(HighlightTabSelectedListener(tabsPager, selectedColor, unselectedColor))
         tabHeaders.getTabAt(0)?.icon?.setIconColor(selectedColor)
 
-        presenter.attachView(this)
-
         return v
-    }
-
-    override fun renderRecipe(recipe: Recipe) {
-
-        Toast.makeText(context, recipe.title, Toast.LENGTH_LONG).show()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        presenter.onViewCreated(recipeId)
     }
 
     companion object {
@@ -76,13 +65,13 @@ class RecipeFragment : BaseFragment(), ScreenKeyHolder, RecipeView {
 
     class Builder {
 
-        var recipeId: Long = -1
+        lateinit var recipe: Recipe
 
         fun build(): RecipeFragment {
 
             val fragment = RecipeFragment()
 
-            fragment.recipeId = this.recipeId
+            fragment.recipe = this.recipe
 
             return fragment
         }
@@ -92,16 +81,20 @@ class RecipeFragment : BaseFragment(), ScreenKeyHolder, RecipeView {
 
 enum class RecipeTab(
         @DrawableRes val iconResId: Int,
-        @LayoutRes val layoutId: Int
+        @LayoutRes val layoutId: Int,
+        val recipeRendrer: (Context, Int, ViewGroup, Recipe) -> ViewGroup
 ) {
 
-    Details(R.drawable.icon_info_grey_500, R.layout.view_recipe_details),
-    Ingredients(R.drawable.icon_apple_grey_500, R.layout.view_recipe_ingredients),
-    Directions(R.drawable.icon_list_grey_500, R.layout.view_recipe_directions),
-    VideoInstruction(R.drawable.icon_video_grey_500, R.layout.view_recipe_video_instructions);
+    Details(R.drawable.icon_info_grey_500, R.layout.view_recipe_details, ::recipeInfoRenderer),
+    Ingredients(R.drawable.icon_apple_grey_500, R.layout.view_recipe_ingredients, ::recipeIngredientsRenderer),
+    Directions(R.drawable.icon_list_grey_500, R.layout.view_recipe_directions, ::recipeDirectionsRenderer),
+    VideoInstruction(R.drawable.icon_video_grey_500, R.layout.view_recipe_video_instructions, ::recipeVideoRenderer);
 }
 
-internal class RecipeFragmentTabsAdapter(val ctx: Context) : PagerAdapter() {
+internal class RecipeFragmentTabsAdapter(
+        private val ctx: Context,
+        private val recipe: Recipe
+) : PagerAdapter() {
 
     override fun isViewFromObject(view: View, `object`: Any) = view == `object`
 
@@ -111,8 +104,7 @@ internal class RecipeFragmentTabsAdapter(val ctx: Context) : PagerAdapter() {
 
         val tab = RecipeTab.values()[position]
 
-        val inflater = LayoutInflater.from(ctx)
-        val layout = inflater.inflate(tab.layoutId, container, false)
+        val layout = tab.recipeRendrer(ctx, tab.layoutId, container, recipe)
 
         container.addView(layout)
 
@@ -146,3 +138,81 @@ internal class HighlightTabSelectedListener(
 }
 
 internal fun Drawable.setIconColor(color: Int) = setColorFilter(color, PorterDuff.Mode.SRC_IN)
+
+internal fun recipeInfoRenderer(ctx: Context, @LayoutRes layoutId: Int, container: ViewGroup, recipe: Recipe): ViewGroup {
+
+    val inflater = LayoutInflater.from(ctx)
+    val layout = inflater.inflate(layoutId, container, false)
+
+    val description = layout.findViewById<TextView>(R.id.description)
+    description.text = recipe.description
+
+    // tags
+    val tags = layout.findViewById<FlexboxLayout>(R.id.tags)
+
+    val config = ChipCloudConfig()
+            .selectMode(ChipCloud.SelectMode.none)
+            .uncheckedChipColor(ctx.resources.getColor(R.color.colorPrimary))
+            .uncheckedTextColor(ctx.resources.getColor(R.color.white))
+            .useInsetPadding(true)
+
+    val chipCloud = ChipCloud(ctx, tags, config)
+
+    for (tag in recipe.tags)
+        chipCloud.addChip(tag)
+
+    //pie chart
+    val pieChart = layout.findViewById<PieChart>(R.id.chart)
+    val entries = ArrayList<PieEntry>()
+
+    entries.add(PieEntry(recipe.proteins.toFloat(), ctx.resources?.getString(R.string.proteins)))
+    entries.add(PieEntry(recipe.triglycerides.toFloat(), ctx.resources?.getString(R.string.triglycerides)))
+    entries.add(PieEntry(recipe.carbohydrates.toFloat(), ctx.resources?.getString(R.string.carbohydrates)))
+
+    val set = PieDataSet(entries, ctx.resources?.getString(R.string.food_energy))
+
+    set.colors = listOf(
+            ctx.resources?.getColor(R.color.recipe_chart_proteins_color),
+            ctx.resources?.getColor(R.color.recipe_chart_triglycerides_color),
+            ctx.resources?.getColor(R.color.recipe_chart_carbohydrates_color)
+    )
+    set.valueTextSize = 18f
+    set.valueTextColor = -0x1
+
+    val data = PieData(set)
+
+    pieChart.data = data
+    pieChart.centerText = ctx.resources?.getString(R.string.calories, recipe.calories)
+    pieChart.setCenterTextSize(24f)
+    pieChart.description = null
+    pieChart.isHighlightPerTapEnabled = false
+    pieChart.legend.isEnabled = false
+
+    pieChart.invalidate() // refresh
+
+    return layout as ViewGroup
+}
+
+internal fun recipeIngredientsRenderer(ctx: Context, @LayoutRes layoutId: Int, container: ViewGroup, recipe: Recipe): ViewGroup {
+
+    val inflater = LayoutInflater.from(ctx)
+    val layout = inflater.inflate(layoutId, container, false)
+
+    return layout as ViewGroup
+}
+
+internal fun recipeDirectionsRenderer(ctx: Context, @LayoutRes layoutId: Int, container: ViewGroup, recipe: Recipe): ViewGroup {
+    val inflater = LayoutInflater.from(ctx)
+    val layout = inflater.inflate(layoutId, container, false)
+
+    return layout as ViewGroup
+}
+
+internal fun recipeVideoRenderer(ctx: Context, @LayoutRes layoutId: Int, container: ViewGroup, recipe: Recipe): ViewGroup {
+
+    val inflater = LayoutInflater.from(ctx)
+    val layout = inflater.inflate(layoutId, container, false)
+
+    return layout as ViewGroup
+}
+

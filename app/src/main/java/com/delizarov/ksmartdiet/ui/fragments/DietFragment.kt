@@ -15,12 +15,12 @@ import com.delizarov.common.ui.viewholders.ViewHolderBase
 import com.delizarov.customviews.DateStepper
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.models.Meal
+import com.delizarov.ksmartdiet.domain.models.Recipe
 import com.delizarov.ksmartdiet.domain.models.UserInfo
 import com.delizarov.ksmartdiet.navigation.ScreenKeys
 import com.delizarov.ksmartdiet.presentation.DietPresenter
 import com.delizarov.ksmartdiet.presentation.DietView
 import com.delizarov.ksmartdiet.ui.viewholders.MealViewHolder
-import com.delizarov.navigation.ScreenKey
 import com.delizarov.navigation.ScreenKeyHolder
 import com.squareup.picasso.Picasso
 import javax.inject.Inject
@@ -48,7 +48,7 @@ class DietFragment : BaseFragment(), DietView, ScreenKeyHolder {
         override fun onBindViewHolder(holder: ViewHolderBase<Meal>, position: Int) = holder.bind(get(position))
     }
 
-    override fun showRecipeScreen(recipeId: Long?) = navController.forwardTo(ScreenKeys.RecipeScreenKey, recipeId)
+    override fun showRecipeScreen(recipe: Recipe) = navController.forwardTo(ScreenKeys.RecipeScreenKey, recipe)
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

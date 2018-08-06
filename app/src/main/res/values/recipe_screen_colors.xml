@@ -4,4 +4,8 @@
     <color name="recipe_selected_tab_color">@color/recipe_screen_primary_color</color>
     <color name="recipe_unselected_tab_color">@color/grey_500</color>
 
+    <color name="recipe_chart_proteins_color">@color/green_300</color>
+    <color name="recipe_chart_triglycerides_color">@color/green_500</color>
+    <color name="recipe_chart_carbohydrates_color">@color/green_700</color>
+
 </resources>
