@@ -1,7 +1,11 @@
 package com.delizarov.ksmartdiet.data.impl
 
 import com.delizarov.common.x.bigDecimal
+import com.delizarov.ksmartdiet.domain.models.Grocery
+import com.delizarov.ksmartdiet.domain.models.Ingredient
 import com.delizarov.ksmartdiet.domain.models.Recipe
+import com.delizarov.ksmartdiet.domain.models.Unit
+import java.math.BigDecimal
 
 val default_recipe = Recipe(
         -1L,
@@ -15,7 +19,33 @@ val default_recipe = Recipe(
         30.bigDecimal,
         40.bigDecimal,
         50.bigDecimal,
-        listOf(),
+        listOf(
+                Ingredient(
+                        Grocery("Сосисочки"),
+                        BigDecimal(20),
+                        Unit.Gram
+                ),
+                Ingredient(
+                        Grocery("Иички"),
+                        BigDecimal(20),
+                        Unit.Kilo
+                ),
+                Ingredient(
+                        Grocery("Мяско"),
+                        BigDecimal(20),
+                        Unit.Liter
+                ),
+                Ingredient(
+                        Grocery("Сахарок"),
+                        BigDecimal(20),
+                        Unit.Optional
+                ),
+                Ingredient(
+                        Grocery("Морковка"),
+                        BigDecimal(20),
+                        Unit.MilliLiter
+                )
+        ),
         listOf()
 )
 
@@ -31,7 +61,33 @@ val pancakes = Recipe(
         30.bigDecimal,
         40.bigDecimal,
         50.bigDecimal,
-        listOf(),
+        listOf(
+                Ingredient(
+                        Grocery("Сосисочки"),
+                        BigDecimal(20),
+                        Unit.Gram
+                ),
+                Ingredient(
+                        Grocery("Иички"),
+                        BigDecimal(20),
+                        Unit.Kilo
+                ),
+                Ingredient(
+                        Grocery("Мяско"),
+                        BigDecimal(20),
+                        Unit.Liter
+                ),
+                Ingredient(
+                        Grocery("Сахарок"),
+                        BigDecimal(20),
+                        Unit.Optional
+                ),
+                Ingredient(
+                        Grocery("Морковка"),
+                        BigDecimal(20),
+                        Unit.MilliLiter
+                )
+        ),
         listOf()
 )
 
@@ -47,7 +103,33 @@ val oatmeal = Recipe(
         30.bigDecimal,
         40.bigDecimal,
         50.bigDecimal,
-        listOf(),
+        listOf(
+                Ingredient(
+                        Grocery("Сосисочки"),
+                        BigDecimal(20),
+                        Unit.Gram
+                ),
+                Ingredient(
+                        Grocery("Иички"),
+                        BigDecimal(20),
+                        Unit.Kilo
+                ),
+                Ingredient(
+                        Grocery("Мяско"),
+                        BigDecimal(20),
+                        Unit.Liter
+                ),
+                Ingredient(
+                        Grocery("Сахарок"),
+                        BigDecimal(20),
+                        Unit.Optional
+                ),
+                Ingredient(
+                        Grocery("Морковка"),
+                        BigDecimal(20),
+                        Unit.MilliLiter
+                )
+        ),
         listOf()
 )
 
@@ -63,7 +145,33 @@ val friedEggs = Recipe(
         30.bigDecimal,
         40.bigDecimal,
         50.bigDecimal,
-        listOf(),
+        listOf(
+                Ingredient(
+                        Grocery("Сосисочки"),
+                        BigDecimal(20),
+                        Unit.Gram
+                ),
+                Ingredient(
+                        Grocery("Иички"),
+                        BigDecimal(20),
+                        Unit.Kilo
+                ),
+                Ingredient(
+                        Grocery("Мяско"),
+                        BigDecimal(20),
+                        Unit.Liter
+                ),
+                Ingredient(
+                        Grocery("Сахарок"),
+                        BigDecimal(20),
+                        Unit.Optional
+                ),
+                Ingredient(
+                        Grocery("Морковка"),
+                        BigDecimal(20),
+                        Unit.MilliLiter
+                )
+        ),
         listOf()
 )
 
@@ -79,7 +187,33 @@ val friedPotatoes = Recipe(
         30.bigDecimal,
         40.bigDecimal,
         50.bigDecimal,
-        listOf(),
+        listOf(
+                Ingredient(
+                        Grocery("Сосисочки"),
+                        BigDecimal(20),
+                        Unit.Gram
+                ),
+                Ingredient(
+                        Grocery("Иички"),
+                        BigDecimal(20),
+                        Unit.Kilo
+                ),
+                Ingredient(
+                        Grocery("Мяско"),
+                        BigDecimal(20),
+                        Unit.Liter
+                ),
+                Ingredient(
+                        Grocery("Сахарок"),
+                        BigDecimal(20),
+                        Unit.Optional
+                ),
+                Ingredient(
+                        Grocery("Морковка"),
+                        BigDecimal(20),
+                        Unit.MilliLiter
+                )
+        ),
         listOf()
 )
 
@@ -95,6 +229,32 @@ val lazies = Recipe(
         30.bigDecimal,
         40.bigDecimal,
         50.bigDecimal,
-        listOf(),
+        listOf(
+                Ingredient(
+                        Grocery("Сосисочки"),
+                        BigDecimal(20),
+                        Unit.Gram
+                ),
+                Ingredient(
+                        Grocery("Иички"),
+                        BigDecimal(20),
+                        Unit.Kilo
+                ),
+                Ingredient(
+                        Grocery("Мяско"),
+                        BigDecimal(20),
+                        Unit.Liter
+                ),
+                Ingredient(
+                        Grocery("Сахарок"),
+                        BigDecimal(20),
+                        Unit.Optional
+                ),
+                Ingredient(
+                        Grocery("Морковка"),
+                        BigDecimal(20),
+                        Unit.MilliLiter
+                )
+        ),
         listOf()
 )

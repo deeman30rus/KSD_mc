@@ -9,13 +9,18 @@ import android.support.annotation.LayoutRes
 import android.support.design.widget.TabLayout
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.delizarov.common.ui.adapters.SortedListAdapter
+import com.delizarov.common.ui.viewholders.ViewHolderBase
 import com.delizarov.ksmartdiet.R
+import com.delizarov.ksmartdiet.domain.models.Ingredient
 import com.delizarov.ksmartdiet.domain.models.Recipe
 import com.delizarov.ksmartdiet.navigation.ScreenKeys
+import com.delizarov.ksmartdiet.ui.viewholders.IngredientViewHolder
 import com.delizarov.navigation.ScreenKeyHolder
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -198,6 +203,12 @@ internal fun recipeIngredientsRenderer(ctx: Context, @LayoutRes layoutId: Int, c
     val inflater = LayoutInflater.from(ctx)
     val layout = inflater.inflate(layoutId, container, false)
 
+    val ingredients = layout.findViewById<RecyclerView>(R.id.ingredients)
+
+    val adapter = IngredientAdapter()
+    ingredients.adapter = adapter
+    adapter.addAll(recipe.ingredients)
+
     return layout as ViewGroup
 }
 
@@ -216,3 +227,14 @@ internal fun recipeVideoRenderer(ctx: Context, @LayoutRes layoutId: Int, contain
     return layout as ViewGroup
 }
 
+internal class IngredientAdapter : SortedListAdapter<Ingredient>(Ingredient::class.java, kotlin.Comparator { i1, i2 -> i1.grocery.name.compareTo(i2.grocery.name, false) }) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderBase<Ingredient> {
+
+        val inflater = LayoutInflater.from(parent.context)
+
+        return IngredientViewHolder(inflater.inflate(R.layout.viewholder_ingredient, parent, false))
+    }
+
+    override fun onBindViewHolder(holder: ViewHolderBase<Ingredient>, position: Int) = holder.bind(get(position))
+
+}
