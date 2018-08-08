@@ -10,9 +10,11 @@ import android.support.design.widget.TabLayout
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.delizarov.common.ui.adapters.SortedListAdapter
 import com.delizarov.common.ui.viewholders.ViewHolderBase
@@ -29,6 +31,7 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.google.android.flexbox.FlexboxLayout
+import com.squareup.picasso.Picasso
 import fisk.chipcloud.ChipCloud
 import fisk.chipcloud.ChipCloudConfig
 import java.util.*
@@ -62,6 +65,18 @@ class RecipeFragment : BaseFragment(), ScreenKeyHolder {
 
         tabHeaders.addOnTabSelectedListener(HighlightTabSelectedListener(tabsPager, selectedColor, unselectedColor))
         tabHeaders.getTabAt(0)?.icon?.setIconColor(selectedColor)
+
+        val recipeImage = v.findViewById<ImageView>(R.id.recipe_image)
+
+        Picasso
+                .get()
+                .load(recipe.mainPictureURI)
+                .error(R.drawable.placeholder_recipe_picture)
+                .placeholder(R.drawable.placeholder_recipe_picture)
+                .into(recipeImage)
+
+        val toolbar = v.findViewById<Toolbar>(R.id.toolbar)
+        toolbar.title = recipe.title
 
         return v
     }

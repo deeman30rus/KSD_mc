@@ -16,4 +16,8 @@ data class Recipe(
         val carbohydrates: BigDecimal,
         val ingredients: List<Ingredient>,
         val directions: List<Direction>
-)
+) {
+
+    val mainPictureURI: String?
+        get() = if (picturesURIs.isEmpty()) null else picturesURIs[0]
+}
