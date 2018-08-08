@@ -1,9 +1,7 @@
 package com.delizarov.ksmartdiet.data.impl
 
 import com.delizarov.common.x.bigDecimal
-import com.delizarov.ksmartdiet.domain.models.Grocery
-import com.delizarov.ksmartdiet.domain.models.Ingredient
-import com.delizarov.ksmartdiet.domain.models.Recipe
+import com.delizarov.ksmartdiet.domain.models.*
 import com.delizarov.ksmartdiet.domain.models.Unit
 import java.math.BigDecimal
 
@@ -46,7 +44,14 @@ val default_recipe = Recipe(
                         Unit.MilliLiter
                 )
         ),
-        listOf()
+        listOf(
+                Direction("Значит, готовим еду. Я беру сковороду.", 1),
+                Direction("Потом на сковороду я эту, мать ее, курицу кладу.", 2),
+                Direction("Потом туда в догонку ей подсолнечного масла", 3),
+                Direction("Еще немного перца и протертой сырной массы.", 4),
+                Direction("Потом потру морковки и покрошу лучку,", 5),
+                Direction("А чтоб не мучал запах, можно врезать коньячку.", 6)
+        )
 )
 
 val pancakes = Recipe(
@@ -88,7 +93,14 @@ val pancakes = Recipe(
                         Unit.MilliLiter
                 )
         ),
-        listOf()
+        listOf(
+                Direction("Значит, готовим еду. Я беру сковороду.", 1),
+                Direction("Потом на сковороду я эту, мать ее, курицу кладу.", 2),
+                Direction("Потом туда в догонку ей подсолнечного масла", 3),
+                Direction("Еще немного перца и протертой сырной массы.", 4),
+                Direction("Потом потру морковки и покрошу лучку,", 5),
+                Direction("А чтоб не мучал запах, можно врезать коньячку.", 6)
+        )
 )
 
 val oatmeal = Recipe(
@@ -130,7 +142,14 @@ val oatmeal = Recipe(
                         Unit.MilliLiter
                 )
         ),
-        listOf()
+        listOf(
+                Direction("Значит, готовим еду. Я беру сковороду.", 1),
+                Direction("Потом на сковороду я эту, мать ее, курицу кладу.", 2),
+                Direction("Потом туда в догонку ей подсолнечного масла", 3),
+                Direction("Еще немного перца и протертой сырной массы.", 4),
+                Direction("Потом потру морковки и покрошу лучку,", 5),
+                Direction("А чтоб не мучал запах, можно врезать коньячку.", 6)
+        )
 )
 
 val friedEggs = Recipe(
@@ -172,7 +191,14 @@ val friedEggs = Recipe(
                         Unit.MilliLiter
                 )
         ),
-        listOf()
+        listOf(
+                Direction("Значит, готовим еду. Я беру сковороду.", 1),
+                Direction("Потом на сковороду я эту, мать ее, курицу кладу.", 2),
+                Direction("Потом туда в догонку ей подсолнечного масла", 3),
+                Direction("Еще немного перца и протертой сырной массы.", 4),
+                Direction("Потом потру морковки и покрошу лучку,", 5),
+                Direction("А чтоб не мучал запах, можно врезать коньячку.", 6)
+        )
 )
 
 val friedPotatoes = Recipe(
@@ -214,7 +240,14 @@ val friedPotatoes = Recipe(
                         Unit.MilliLiter
                 )
         ),
-        listOf()
+        listOf(
+                Direction("Значит, готовим еду. Я беру сковороду.", 1),
+                Direction("Потом на сковороду я эту, мать ее, курицу кладу.", 2),
+                Direction("Потом туда в догонку ей подсолнечного масла", 3),
+                Direction("Еще немного перца и протертой сырной массы.", 4),
+                Direction("Потом потру морковки и покрошу лучку,", 5),
+                Direction("А чтоб не мучал запах, можно врезать коньячку.", 6)
+        )
 )
 
 val lazies = Recipe(
@@ -256,5 +289,12 @@ val lazies = Recipe(
                         Unit.MilliLiter
                 )
         ),
-        listOf()
+        listOf(
+                Direction("Значит, готовим еду. Я беру сковороду.", 1),
+                Direction("Потом на сковороду я эту, мать ее, курицу кладу.", 2),
+                Direction("Потом туда в догонку ей подсолнечного масла", 3),
+                Direction("Еще немного перца и протертой сырной массы.", 4),
+                Direction("Потом потру морковки и покрошу лучку,", 5),
+                Direction("А чтоб не мучал запах, можно врезать коньячку.", 6)
+        )
 )

@@ -30,4 +30,6 @@
     <string name="food_energy">Пищевая ценность</string>
 
     <string name="calories">%d ккал</string>
+
+    <string name="recipe_direction_order_text">%d.</string>
 </resources>

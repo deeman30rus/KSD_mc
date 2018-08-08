@@ -17,10 +17,12 @@ import android.widget.TextView
 import com.delizarov.common.ui.adapters.SortedListAdapter
 import com.delizarov.common.ui.viewholders.ViewHolderBase
 import com.delizarov.ksmartdiet.R
+import com.delizarov.ksmartdiet.domain.models.Direction
 import com.delizarov.ksmartdiet.domain.models.Ingredient
 import com.delizarov.ksmartdiet.domain.models.Recipe
 import com.delizarov.ksmartdiet.navigation.ScreenKeys
 import com.delizarov.ksmartdiet.ui.viewholders.IngredientViewHolder
+import com.delizarov.ksmartdiet.ui.viewholders.RecipeDirectionViewHolder
 import com.delizarov.navigation.ScreenKeyHolder
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -216,6 +218,12 @@ internal fun recipeDirectionsRenderer(ctx: Context, @LayoutRes layoutId: Int, co
     val inflater = LayoutInflater.from(ctx)
     val layout = inflater.inflate(layoutId, container, false)
 
+    val directions = layout.findViewById<RecyclerView>(R.id.directions)
+
+    val adapter = DirectionsAdapter()
+    directions.adapter = adapter
+    adapter.addAll(recipe.directions)
+
     return layout as ViewGroup
 }
 
@@ -236,5 +244,18 @@ internal class IngredientAdapter : SortedListAdapter<Ingredient>(Ingredient::cla
     }
 
     override fun onBindViewHolder(holder: ViewHolderBase<Ingredient>, position: Int) = holder.bind(get(position))
+
+}
+
+internal class DirectionsAdapter : SortedListAdapter<Direction>(Direction::class.java, kotlin.Comparator { d1, d2 -> d1.ordinal.compareTo(d2.ordinal) }) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderBase<Direction> {
+
+        val inflater = LayoutInflater.from(parent.context)
+
+        return RecipeDirectionViewHolder(inflater.inflate(R.layout.viewholder_direction, parent, false))
+
+    }
+
+    override fun onBindViewHolder(holder: ViewHolderBase<Direction>, position: Int) = holder.bind(get(position))
 
 }
