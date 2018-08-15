@@ -32,4 +32,5 @@
     <string name="calories">%d ккал</string>
 
     <string name="recipe_direction_order_text">%d.</string>
+    <string name="sign_in_with_google">Войти через аккаунт Google</string>
 </resources>

@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import com.delizarov.ksmartdiet.BuildConfig
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.navigation.ScreenKeys
@@ -37,7 +38,7 @@ class LoginFragment : BaseFragment(), LoginView, ScreenKeyHolder{
 
         val v = inflater.inflate(R.layout.fragment_login, container, false)
 
-        v.findViewById<SignInButton>(R.id.sign_in).setOnClickListener {
+        v.findViewById<Button>(R.id.sign_in).setOnClickListener {
             presenter.onSignInWithGoogleClicked()
         }
 
