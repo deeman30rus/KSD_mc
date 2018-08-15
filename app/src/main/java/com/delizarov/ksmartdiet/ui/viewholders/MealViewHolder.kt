@@ -16,8 +16,9 @@ import fisk.chipcloud.ChipCloudConfig
 
 class MealViewHolder(
         itemView: View,
-        private val presenter: DietPresenter
- ) : ViewHolderBase<Meal>(itemView) {
+        private val presenter: DietPresenter,
+        val onItemClickListener: (Meal) -> Unit
+) : ViewHolderBase<Meal>(itemView) {
 
     private val mealType: TextView by bind(R.id.meal_type)
     private val recipeTitle: TextView by bind(R.id.recipe_title)
@@ -28,6 +29,7 @@ class MealViewHolder(
 
     private val suggest: FloatingActionButton by bind(R.id.suggest)
     private val pickManually: FloatingActionButton by bind(R.id.pick_meal)
+
 
     override fun bind(meal: Meal) {
 
@@ -49,5 +51,9 @@ class MealViewHolder(
 
         recipeCookTime.text = "${meal.recipe.cookTime} мин."
         recipeCalories.text = "${meal.recipe.calories} ккал"
+
+        itemView.setOnClickListener {
+            onItemClickListener(meal)
+        }
     }
 }

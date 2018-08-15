@@ -17,4 +17,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
         injectComponents()
     }
+
+
 }

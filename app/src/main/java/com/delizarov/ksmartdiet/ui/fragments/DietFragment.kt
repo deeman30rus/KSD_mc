@@ -15,14 +15,19 @@ import com.delizarov.common.ui.viewholders.ViewHolderBase
 import com.delizarov.customviews.DateStepper
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.models.Meal
+import com.delizarov.ksmartdiet.domain.models.Recipe
 import com.delizarov.ksmartdiet.domain.models.UserInfo
+import com.delizarov.ksmartdiet.navigation.ScreenKeys
 import com.delizarov.ksmartdiet.presentation.DietPresenter
 import com.delizarov.ksmartdiet.presentation.DietView
 import com.delizarov.ksmartdiet.ui.viewholders.MealViewHolder
+import com.delizarov.navigation.ScreenKeyHolder
 import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
-class DietFragment : BaseFragment(), DietView {
+class DietFragment : BaseFragment(), DietView, ScreenKeyHolder {
+
+    override val screenKey = ScreenKeys.DailyDietScreenKey
 
     override fun injectComponents() {
         appComponent.inject(this)
@@ -37,16 +42,14 @@ class DietFragment : BaseFragment(), DietView {
     private lateinit var meals: RecyclerView
 
     private val adapter = object : SortedListAdapter<Meal>(Meal::class.java, Comparator { o1, o2 -> Integer.compare(o1.type.order, o2.type.order) }) {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderBase<Meal> {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderBase<Meal> =
+                MealViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.viewholder_meal, parent, false), presenter) { recipeId -> presenter.onMealClicked(recipeId) }
 
-            return MealViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.viewholder_meal, parent, false), presenter)
-        }
-
-        override fun onBindViewHolder(holder: ViewHolderBase<Meal>, position: Int) {
-
-            holder.bind(get(position))
-        }
+        override fun onBindViewHolder(holder: ViewHolderBase<Meal>, position: Int) = holder.bind(get(position))
     }
+
+    override fun showRecipeScreen(recipe: Recipe) = navController.forwardTo(ScreenKeys.RecipeScreenKey, recipe)
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -92,10 +95,8 @@ class DietFragment : BaseFragment(), DietView {
 
     }
 
-    override fun displaySettingsScreen() {
+    override fun displaySettingsScreen() = navController.setRoot(ScreenKeys.SettingsScreenKey, true)
 
-        navController.fwdToSettingsScreen(true)
-    }
 
     override fun close() {
         activity!!.finish()

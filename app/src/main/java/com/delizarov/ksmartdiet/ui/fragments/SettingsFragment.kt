@@ -11,11 +11,16 @@ import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.interactors.SaveDietSettingsUseCase
 import com.delizarov.ksmartdiet.domain.models.DietSettings
 import com.delizarov.ksmartdiet.domain.models.MealType
+import com.delizarov.ksmartdiet.navigation.ScreenKeys
+import com.delizarov.navigation.ScreenKey
+import com.delizarov.navigation.ScreenKeyHolder
 import fr.ganfra.materialspinner.MaterialSpinner
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
-class SettingsFragment : BaseFragment() {
+class SettingsFragment : BaseFragment(), ScreenKeyHolder {
+
+    override val screenKey = ScreenKeys.SettingsScreenKey
 
     @Inject
     lateinit var saveDietSettingsUseCase: SaveDietSettingsUseCase
@@ -68,7 +73,7 @@ class SettingsFragment : BaseFragment() {
                     .subscribe({}, {}, {
 
                         if (navToDietScreenAfterSave)
-                            navController.fwdToDailyDietScreen()
+                            navController.setRoot(ScreenKeys.DailyDietScreenKey)
                     })
         }
 

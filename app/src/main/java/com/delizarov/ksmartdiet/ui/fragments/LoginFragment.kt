@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.delizarov.ksmartdiet.BuildConfig
 import com.delizarov.ksmartdiet.R
+import com.delizarov.ksmartdiet.navigation.ScreenKeys
 import com.delizarov.ksmartdiet.presentation.LoginPresenter
 import com.delizarov.ksmartdiet.presentation.LoginView
+import com.delizarov.navigation.ScreenKeyHolder
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -19,7 +21,10 @@ import com.google.android.gms.tasks.Task
 import javax.inject.Inject
 
 
-class LoginFragment : BaseFragment(), LoginView {
+class LoginFragment : BaseFragment(), LoginView, ScreenKeyHolder{
+
+    override val screenKey = ScreenKeys.SignInScreenKey
+
     override fun injectComponents() {
 
         appComponent.inject(this)
@@ -80,10 +85,7 @@ class LoginFragment : BaseFragment(), LoginView {
         }
     }
 
-    override fun displayDietScreen() {
-
-        navController.fwdToDailyDietScreen()
-    }
+    override fun displayDietScreen() = navController.replaceTo(ScreenKeys.DailyDietScreenKey)
 
     override fun showSignInError() {
 

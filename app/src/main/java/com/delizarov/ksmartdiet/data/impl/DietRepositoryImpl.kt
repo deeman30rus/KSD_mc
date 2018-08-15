@@ -12,11 +12,11 @@ import javax.inject.Inject
 
 //todo удалить когда рецепты станут подконтрольны базе
 val gRecipes = mapOf(
-        1L to Recipe(1L, "Американские блинчики с корицей", 10, 304, setOf("Сладкое", "Печёное")),
-        2L to Recipe(2L, "Оввяная каша", 10, 304, setOf("Сладкое", "Печёное")),
-        3L to Recipe(3L, "Яичница", 10, 304, setOf("Сладкое", "Печёное")),
-        4L to Recipe(4L, "Картошка", 10, 304, setOf("Сладкое", "Печёное")),
-        5L to Recipe(5L, "Ленивцы", 10, 304, setOf("Сладкое", "Печёное"))
+        1L to pancakes,
+        2L to oatmeal,
+        3L to friedEggs,
+        4L to friedPotatoes,
+        5L to lazies
 )
 
 class DietRepositoryImpl @Inject constructor(
@@ -118,6 +118,8 @@ class DietRepositoryImpl @Inject constructor(
         private const val DIET_PREFERENCES = "diet_prefs"
 
         //todo спрятать когда рецепты станут подконтрольны базе
-        val DEFAULT_RECIPE = Recipe(-1L, "default", 0, 0, emptySet())
+        val DEFAULT_RECIPE = default_recipe
     }
+
+    override fun getRecipeById(id: Long) = gRecipes[id] ?: DEFAULT_RECIPE
 }
