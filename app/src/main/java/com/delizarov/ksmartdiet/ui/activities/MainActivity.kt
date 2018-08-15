@@ -1,6 +1,7 @@
 package com.delizarov.ksmartdiet.ui.activities
 
 import android.os.Bundle
+import android.view.WindowManager
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.di.MainActivityComponent
 import com.delizarov.ksmartdiet.di.NavigationModule

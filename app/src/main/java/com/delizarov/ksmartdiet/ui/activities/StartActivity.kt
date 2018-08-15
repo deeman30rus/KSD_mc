@@ -3,6 +3,7 @@ package com.delizarov.ksmartdiet.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
+import android.view.WindowManager
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.DietSettingsNotFoundException
 import com.delizarov.ksmartdiet.domain.interactors.ReadDietSettingsUseCase
