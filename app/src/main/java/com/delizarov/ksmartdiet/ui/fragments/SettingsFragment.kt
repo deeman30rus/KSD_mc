@@ -39,43 +39,43 @@ class SettingsFragment : BaseFragment(), ScreenKeyHolder {
 
         val v = inflater.inflate(R.layout.fragment_settings, container, false)
 
-        planDays = v.findViewById(R.id.plan_days_amount)
-        saveButton = v.findViewById(R.id.save)
-        mealTypes = v.findViewById(R.id.meal_types)
-
-        val adapter = ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, context!!.resources.getStringArray(R.array.plan_days))
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        planDays.setSelection(4)
-        planDays.adapter = adapter
-
-        saveButton.setOnClickListener {
-
-            val types = mealTypes.getEntries()
-
-            if (types.isEmpty() || types.any { it.value.isEmpty() }) {
-                mealTypes.error = context!!.getString(R.string.empty_meal_types_error)
-                return@setOnClickListener
-            }
-            var index = 0
-            val settings = DietSettings(
-                    types
-                            .asSequence()
-                            .map {
-                                MealType(it.value, index++)
-                            }.toList(),
-                    (planDays.selectedItem as String).toInt()
-            )
-
-            saveDietSettingsUseCase
-                    .observable(settings)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({}, {}, {
-
-                        if (navToDietScreenAfterSave)
-                            navController.setRoot(ScreenKeys.DailyDietScreenKey)
-                    })
-        }
+//        planDays = v.findViewById(R.id.plan_days_amount)
+//        saveButton = v.findViewById(R.id.save)
+//        mealTypes = v.findViewById(R.id.meal_types)
+//
+//        val adapter = ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, context!!.resources.getStringArray(R.array.plan_days))
+//
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//        planDays.setSelection(4)
+//        planDays.adapter = adapter
+//
+//        saveButton.setOnClickListener {
+//
+//            val types = mealTypes.getEntries()
+//
+//            if (types.isEmpty() || types.any { it.value.isEmpty() }) {
+//                mealTypes.error = context!!.getString(R.string.empty_meal_types_error)
+//                return@setOnClickListener
+//            }
+//            var index = 0
+//            val settings = DietSettings(
+//                    types
+//                            .asSequence()
+//                            .map {
+//                                MealType(it.value, index++)
+//                            }.toList(),
+//                    (planDays.selectedItem as String).toInt()
+//            )
+//
+//            saveDietSettingsUseCase
+//                    .observable(settings)
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe({}, {}, {
+//
+//                        if (navToDietScreenAfterSave)
+//                            navController.setRoot(ScreenKeys.DailyDietScreenKey)
+//                    })
+//        }
 
         return v
     }
