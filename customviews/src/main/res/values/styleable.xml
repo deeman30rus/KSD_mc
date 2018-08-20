@@ -19,4 +19,13 @@
         <attr name="nrb_checked" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="NumberedRadioGroup" >
+        <attr name="nrg_buttons_amount" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="PlanDaysView">
+        <attr name="pdv_max_plan_days" format="integer" />
+        <attr name="pdv_amount" format="integer" />
+    </declare-styleable>
+
 </resources>

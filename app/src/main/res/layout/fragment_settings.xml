@@ -27,32 +27,23 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:text="@string/plan_days_question"
-        android:textSize="16sp"
         android:textColor="@color/dark_plum"
+        android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title"
 
         />
-
-    <com.delizarov.customviews.NumberedRadioButton
-        android:id="@+id/nrb"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:nrb_caption="1"
-        app:nrb_checked="true"
+    <com.delizarov.customviews.PlanDaysView
+        android:id="@+id/plan_days_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintTop_toBottomOf="@id/plan_days_question"
         app:layout_constraintStart_toStartOf="parent"
-        />
-
-    <com.delizarov.customviews.NumberedRadioButton
-        android:id="@+id/nrb1"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:nrb_caption="2"
-        app:nrb_checked="false"
-        app:layout_constraintTop_toBottomOf="@id/nrb"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         />
 
 </android.support.constraint.ConstraintLayout>
