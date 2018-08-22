@@ -76,6 +76,8 @@ class PlanDaysView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : 
         parseAttributes(a)
 
         inflateView()
+
+        a.recycle()
     }
 
     private fun parseAttributes(array: TypedArray) {

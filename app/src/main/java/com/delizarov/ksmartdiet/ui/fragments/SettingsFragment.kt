@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.Toast
+import com.delizarov.customviews.EditMealTypesView
 import com.delizarov.customviews.ExtendableList
+import com.delizarov.customviews.PlanDaysView
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.interactors.SaveDietSettingsUseCase
 import com.delizarov.ksmartdiet.domain.models.DietSettings
@@ -25,9 +28,9 @@ class SettingsFragment : BaseFragment(), ScreenKeyHolder {
     @Inject
     lateinit var saveDietSettingsUseCase: SaveDietSettingsUseCase
 
-    private lateinit var planDays: MaterialSpinner
+    private lateinit var planDays: PlanDaysView
     private lateinit var saveButton: Button
-    private lateinit var mealTypes: ExtendableList
+    private lateinit var mealTypes: EditMealTypesView
 
     private var navToDietScreenAfterSave: Boolean = false
 
@@ -39,47 +42,49 @@ class SettingsFragment : BaseFragment(), ScreenKeyHolder {
 
         val v = inflater.inflate(R.layout.fragment_settings, container, false)
 
-//        planDays = v.findViewById(R.id.plan_days_amount)
-//        saveButton = v.findViewById(R.id.save)
-//        mealTypes = v.findViewById(R.id.meal_types)
-//
-//        val adapter = ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, context!!.resources.getStringArray(R.array.plan_days))
-//
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//        planDays.setSelection(4)
-//        planDays.adapter = adapter
-//
-//        saveButton.setOnClickListener {
-//
-//            val types = mealTypes.getEntries()
-//
-//            if (types.isEmpty() || types.any { it.value.isEmpty() }) {
-//                mealTypes.error = context!!.getString(R.string.empty_meal_types_error)
-//                return@setOnClickListener
-//            }
-//            var index = 0
-//            val settings = DietSettings(
-//                    types
-//                            .asSequence()
-//                            .map {
-//                                MealType(it.value, index++)
-//                            }.toList(),
-//                    (planDays.selectedItem as String).toInt()
-//            )
-//
-//            saveDietSettingsUseCase
-//                    .observable(settings)
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe({}, {}, {
-//
-//                        if (navToDietScreenAfterSave)
-//                            navController.setRoot(ScreenKeys.DailyDietScreenKey)
-//                    })
-//        }
+        planDays = v.findViewById(R.id.plan_days_amount)
+        saveButton = v.findViewById(R.id.save)
+        mealTypes = v.findViewById(R.id.meal_types)
+
+        updateSaveButtonVisibility(mealTypes.isDataSetCorrect)
+
+        mealTypes.onDataSetChangedListener = { _, isCorrect ->
+
+            updateSaveButtonVisibility(isCorrect)
+        }
+
+        saveButton.setOnClickListener {
+
+            var index = 0
+            val settings = DietSettings(
+                    mealTypes.values
+                            .asSequence()
+                            .map {
+                                MealType(it, index++)
+                            }.toList(),
+                    planDays.amount
+            )
+
+            saveDietSettingsUseCase
+                    .observable(settings)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({}, {}, {
+
+                        if (navToDietScreenAfterSave)
+                            navController.setRoot(ScreenKeys.DailyDietScreenKey)
+                    })
+        }
 
         return v
     }
 
+    private fun updateSaveButtonVisibility(isVisible: Boolean) {
+
+        if (isVisible)
+            saveButton.visibility = View.VISIBLE
+        else
+            saveButton.visibility = View.GONE
+    }
 
     companion object {
         inline fun build(block: Builder.() -> Unit) = Builder().apply(block).build()
