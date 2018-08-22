@@ -6,7 +6,9 @@ import android.support.design.widget.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Button
+import android.widget.ImageView
 import com.delizarov.ksmartdiet.BuildConfig
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.navigation.ScreenKeys
@@ -22,7 +24,7 @@ import com.google.android.gms.tasks.Task
 import javax.inject.Inject
 
 
-class LoginFragment : BaseFragment(), LoginView, ScreenKeyHolder{
+class LoginFragment : BaseFragment(), LoginView, ScreenKeyHolder {
 
     override val screenKey = ScreenKeys.SignInScreenKey
 
@@ -38,7 +40,16 @@ class LoginFragment : BaseFragment(), LoginView, ScreenKeyHolder{
 
         val v = inflater.inflate(R.layout.fragment_login, container, false)
 
-        v.findViewById<Button>(R.id.sign_in).setOnClickListener {
+        val slideUp = AnimationUtils.loadAnimation(context, R.anim.slide_up_animation)
+        val slideDown = AnimationUtils.loadAnimation(context, R.anim.slide_down_animation)
+
+        val signInButton = v.findViewById<Button>(R.id.sign_in)
+        val logoImage = v.findViewById<ImageView>(R.id.logo)
+
+        signInButton.startAnimation(slideUp)
+        logoImage.startAnimation(slideDown)
+
+        signInButton.setOnClickListener {
             presenter.onSignInWithGoogleClicked()
         }
 
