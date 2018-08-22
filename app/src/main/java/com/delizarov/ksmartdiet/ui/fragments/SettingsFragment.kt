@@ -4,20 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.Toast
 import com.delizarov.customviews.EditMealTypesView
-import com.delizarov.customviews.ExtendableList
 import com.delizarov.customviews.PlanDaysView
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.interactors.SaveDietSettingsUseCase
 import com.delizarov.ksmartdiet.domain.models.DietSettings
 import com.delizarov.ksmartdiet.domain.models.MealType
 import com.delizarov.ksmartdiet.navigation.ScreenKeys
-import com.delizarov.navigation.ScreenKey
 import com.delizarov.navigation.ScreenKeyHolder
-import fr.ganfra.materialspinner.MaterialSpinner
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
@@ -78,12 +73,9 @@ class SettingsFragment : BaseFragment(), ScreenKeyHolder {
         return v
     }
 
-    private fun updateSaveButtonVisibility(isVisible: Boolean) {
+    private fun updateSaveButtonVisibility(enabled: Boolean) {
 
-        if (isVisible)
-            saveButton.visibility = View.VISIBLE
-        else
-            saveButton.visibility = View.GONE
+        saveButton.isEnabled = enabled
     }
 
     companion object {
