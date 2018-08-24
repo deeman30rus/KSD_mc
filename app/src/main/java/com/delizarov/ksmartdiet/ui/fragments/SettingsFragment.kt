@@ -33,6 +33,10 @@ class SettingsFragment : BaseFragment(), ScreenKeyHolder {
         appComponent.inject(this)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val v = inflater.inflate(R.layout.fragment_settings, container, false)
@@ -41,11 +45,11 @@ class SettingsFragment : BaseFragment(), ScreenKeyHolder {
         saveButton = v.findViewById(R.id.save)
         mealTypes = v.findViewById(R.id.meal_types)
 
-        updateSaveButtonVisibility(mealTypes.isDataSetCorrect)
+        updateSaveButtonAvailability(mealTypes.isDataSetCorrect)
 
         mealTypes.onDataSetChangedListener = { _, isCorrect ->
 
-            updateSaveButtonVisibility(isCorrect)
+            updateSaveButtonAvailability(isCorrect)
         }
 
         saveButton.setOnClickListener {
@@ -73,7 +77,7 @@ class SettingsFragment : BaseFragment(), ScreenKeyHolder {
         return v
     }
 
-    private fun updateSaveButtonVisibility(enabled: Boolean) {
+    private fun updateSaveButtonAvailability(enabled: Boolean) {
 
         saveButton.isEnabled = enabled
     }

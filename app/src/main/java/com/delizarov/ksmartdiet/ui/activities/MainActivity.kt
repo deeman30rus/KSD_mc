@@ -45,7 +45,7 @@ class MainActivity : BaseActivity() {
 
     private fun navToLoginView() = navController.setRoot(ScreenKeys.SignInScreenKey)
 
-    private fun navToSettingsView() = navController.setRoot(ScreenKeys.SettingsScreenKey)
+    private fun navToSettingsView() = navController.setRoot(ScreenKeys.SettingsScreenKey, true)
 
     private fun navToDietView() = navController.setRoot(ScreenKeys.DailyDietScreenKey)
 
