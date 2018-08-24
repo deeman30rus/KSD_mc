@@ -18,7 +18,8 @@ class DateStepper(ctx: Context?, attrs: AttributeSet?, defStyleAttr: Int) : Cons
     constructor(ctx: Context?) : this(ctx, null, 0)
 
     private val back: ImageView by bind(R.id.back)
-    private val date: TextView by bind(R.id.date)
+    private val month: TextView by bind(R.id.date_month)
+    private val day: TextView by bind(R.id.date_day)
     private val forward: ImageView by bind(R.id.forward)
 
     private var startDate = today()
@@ -40,7 +41,7 @@ class DateStepper(ctx: Context?, attrs: AttributeSet?, defStyleAttr: Int) : Cons
 
     }
 
-    var selectedDate: DateTime = SOME_DATE // любая дата в далёком прошлом, чтобы при первой установке инициировать вызов selected date changed
+    var selectedDate: DateTime = SOME_DATE // любая дата в далёком прошлом, чтобы при первой установке инициировать вызов selected month changed
         private set(value) {
             if (value == field)
                 return
@@ -50,7 +51,8 @@ class DateStepper(ctx: Context?, attrs: AttributeSet?, defStyleAttr: Int) : Cons
             if (value == SOME_DATE)
                 return
 
-            date.text = value.toString(DATE_FORMAT) ?: ""
+            month.text = value.toString(DATE_MONTH_FORMAT) ?: ""
+            day.text = value.toString(DATE_DAY_FORMAT) ?: ""
 
             if (value == startDate)
                 back.visibility = View.INVISIBLE
@@ -98,7 +100,7 @@ class DateStepper(ctx: Context?, attrs: AttributeSet?, defStyleAttr: Int) : Cons
         startDate = if (startDateStr == "now")
             today()
         else {
-            val formatter = DateTimeFormat.forPattern(DATE_FORMAT)
+            val formatter = DateTimeFormat.forPattern(DATE_MONTH_FORMAT)
             formatter.parseDateTime(startDateStr).withTimeAtStartOfDay()
         }
 
@@ -111,7 +113,8 @@ class DateStepper(ctx: Context?, attrs: AttributeSet?, defStyleAttr: Int) : Cons
 
     private companion object {
 
-        const val DATE_FORMAT = "dd MMMMM"
+        const val DATE_MONTH_FORMAT = "MMMMM"
+        const val DATE_DAY_FORMAT = "dd"
 
         const val MAX_DAYS_DEFAULT = 4
 
