@@ -1,6 +1,8 @@
 package com.delizarov.ksmartdiet.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
+import android.support.v4.view.PagerAdapter
 import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -11,7 +13,9 @@ import android.widget.TextView
 import android.widget.Toast
 import com.delizarov.common.transformations.CircleTransform
 import com.delizarov.common.ui.adapters.SortedListAdapter
+import com.delizarov.common.ui.decorators.ItemOffsetDecoration
 import com.delizarov.common.ui.viewholders.ViewHolderBase
+import com.delizarov.common.ui.views.VerticalViewPager
 import com.delizarov.customviews.DateStepper
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.models.Meal
@@ -73,6 +77,8 @@ class DietFragment : BaseFragment(), DietView, ScreenKeyHolder {
         super.onResume()
 
         meals.adapter = adapter
+        val itemOffsetDecoration = ItemOffsetDecoration(context!!, R.dimen.meal_vertical_offset)
+        meals.addItemDecoration(itemOffsetDecoration)
 
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(meals)

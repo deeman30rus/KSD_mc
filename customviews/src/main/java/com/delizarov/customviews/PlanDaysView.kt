@@ -30,7 +30,7 @@ class PlanDaysView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : 
         field = values[_selected] as Int
     }
 
-    private var values = mutableListOf<Number>() // Int не работает с SortedList из-за кастра (int[])
+    private var values = mutableListOf<Number>() // Int не работает с SortedList из-за каста (int[])
 
     private val days: RecyclerView by bind(R.id.days)
 

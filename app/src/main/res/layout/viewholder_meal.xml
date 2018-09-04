@@ -1,168 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="476dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="4dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    >
 
+    <android.support.constraint.ConstraintLayout
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45" />
-
-
-    <ImageView
-        android:id="@+id/recipe_picture"
-        android:layout_width="367dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="0dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/background"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/trapeze_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
-    <TextView
-        android:id="@+id/meal_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/roboto_regular"
-        android:textColor="@color/amber_300"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recipe_picture"
-        tools:text="Завтрак" />
-
-    <TextView
-        android:id="@+id/recipe_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/roboto_black"
-        android:textColor="@color/amber_300"
-        android:textSize="19sp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meal_type"
-        tools:text="Американские блинчики с корицей" />
-
-    <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/tags"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recipe_title" />
+        android:layout_height="match_parent">
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6" />
 
-    <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/change"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        app:menu_icon="@drawable/icon_swap_white_24dp"
-        app:menu_openDirection="down"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        >
+        <ImageView
+            android:id="@+id/recipe_picture"
+            android:layout_width="0dp"
+            android:layout_height="208dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/placeholder_recipe_picture" />
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/pick_meal"
+        <TextView
+            android:id="@+id/meal_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_food_white"
-            app:fab_size="mini"
-            app:fab_label="@string/pick_manually" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto_regular"
+            android:textColor="@color/dark_plum"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipe_picture"
+            tools:text="Завтрак" />
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/suggest"
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/recipe_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:maxLines="2"
+            android:textColor="@color/dark_plum"
+            android:textStyle="bold"
+            app:autoSizeMaxTextSize="16sp"
+            app:autoSizeMinTextSize="14sp"
+            app:autoSizeStepGranularity="1sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/meal_type"
+            tools:text="Американские блинчики с корицей" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipe_title" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:textColor="@color/dark_plum"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tags" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_food_variant_white"
-            app:fab_size="mini"
-            app:fab_label="@string/suggest_meal" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.77" />
 
-    </com.github.clans.fab.FloatingActionMenu>
+        <ImageView
+            android:id="@+id/cook_time_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/icon_timer" />
 
-    <ImageView
-        android:id="@+id/cook_time_icon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:padding="12dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/icon_timer_blue_700" />
+        <TextView
+            android:id="@+id/cook_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/roboto_light"
+            android:textColor="@color/seafoam_blue"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/cook_time_icon"
+            app:layout_constraintStart_toEndOf="@+id/cook_time_icon"
+            app:layout_constraintTop_toTopOf="@+id/cook_time_icon"
+            tools:text="8 минут" />
 
-    <TextView
-        android:id="@+id/cook_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_regular"
-        android:textSize="15sp"
-        android:textColor="@color/blue_700"
-        app:layout_constraintBottom_toBottomOf="@+id/cook_time_icon"
-        app:layout_constraintStart_toEndOf="@+id/cook_time_icon"
-        app:layout_constraintTop_toTopOf="@+id/cook_time_icon"
-        tools:text="8 минут"
-        />
+        <ImageView
+            android:id="@+id/calories_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/calories"
+            app:srcCompat="@drawable/icon_clipped" />
 
-    <ImageView
-        android:id="@+id/calories_icon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:padding="12dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/calories"
-        app:srcCompat="@drawable/icon_calories_deep_orange_400" />
+        <TextView
+            android:id="@+id/calories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/roboto_light"
+            android:textColor="@color/seafoam_blue"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/calories_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/calories_icon"
+            tools:text="350 ккал" />
 
-    <TextView
-        android:id="@+id/calories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_regular"
-        android:textSize="15sp"
-        android:textColor="@color/deep_orange_400"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/calories_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/calories_icon"
-        tools:text="350 ккал"
-        />
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline5"
+            app:menu_icon="@drawable/icon_change_white"
+            app:menu_openDirection="down"
+            app:menu_colorNormal="@color/seafoam_blue"
+            app:menu_colorPressed="@color/seafoam_blue"
+            app:menu_colorRipple="@color/seafoam_blue"
+            >
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/pick_meal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_add_white"
+                app:fab_label="@string/pick_manually"
+                app:fab_size="mini"
+                app:fab_colorNormal="@color/seafoam_blue"
+                app:menu_colorPressed="@color/seafoam_blue"
+                app:menu_colorRipple="@color/seafoam_blue"
+                />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/suggest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_gamble"
+                app:fab_label="@string/suggest_meal"
+                app:fab_size="mini"
+                app:fab_colorNormal="@color/seafoam_blue"
+                app:menu_colorPressed="@color/seafoam_blue"
+                app:menu_colorRipple="@color/seafoam_blue"
+                />
+
+        </com.github.clans.fab.FloatingActionMenu>
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="162dp" />
 
 
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>
+

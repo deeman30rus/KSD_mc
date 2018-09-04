@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.delizarov.common.transformations.CircleTransform
 import com.delizarov.common.ui.viewholders.ViewHolderBase
 import com.delizarov.common.x.ui.bind
 import com.delizarov.ksmartdiet.R
@@ -24,9 +23,10 @@ class MealViewHolder(
 ) : ViewHolderBase<Meal>(itemView) {
 
     private val mealType: TextView by bind(R.id.meal_type)
+    private val description: TextView by bind(R.id.description)
     private val recipeTitle: TextView by bind(R.id.recipe_title)
     private val recipeTags: FlexboxLayout by bind(R.id.tags)
-    private val recipPicture: ImageView by bind(R.id.recipe_picture)
+    private val recipePicture: ImageView by bind(R.id.recipe_picture)
 
     private val recipeCookTime: TextView by bind(R.id.cook_time)
     private val recipeCalories: TextView by bind(R.id.calories)
@@ -39,10 +39,11 @@ class MealViewHolder(
 
         mealType.text = meal.type.name
         recipeTitle.text = meal.recipe.title
+        description.text = meal.recipe.description
 
         val config = ChipCloudConfig()
                 .selectMode(ChipCloud.SelectMode.none)
-                .uncheckedChipColor(Color.parseColor("#FFFF9800"))
+                .uncheckedChipColor(itemView.context.resources.getColor(R.color.seafoam_blue))
                 .uncheckedTextColor(Color.parseColor("#ffffff"))
                 .useInsetPadding(true)
 
@@ -61,7 +62,7 @@ class MealViewHolder(
                 .load(meal.recipe.mainPictureURI)
                 .error(R.drawable.placeholder_recipe_picture)
                 .placeholder(R.drawable.placeholder_recipe_picture)
-                .into(recipPicture)
+                .into(recipePicture)
 
         itemView.setOnClickListener {
             onItemClickListener(meal)
