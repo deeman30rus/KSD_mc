@@ -1,8 +1,8 @@
 package com.delizarov.ksmartdiet.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.view.PagerAdapter
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -15,8 +15,8 @@ import com.delizarov.common.transformations.CircleTransform
 import com.delizarov.common.ui.adapters.SortedListAdapter
 import com.delizarov.common.ui.decorators.ItemOffsetDecoration
 import com.delizarov.common.ui.viewholders.ViewHolderBase
-import com.delizarov.common.ui.views.VerticalViewPager
 import com.delizarov.customviews.DateStepper
+import com.delizarov.customviews.VerticalViewPager
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.models.Meal
 import com.delizarov.ksmartdiet.domain.models.Recipe
@@ -43,14 +43,14 @@ class DietFragment : BaseFragment(), DietView, ScreenKeyHolder {
     private lateinit var currentDate: DateStepper
     private lateinit var profilePic: ImageView
     private lateinit var userName: TextView
-    private lateinit var meals: RecyclerView
+    private lateinit var meals: VerticalViewPager
 
-    private val adapter = object : SortedListAdapter<Meal>(Meal::class.java, Comparator { o1, o2 -> Integer.compare(o1.type.order, o2.type.order) }) {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderBase<Meal> =
-                MealViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.viewholder_meal, parent, false), presenter) { recipeId -> presenter.onMealClicked(recipeId) }
-
-        override fun onBindViewHolder(holder: ViewHolderBase<Meal>, position: Int) = holder.bind(get(position))
-    }
+//    private val adapter = object : SortedListAdapter<Meal>(Meal::class.java, Comparator { o1, o2 -> Integer.compare(o1.type.order, o2.type.order) }) {
+//        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderBase<Meal> =
+//                MealViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.viewholder_meal, parent, false), presenter) { recipeId -> presenter.onMealClicked(recipeId) }
+//
+//        override fun onBindViewHolder(holder: ViewHolderBase<Meal>, position: Int) = holder.bind(get(position))
+//    }
 
     override fun showRecipeScreen(recipe: Recipe) = navController.forwardTo(ScreenKeys.RecipeScreenKey, recipe)
 
@@ -62,7 +62,7 @@ class DietFragment : BaseFragment(), DietView, ScreenKeyHolder {
         currentDate = v.findViewById(R.id.current_date)
         profilePic = v.findViewById(R.id.profile_pic)
         userName = v.findViewById(R.id.user_name)
-        meals = v.findViewById(R.id.meals)
+//        meals = v.findViewById(R.id.meals)
 
         currentDate.onSelectedDateChangedListener = {
 
@@ -76,12 +76,12 @@ class DietFragment : BaseFragment(), DietView, ScreenKeyHolder {
     override fun onResume() {
         super.onResume()
 
-        meals.adapter = adapter
-        val itemOffsetDecoration = ItemOffsetDecoration(context!!, R.dimen.meal_vertical_offset)
-        meals.addItemDecoration(itemOffsetDecoration)
-
-        val snapHelper = LinearSnapHelper()
-        snapHelper.attachToRecyclerView(meals)
+//        meals.adapter = adapter
+//        val itemOffsetDecoration = ItemOffsetDecoration(context!!, R.dimen.meal_vertical_offset)
+//        meals.addItemDecoration(itemOffsetDecoration)
+//
+//        val snapHelper = LinearSnapHelper()
+//        snapHelper.attachToRecyclerView(meals)
 
         presenter.attachView(this)
         presenter.onViewCreated()
@@ -110,8 +110,8 @@ class DietFragment : BaseFragment(), DietView, ScreenKeyHolder {
 
     override fun showDailyMeals(meals: List<Meal>) {
 
-        adapter.clear()
-        adapter.addAll(meals)
+//        adapter.clear()
+//        adapter.addAll(meals)
     }
 
     override fun showPlanDaysMenu(daysAmount: Int) {
@@ -121,12 +121,23 @@ class DietFragment : BaseFragment(), DietView, ScreenKeyHolder {
 
     override fun switchCurrentMealTo(oldMeal: Meal, newMeal: Meal) {
 
-        adapter.remove(oldMeal)
-        adapter.add(newMeal)
+//        adapter.remove(oldMeal)
+//        adapter.add(newMeal)
     }
 
     override fun displayFeatureNotImplementedYet() {
 
         Toast.makeText(context, "Feature is not implemented yet", Toast.LENGTH_LONG).show()
     }
+}
+
+private class DietPagerAdapter : PagerAdapter() {
+    override fun isViewFromObject(view: View, `object`: Any): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getCount(): Int {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }

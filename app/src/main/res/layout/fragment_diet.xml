@@ -42,12 +42,11 @@
         app:layout_constraintTop_toTopOf="@id/profile_pic"
         tools:text="John Wayne" />
 
-    <android.support.v7.widget.RecyclerView
+    <com.delizarov.customviews.VerticalViewPager
         android:id="@+id/meals"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
