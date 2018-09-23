@@ -1,6 +1,8 @@
 package com.delizarov.ksmartdiet.ui.activities
 
 import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.di.MainActivityComponent
 import com.delizarov.ksmartdiet.di.NavigationModule
@@ -44,7 +46,7 @@ class MainActivity : BaseActivity() {
 
     private fun navToLoginView() = navController.setRoot(ScreenKeys.SignInScreenKey)
 
-    private fun navToSettingsView() = navController.setRoot(ScreenKeys.SettingsScreenKey)
+    private fun navToSettingsView() = navController.setRoot(ScreenKeys.SettingsScreenKey, true)
 
     private fun navToDietView() = navController.setRoot(ScreenKeys.DailyDietScreenKey)
 

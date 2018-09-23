@@ -1,8 +1,8 @@
 package com.delizarov.ksmartdiet.ui.fragments
 
 import android.os.Bundle
-import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.RecyclerView
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +10,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.delizarov.common.transformations.CircleTransform
+import com.delizarov.common.ui.GravitySnapHelper
 import com.delizarov.common.ui.adapters.SortedListAdapter
+import com.delizarov.common.ui.decorators.ItemOffsetDecoration
 import com.delizarov.common.ui.viewholders.ViewHolderBase
 import com.delizarov.customviews.DateStepper
 import com.delizarov.ksmartdiet.R
@@ -39,7 +41,7 @@ class DietFragment : BaseFragment(), DietView, ScreenKeyHolder {
     private lateinit var currentDate: DateStepper
     private lateinit var profilePic: ImageView
     private lateinit var userName: TextView
-    private lateinit var meals: RecyclerView
+    private lateinit var mealsView: RecyclerView
 
     private val adapter = object : SortedListAdapter<Meal>(Meal::class.java, Comparator { o1, o2 -> Integer.compare(o1.type.order, o2.type.order) }) {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderBase<Meal> =
@@ -58,7 +60,10 @@ class DietFragment : BaseFragment(), DietView, ScreenKeyHolder {
         currentDate = v.findViewById(R.id.current_date)
         profilePic = v.findViewById(R.id.profile_pic)
         userName = v.findViewById(R.id.user_name)
-        meals = v.findViewById(R.id.meals)
+        mealsView = v.findViewById(R.id.meals)
+
+        val itemOffsetDecoration = ItemOffsetDecoration(context!!, R.dimen.meal_vertical_offset)
+        mealsView.addItemDecoration(itemOffsetDecoration)
 
         currentDate.onSelectedDateChangedListener = {
 
@@ -72,10 +77,10 @@ class DietFragment : BaseFragment(), DietView, ScreenKeyHolder {
     override fun onResume() {
         super.onResume()
 
-        meals.adapter = adapter
+        mealsView.adapter = adapter
 
-        val snapHelper = LinearSnapHelper()
-        snapHelper.attachToRecyclerView(meals)
+        val snapHelper = GravitySnapHelper(Gravity.TOP)
+        snapHelper.attachToRecyclerView(mealsView)
 
         presenter.attachView(this)
         presenter.onViewCreated()

@@ -2,53 +2,84 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
 
-    <fr.ganfra.materialspinner.MaterialSpinner
-        android:id="@+id/plan_days_amount"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:ms_alignLabels="false"
-        app:ms_arrowSize="13dp"
-        app:ms_baseColor="@color/grey_700"
-        app:ms_enableErrorLabel="false"
-        app:ms_enableFloatingLabel="true"
-        app:ms_hint="@string/plan_days_amount"
-        app:ms_hintColor="@color/grey_700"
-        app:ms_multiline="false"
-        app:ms_thickness="1dp" />
-
-
-    <Button
-        android:id="@+id/save"
-        style="?attr/borderlessButtonStyle"
+    <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/save_caption"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/settings_title"
+        android:textColor="@color/dark_plum"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.delizarov.customviews.ExtendableList
+    <TextView
+        android:id="@+id/plan_days_question"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/plan_days_question"
+        android:textColor="@color/dark_plum"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <com.delizarov.customviews.PlanDaysView
+        android:id="@+id/plan_days_amount"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="22dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/plan_days_question" />
+
+    <TextView
+        android:id="@+id/meal_types_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/meal_types_title"
+        android:textColor="@color/dark_plum"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/plan_days_amount" />
+
+    <com.delizarov.customviews.EditMealTypesView
         android:id="@+id/meal_types"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="12dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        app:el_label_text="@string/meal_types"
-        app:layout_constraintBottom_toTopOf="@+id/save"
+        android:layout_marginTop="22dp"
+        app:layout_constraintBottom_toTopOf="@id/save"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/plan_days_amount" />
+        app:layout_constraintTop_toBottomOf="@id/meal_types_title" />
+
+    <Button
+        android:id="@+id/save"
+        style="@style/RoundCornerButtonStyle"
+        android:textAllCaps="true"
+        android:layout_width="162dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:text="@string/save_button_text"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
