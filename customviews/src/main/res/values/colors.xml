@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="seafoam_blue">#71c6c9</color>
+    <color name="seafoam_blue_70">#b371c6c9</color>
+    <color name="seafoam_blue_40">#6471c6c9</color>
     <color name="dark_plum">#2f0020</color>
+
+    <color name="light_blue_grey">#c6e8e9</color>
+    <color name="light_grey_grey">#9bd7d9</color>
+
 
     <color name="colorGrey">#2E2E2E</color>
 

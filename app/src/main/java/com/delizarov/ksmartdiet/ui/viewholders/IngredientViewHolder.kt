@@ -1,5 +1,6 @@
 package com.delizarov.ksmartdiet.ui.viewholders
 
+import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.support.v7.widget.AppCompatImageView
@@ -16,51 +17,42 @@ import java.text.DecimalFormat
 
 class IngredientViewHolder(itemView: View) : ViewHolderBase<Ingredient>(itemView) {
 
-    private val marker: AppCompatImageView by bind(R.id.marker)
-    private val name: TextView by bind(R.id.ingredient_name)
-    private val amount: TextView by bind(R.id.ingredient_amount)
-    private val units: TextView by bind(R.id.ingredient_units)
+    private val info: TextView by bind(R.id.ingredient_info)
 
     override fun bind(item: Ingredient) {
 
-        val background = marker.background
+        val stringBuilder = StringBuilder()
 
-        if (background is ShapeDrawable) {
-            background.paint.color = item.grocery.name.decodedColor
-        } else if (background is GradientDrawable) {
-            background.setColor(item.grocery.name.decodedColor)
-        }
+        stringBuilder.append("${item.grocery.name} ")
 
-        name.text = item.grocery.name
-
-        if (item.unit === Unit.Optional) {
-            amount.text = ""
-        } else {
+        if (item.unit != Unit.Optional) {
 
             val df = DecimalFormat()
             df.maximumFractionDigits = 2
             df.minimumFractionDigits = 0
             df.isGroupingUsed = false
 
-            amount.text = df.format(item.amount)
+            stringBuilder.append(" - ${df.format(item.amount)}")
         }
 
-        displayUnits(item.unit) // переделать на extension функцию
+        stringBuilder.append(item.unit.toResourceString(itemView.context))
+
+        info.text = stringBuilder.toString()
     }
+}
 
-    private fun displayUnits(unit: com.delizarov.ksmartdiet.domain.models.Unit) {
+private fun Unit.toResourceString(ctx: Context): String {
 
-        val unitStr = when {
-            unit === Unit.Kilo -> "кг."
-            unit === Unit.Gram -> "г."
-            unit === Unit.Liter -> "л."
-            unit === Unit.MilliLiter -> "мл."
-            unit === Unit.TeaSpoon -> "ч. л."
-            unit === Unit.TableSpoon -> "ст. л."
-            unit === Unit.Piece -> "шт."
-            else -> "по вусу"
-        }
+    val stringId = mapOf(
+            Unit.Kilo to R.string.kilo,
+            Unit.Gram to R.string.gram,
+            Unit.Liter to R.string.liter,
+            Unit.MilliLiter to R.string.milliliter,
+            Unit.TeaSpoon to R.string.teaspoon,
+            Unit.TableSpoon to R.string.tablespoon,
+            Unit.Piece to R.string.piece,
+            Unit.Optional to R.string.optional
+    )[this]
 
-        units.text = unitStr
-    }
+    return ctx.resources?.getString(stringId ?: R.string.optional) ?: ""
 }

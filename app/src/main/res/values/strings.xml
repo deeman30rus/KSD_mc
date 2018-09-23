@@ -37,4 +37,16 @@
     <string name="plan_days_question">Насколько дней желаете распланировать диету?</string>
     <string name="meal_types_title">Введите названия приемов пищи</string>
     <string name="save_button_text">Сохранить</string>
+
+    <string name="kilo">кг</string>
+    <string name="gram">г</string>
+    <string name="liter">л</string>
+    <string name="milliliter">мл</string>
+    <string name="teaspoon">ч. ложка</string>
+    <string name="tablespoon">ст. ложка</string>
+    <string name="piece">шт.</string>
+    <string name="optional">по вкусу</string>
+    <string name="recipe_details_directions_title">Приготовление</string>
+    <string name="recipe_details_video_title">Видео к рецепту</string>
+
 </resources>
