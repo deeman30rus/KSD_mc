@@ -12,6 +12,8 @@ interface UserRepository {
     fun saveUserInfo(userInfo: UserInfo?): Observable<Void>
 
     fun saveIdToken(token: String): Observable<Void>
+
+    fun clearUserData()
 }
 
 interface DietRepository {
@@ -81,4 +83,9 @@ interface DietRepository {
      * @return объект рецепта
      * */
     fun getRecipeById(id: Long): Recipe
+
+    /**
+     * Очищает все данные пользователя
+     * */
+    fun clearDietData()
 }

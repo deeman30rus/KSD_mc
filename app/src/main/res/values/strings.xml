@@ -48,5 +48,10 @@
     <string name="optional">по вкусу</string>
     <string name="recipe_details_directions_title">Приготовление</string>
     <string name="recipe_details_video_title">Видео к рецепту</string>
+    <string name="profile_title">Настройки профиля</string>
+    <string name="dialog_logout_title">Выход</string>
+    <string name="dialog_logout_message">Выход из приложения приведёт к потере всех данных. Вы действительно хотите выйти?</string>
+    <string name="dialog_logout_cancel">Отмена</string>
+    <string name="dialog_logout_ok">Выйти</string>
 
 </resources>

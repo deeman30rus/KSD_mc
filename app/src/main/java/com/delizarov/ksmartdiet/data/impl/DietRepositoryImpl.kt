@@ -23,7 +23,6 @@ class DietRepositoryImpl @Inject constructor(
         ctx: Context,
         val db: DietDB
 ) : DietRepository {
-
     private val recipes = gRecipes
 
     override fun readRation(): List<Ration> {
@@ -42,7 +41,6 @@ class DietRepositoryImpl @Inject constructor(
 
     private val preferences: SharedPreferences = ctx.getSharedPreferences(DIET_PREFERENCES, Context.MODE_PRIVATE)
 
-
     override fun getDietSettings(): Observable<DietSettings> = Observable.create {
 
         val planDays = preferences.getInt(DIET_SETTINGS_PLAN_DAYS, -1)
@@ -55,7 +53,6 @@ class DietRepositoryImpl @Inject constructor(
                     .mealTypeDao()
                     .getMealTypes()
                     .map { it.kModel }
-                    .toList()
 
             val settings = DietSettings(mealTypes, planDays)
 
@@ -64,6 +61,7 @@ class DietRepositoryImpl @Inject constructor(
 
         it.onComplete()
     }
+
 
     override fun writeDietSettings(dietSettings: DietSettings): Observable<Any> =
             Observable.create {
@@ -80,8 +78,8 @@ class DietRepositoryImpl @Inject constructor(
                 it.onComplete()
             }
 
-
     override fun getMealsForDate(date: DateTime): List<Meal> = getMealsForPeriod(date, date, null)
+
 
     override fun getMealsForPeriod(dateFrom: DateTime, dateTo: DateTime, mealType: MealType?): List<Meal> {
         return if (mealType == null)
@@ -98,7 +96,6 @@ class DietRepositoryImpl @Inject constructor(
                     .map {
                         it.kModel
                     }
-                    .toList()
     }
 
     override fun writeMeal(meal: Meal) {
@@ -109,6 +106,15 @@ class DietRepositoryImpl @Inject constructor(
     override fun updateMeal(meal: Meal) {
 
         db.mealDao().updateMeal(meal.dbEntity)
+    }
+
+    override fun clearDietData() {
+
+        db.clearAllTables()
+        preferences
+                .edit()
+                .clear()
+                .apply()
     }
 
     companion object {

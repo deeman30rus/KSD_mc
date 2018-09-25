@@ -19,8 +19,9 @@ interface DietView : BaseView {
     fun close()
     fun displayFeatureNotImplementedYet()
     fun switchCurrentMealTo(oldMeal: Meal, newMeal: Meal)
-    fun renderUserInfo(it: UserInfo)
+    fun renderUserInfo(userInfo: UserInfo)
     fun showRecipeScreen(recipe: Recipe)
+    fun displayProfileScreen(userInfo: UserInfo)
 }
 
 class DietPresenter @Inject constructor(
@@ -91,4 +92,6 @@ class DietPresenter @Inject constructor(
 
 
     fun onMealClicked(meal: Meal) = view.showRecipeScreen(meal.recipe)
+
+    fun onProfileClicked(userInfo: UserInfo) = view.displayProfileScreen(userInfo)
 }

@@ -3,10 +3,7 @@ package com.delizarov.ksmartdiet.di
 import android.app.Application
 import com.delizarov.ksmartdiet.ui.activities.MainActivity
 import com.delizarov.ksmartdiet.ui.activities.StartActivity
-import com.delizarov.ksmartdiet.ui.fragments.DietFragment
-import com.delizarov.ksmartdiet.ui.fragments.LoginFragment
-import com.delizarov.ksmartdiet.ui.fragments.RecipeFragment
-import com.delizarov.ksmartdiet.ui.fragments.SettingsFragment
+import com.delizarov.ksmartdiet.ui.fragments.*
 import dagger.Component
 import dagger.Subcomponent
 import javax.inject.Singleton
@@ -37,6 +34,8 @@ interface AppComponent {
     fun addMainActivityComponent(navModule: NavigationModule): MainActivityComponent
 
     fun inject(recipeFragment: RecipeFragment)
+
+    fun inject(profileFragment: ProfileFragment)
 }
 
 @Subcomponent(
