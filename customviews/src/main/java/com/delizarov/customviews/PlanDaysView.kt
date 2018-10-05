@@ -22,7 +22,7 @@ class PlanDaysView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : 
 
     var amount: Int = 0
     get() = values[_selected] as Int
-    private set(value) {
+    set(value) {
 
         if (_selected == value)
             return
