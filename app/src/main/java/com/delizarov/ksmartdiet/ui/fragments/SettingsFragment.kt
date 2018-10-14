@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import com.delizarov.customviews.EditMealTypesView
 import com.delizarov.customviews.PlanDaysView
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.interactors.SaveDietSettingsUseCase
 import com.delizarov.ksmartdiet.domain.models.DietSettings
 import com.delizarov.ksmartdiet.domain.models.MealType
 import com.delizarov.ksmartdiet.navigation.ScreenKeys
+import com.delizarov.ksmartdiet.ui.views.EditMealTypesView
 import com.delizarov.navigation.ScreenKeyHolder
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
@@ -50,13 +50,8 @@ class SettingsFragment : BaseFragment(), ScreenKeyHolder {
 
         saveButton.setOnClickListener {
 
-            var index = 0
             val settings = DietSettings(
-                    mealTypes.values
-                            .asSequence()
-                            .map {
-                                MealType(it, index++)
-                            }.toList(),
+                    mealTypes.values,
                     planDays.amount
             )
 

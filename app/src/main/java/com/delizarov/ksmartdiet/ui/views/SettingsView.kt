@@ -5,19 +5,20 @@ import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import android.widget.Button
 import com.delizarov.common.x.ui.bind
-import com.delizarov.customviews.EditMealTypesView
 import com.delizarov.customviews.PlanDaysView
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.models.DietSettings
 
 class SettingsView(ctx: Context, attrs: AttributeSet?, defStyleAttr: Int) : ConstraintLayout(ctx, attrs, defStyleAttr) {
 
-    private var settings: DietSettings = DEFAULT_SETTINGS
+    var settings: DietSettings = DEFAULT_SETTINGS
         set(value) {
 
+            field = value
+            render()
         }
 
-    var onSaveButtonClickedListener: (DietSettings) -> Unit = { }
+    var onSaveButtonClick: (DietSettings) -> Unit = { }
 
     private val planDays: PlanDaysView by bind(R.id.plan_days_amount)
     private val saveButton: Button by bind(R.id.save)
@@ -30,8 +31,6 @@ class SettingsView(ctx: Context, attrs: AttributeSet?, defStyleAttr: Int) : Cons
     init {
 
         inflate(context, R.layout.view_settings, this)
-
-
     }
 
     private fun render() {
@@ -42,14 +41,13 @@ class SettingsView(ctx: Context, attrs: AttributeSet?, defStyleAttr: Int) : Cons
 
         updateSaveButtonAvailability(mealTypes.isDataSetCorrect)
 
-
         mealTypes.onDataSetChangedListener = { _, isCorrect ->
 
             updateSaveButtonAvailability(isCorrect)
         }
 
         saveButton.setOnClickListener {
-            onSaveButtonClickedListener(settings)
+            onSaveButtonClick(settings)
         }
     }
 

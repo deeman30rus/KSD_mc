@@ -10,11 +10,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.delizarov.common.transformations.CircleTransform
 import com.delizarov.ksmartdiet.R
+import com.delizarov.ksmartdiet.domain.models.DietSettings
 import com.delizarov.ksmartdiet.domain.models.UserInfo
 import com.delizarov.ksmartdiet.navigation.ScreenKeys
 import com.delizarov.ksmartdiet.presentation.ProfilePresenter
 import com.delizarov.ksmartdiet.presentation.ProfileView
 import com.delizarov.ksmartdiet.ui.activities.StartActivity
+import com.delizarov.ksmartdiet.ui.views.SettingsView
 import com.delizarov.navigation.ScreenKey
 import com.delizarov.navigation.ScreenKeyHolder
 import com.squareup.picasso.Picasso
@@ -27,12 +29,16 @@ class ProfileFragment : BaseFragment(), ScreenKeyHolder, ProfileView {
 
     private lateinit var userInfo: UserInfo
 
+    private lateinit var settingsView: SettingsView
+
     override val screenKey: ScreenKey
         get() = ScreenKeys.ProfileScreenKey
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val v = inflater.inflate(R.layout.fragment_profile, container, false)
+
+        settingsView = v.findViewById(R.id.settings)
 
         val userName = v.findViewById<TextView>(R.id.user_name)
         val userEmail = v.findViewById<TextView>(R.id.user_email)
@@ -50,6 +56,17 @@ class ProfileFragment : BaseFragment(), ScreenKeyHolder, ProfileView {
         v.findViewById<View>(R.id.icon_down).setOnClickListener { presenter.onIconDownClicked() }
 
         return v
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        presenter.attachView(this@ProfileFragment)
+        presenter.onViewCreated()
+    }
+
+    override fun displaySettings(settings: DietSettings) {
+        settingsView.settings = settings
     }
 
     override fun displayLogOutDialog() {
@@ -73,12 +90,6 @@ class ProfileFragment : BaseFragment(), ScreenKeyHolder, ProfileView {
 
         context?.startActivity(intent)
         activity?.finish()
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        presenter.attachView(this@ProfileFragment)
     }
 
     override fun injectComponents() {
