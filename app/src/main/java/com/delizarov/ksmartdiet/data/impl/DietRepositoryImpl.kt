@@ -53,6 +53,7 @@ class DietRepositoryImpl @Inject constructor(
                     .mealTypeDao()
                     .getMealTypes()
                     .map { it.kModel }
+                    .toMutableList()
 
             val settings = DietSettings(mealTypes, planDays)
 

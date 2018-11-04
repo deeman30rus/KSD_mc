@@ -10,8 +10,10 @@ import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.interactors.SaveDietSettingsUseCase
 import com.delizarov.ksmartdiet.domain.models.DietSettings
 import com.delizarov.ksmartdiet.domain.models.MealType
+import com.delizarov.ksmartdiet.extensions.isCorrect
 import com.delizarov.ksmartdiet.navigation.ScreenKeys
 import com.delizarov.ksmartdiet.ui.views.EditMealTypesView
+import com.delizarov.ksmartdiet.ui.views.SettingsView
 import com.delizarov.navigation.ScreenKeyHolder
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
@@ -23,9 +25,8 @@ class SettingsFragment : BaseFragment(), ScreenKeyHolder {
     @Inject
     lateinit var saveDietSettingsUseCase: SaveDietSettingsUseCase
 
-    private lateinit var planDays: PlanDaysView
-    private lateinit var saveButton: Button
-    private lateinit var mealTypes: EditMealTypesView
+    lateinit var settingsView: SettingsView
+    lateinit var saveButton: Button
 
     private var navToDietScreenAfterSave: Boolean = false
 
@@ -37,26 +38,26 @@ class SettingsFragment : BaseFragment(), ScreenKeyHolder {
 
         val v = inflater.inflate(R.layout.fragment_settings, container, false)
 
-        planDays = v.findViewById(R.id.plan_days_amount)
+        settingsView = v.findViewById(R.id.settings_view)
         saveButton = v.findViewById(R.id.save)
-        mealTypes = v.findViewById(R.id.meal_types)
 
-        updateSaveButtonAvailability(mealTypes.isDataSetCorrect)
+        if (settingsView.settings.isCorrect)
+            enableSaveButton()
+        else
+            disableSaveButton()
 
-        mealTypes.onDataSetChangedListener = { _, isCorrect ->
+        settingsView.onSettingsChangedListener = { settings ->
 
-            updateSaveButtonAvailability(isCorrect)
+            if (settings.isCorrect)
+                enableSaveButton()
+            else
+                disableSaveButton()
         }
 
         saveButton.setOnClickListener {
 
-            val settings = DietSettings(
-                    mealTypes.values,
-                    planDays.amount
-            )
-
             saveDietSettingsUseCase
-                    .observable(settings)
+                    .observable(settingsView.settings)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({}, {}, {
 
@@ -68,9 +69,14 @@ class SettingsFragment : BaseFragment(), ScreenKeyHolder {
         return v
     }
 
-    private fun updateSaveButtonAvailability(enabled: Boolean) {
+    private fun enableSaveButton() {
 
-        saveButton.isEnabled = enabled
+        saveButton.isEnabled = true
+    }
+
+    private fun disableSaveButton() {
+        saveButton.isEnabled = false
+
     }
 
     companion object {

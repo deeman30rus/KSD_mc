@@ -20,26 +20,17 @@ import com.delizarov.ksmartdiet.domain.models.MealType
 
 class EditMealTypesView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    var values: List<MealType> = emptyList()
+    var values: MutableList<MealType> = mutableListOf()
         set(value) {
 
             field = value
             adapter.clear()
             adapter.addAll(field)
+
+            onDataSetChangedListener(field)
         }
 
-    var onDataSetChangedListener: (EditMealTypesView, Boolean) -> Unit = { _, _ -> }
-
-    var isDataSetCorrect: Boolean = false
-        private set(value) {
-
-            if (field == value)
-                return
-
-            field = value
-            onDataSetChangedListener(this, field)
-        }
-
+    var onDataSetChangedListener: (List<MealType>) -> Unit = { }
 
     constructor(context: Context) : this(context, null)
 
@@ -64,9 +55,17 @@ class EditMealTypesView(context: Context, attrs: AttributeSet?, defStyleAttr: In
             (holder as MealTypeViewHolder).onDismissClickListener = { _, item ->
 
                 remove(item)
-                updateDataSetCorrectness()
+                values.removeAt(position)
+
+                onDataSetChangedListener(values)
             }
-            holder.onMealTypeNameChangedListener = { _, _ -> updateDataSetCorrectness() }
+
+            holder.onMealTypeNameChangedListener = { _, mealType ->
+
+                values[position] = mealType
+
+                onDataSetChangedListener(values)
+            }
         }
     }
 
@@ -87,27 +86,15 @@ class EditMealTypesView(context: Context, attrs: AttributeSet?, defStyleAttr: In
                 adapter.get(adapter.itemCount - 1).order + 1
             }
 
-            adapter.add(MealType("", order))
+            val mealType = MealType("", order)
 
-            updateDataSetCorrectness()
+            adapter.add(mealType)
+            values.add(mealType)
+
+            onDataSetChangedListener(values)
         }
 
         mealTypes.adapter = adapter
-    }
-
-    private fun updateDataSetCorrectness() {
-
-        var isCorrect = adapter.itemCount > 1
-
-        for (i in 0 until adapter.itemCount - 1) {
-            if (adapter.get(i).name.isNotEmpty())
-                continue
-
-            isCorrect = false
-            break
-        }
-
-        isDataSetCorrect = isCorrect
     }
 }
 

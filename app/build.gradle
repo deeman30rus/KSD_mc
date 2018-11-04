@@ -29,14 +29,14 @@ android {
         }
 
         debug {
-            buildConfigField "String", CLIENT_ID, "\"118456209862-1rqvfq6spb2g0i517v9vdi3ht1oe6uk6.apps.googleusercontent.com\""
+            buildConfigField "String", CLIENT_ID, "\"290264041634-uifaup19qjtp5311ahqe0prhrmv193et.apps.googleusercontent.com\""
         }
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
     //base android
     implementation 'com.android.support:appcompat-v7:27.1.1'

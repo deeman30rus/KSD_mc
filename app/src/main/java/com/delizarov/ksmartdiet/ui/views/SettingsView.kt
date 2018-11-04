@@ -18,10 +18,9 @@ class SettingsView(ctx: Context, attrs: AttributeSet?, defStyleAttr: Int) : Cons
             render()
         }
 
-    var onSaveButtonClick: (DietSettings) -> Unit = { }
+    var onSettingsChangedListener: (DietSettings) -> Unit = {}
 
     private val planDays: PlanDaysView by bind(R.id.plan_days_amount)
-    private val saveButton: Button by bind(R.id.save)
     private val mealTypes: EditMealTypesView by bind(R.id.meal_types)
 
     constructor(ctx: Context) : this(ctx, null)
@@ -31,30 +30,28 @@ class SettingsView(ctx: Context, attrs: AttributeSet?, defStyleAttr: Int) : Cons
     init {
 
         inflate(context, R.layout.view_settings, this)
+
+        render()
     }
 
     private fun render() {
 
         planDays.amount = settings.planDays
+        planDays.onAmountChangedListener = { amount ->
 
-        mealTypes // todo сделать, чтобы принимал и возвращал meal types
+            settings.planDays = amount
 
-        updateSaveButtonAvailability(mealTypes.isDataSetCorrect)
-
-        mealTypes.onDataSetChangedListener = { _, isCorrect ->
-
-            updateSaveButtonAvailability(isCorrect)
+            onSettingsChangedListener(settings)
         }
 
-        saveButton.setOnClickListener {
-            onSaveButtonClick(settings)
+        mealTypes.onDataSetChangedListener = {
+
+            settings.mealTypes.clear()
+            settings.mealTypes.addAll(it)
+
+            onSettingsChangedListener(settings)
         }
-    }
-
-    private fun updateSaveButtonAvailability(enabled: Boolean) {
-
-        saveButton.isEnabled = enabled
     }
 }
 
-private val DEFAULT_SETTINGS = DietSettings(emptyList(), 7)
+private val DEFAULT_SETTINGS = DietSettings(mutableListOf(), 7)

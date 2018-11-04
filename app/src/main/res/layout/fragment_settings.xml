@@ -23,9 +23,9 @@
         android:id="@+id/plan_days_question"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/plan_days_question"
         android:textColor="@color/dark_plum"
         android:textSize="16sp"
@@ -33,41 +33,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
-    <com.delizarov.customviews.PlanDaysView
-        android:id="@+id/plan_days_amount"
+    <com.delizarov.ksmartdiet.ui.views.SettingsView
+        android:id="@+id/settings_view"
         android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="22dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/plan_days_question" />
-
-    <TextView
-        android:id="@+id/meal_types_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:text="@string/meal_types_title"
-        android:textColor="@color/dark_plum"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/plan_days_amount" />
-
-    <com.delizarov.customviews.EditMealTypesView
-        android:id="@+id/meal_types"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="12dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="22dp"
-        app:layout_constraintBottom_toTopOf="@id/save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/meal_types_title" />
 
     <Button
         android:id="@+id/save"
