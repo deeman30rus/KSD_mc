@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
     <string name="app_name">KSmartDiet</string>
     <string name="client_data_error">Ошибка клиентских данных</string>
     <string name="sign_in_error">Ошибка при авторизации</string>
@@ -35,7 +35,7 @@
     <string name="sign_in_with_google">Войти через аккаунт Google</string>
     <string name="settings_title">Настройки диеты</string>
     <string name="plan_days_question">Насколько дней желаете распланировать диету?</string>
-    <string name="meal_types_title">Введите названия приемов пищи</string>
+    <string name="meal_types_title">Названия приемов пищи</string>
     <string name="save_button_text">Сохранить</string>
 
     <string name="kilo">кг</string>
@@ -48,5 +48,15 @@
     <string name="optional">по вкусу</string>
     <string name="recipe_details_directions_title">Приготовление</string>
     <string name="recipe_details_video_title">Видео к рецепту</string>
+    <string name="profile_title">Настройки профиля</string>
+    <string name="dialog_logout_title">Выход</string>
+    <string name="dialog_logout_message">Выход из приложения приведёт к потере всех данных. Вы действительно хотите выйти?</string>
+    <string name="dialog_logout_cancel">Отмена</string>
+    <string name="dialog_logout_ok">Выйти</string>
+
+    <string name="dialog_change_settings_warning_title">Изменение настроек диеты</string>
+    <string name="dialog_change_settings_warning_message">Изменение настроек диеты приведёт к полному изменению уже запланированных блюд. Продолжить?</string>
+    <string name="dialog_change_settings_warning_disagree">Нет</string>
+    <string name="dialog_change_settings_warning_agree">Да</string>
 
 </resources>

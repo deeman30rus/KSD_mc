@@ -26,4 +26,3 @@ class SaveUserInfoUseCase @Inject constructor(
             userRepository.saveUserInfo(params)
                     .subscribeOn(Schedulers.newThread())
 }
-

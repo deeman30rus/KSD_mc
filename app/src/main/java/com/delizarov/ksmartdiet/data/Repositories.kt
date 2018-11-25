@@ -12,6 +12,8 @@ interface UserRepository {
     fun saveUserInfo(userInfo: UserInfo?): Observable<Void>
 
     fun saveIdToken(token: String): Observable<Void>
+
+    fun clearUserData()
 }
 
 interface DietRepository {
@@ -24,7 +26,12 @@ interface DietRepository {
      * */
     fun getDietSettings(): Observable<DietSettings>
 
-    fun writeDietSettings(dietSettings: DietSettings): Observable<Any>
+    /**
+     * Сохранение настроек диеты
+     *
+     * @param dietSettings объект настроек диеты
+     * */
+    fun writeDietSettings(dietSettings: DietSettings)
 
     /**
      * Возвращает список всех приёмов пищи для выбранного дня
@@ -81,4 +88,9 @@ interface DietRepository {
      * @return объект рецепта
      * */
     fun getRecipeById(id: Long): Recipe
+
+    /**
+     * Очищает все данные пользователя
+     * */
+    fun clearDietData()
 }

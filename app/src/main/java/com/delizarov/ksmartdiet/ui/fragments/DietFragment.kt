@@ -86,19 +86,22 @@ class DietFragment : BaseFragment(), DietView, ScreenKeyHolder {
         presenter.onViewCreated()
     }
 
-    override fun renderUserInfo(it: UserInfo) {
+    override fun renderUserInfo(userInfo: UserInfo) {
 
-        userName.text = it.displayName
+        userName.text = userInfo.displayName
 
         // todo placeholder if url null
 
         Picasso
                 .get()
-                .load(it.photoUrl)
+                .load(userInfo.photoUrl)
                 .transform(CircleTransform())
                 .into(profilePic)
 
+        profilePic.setOnClickListener { presenter.onProfileClicked(userInfo) }
     }
+
+    override fun displayProfileScreen(userInfo: UserInfo) = navController.forwardTo(ScreenKeys.ProfileScreenKey, userInfo)
 
     override fun displaySettingsScreen() = navController.setRoot(ScreenKeys.SettingsScreenKey, true)
 

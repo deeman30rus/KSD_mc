@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Завтрак" />
-    
+
     <ImageView
         android:id="@+id/remove_item"
         android:layout_width="40dp"

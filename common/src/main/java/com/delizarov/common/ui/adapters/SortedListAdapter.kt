@@ -53,7 +53,7 @@ abstract class SortedListAdapter<T>(itemClass: Class<T>, comparator: Comparator<
         this.sortedItems.endBatchedUpdates()
     }
 
-    fun clear() = sortedItems.clear()
+    open fun clear() = sortedItems.clear()
 
     private fun refresh() {
 

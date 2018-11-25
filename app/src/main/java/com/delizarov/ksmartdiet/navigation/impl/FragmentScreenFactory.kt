@@ -1,12 +1,10 @@
 package com.delizarov.ksmartdiet.navigation.impl
 
 import com.delizarov.ksmartdiet.domain.models.Recipe
+import com.delizarov.ksmartdiet.domain.models.UserInfo
 import com.delizarov.ksmartdiet.navigation.NoSuchScreenException
 import com.delizarov.ksmartdiet.navigation.ScreenKeys
-import com.delizarov.ksmartdiet.ui.fragments.DietFragment
-import com.delizarov.ksmartdiet.ui.fragments.LoginFragment
-import com.delizarov.ksmartdiet.ui.fragments.RecipeFragment
-import com.delizarov.ksmartdiet.ui.fragments.SettingsFragment
+import com.delizarov.ksmartdiet.ui.fragments.*
 import com.delizarov.navigation.ScreenFactory
 import com.delizarov.navigation.ScreenKey
 import com.delizarov.navigation.ScreenKeyHolder
@@ -19,6 +17,7 @@ class FragmentScreenFactory : ScreenFactory() {
                 ScreenKeys.SettingsScreenKey -> createSettingsFragment(data1, data2, data3)
                 ScreenKeys.DailyDietScreenKey -> createDailyDietFragment(data1, data2, data3)
                 ScreenKeys.RecipeScreenKey -> createRecipeFragment(data1, data2, data3)
+                ScreenKeys.ProfileScreenKey -> createProfileFragment(data1, data2, data3)
                 else -> throw NoSuchScreenException(screenKey)
             }
 
@@ -41,5 +40,7 @@ class FragmentScreenFactory : ScreenFactory() {
                 }
                 else -> RecipeFragment()
             }
+
+    private fun <T, R, S> createProfileFragment(data1: T?, data2: R?, data3: S?) = ProfileFragment.newInstance(data1 as UserInfo)
 
 }

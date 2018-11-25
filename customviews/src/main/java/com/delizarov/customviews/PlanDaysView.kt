@@ -21,14 +21,18 @@ class PlanDaysView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : 
     private var _selected: Int = SELECTED_DEFAULT
 
     var amount: Int = 0
-    get() = values[_selected] as Int
-    private set(value) {
+        get() = values[_selected] as Int
+        set(value) {
 
-        if (_selected == value)
-            return
+            if (_selected == value)
+                return
 
-        field = values[_selected] as Int
-    }
+            field = values[_selected] as Int
+
+            onAmountChangedListener(field)
+        }
+
+    var onAmountChangedListener: (Int) -> Unit = {}
 
     private var values = mutableListOf<Number>() // Int не работает с SortedList из-за каста (int[])
 
@@ -115,18 +119,18 @@ internal class DayViewHolder(itemView: View, checked: Boolean) : ViewHolderBase<
     private var caption: TextView = itemView.findViewById(R.id.caption)
 
     var checked: Boolean = checked
-    set(value) {
+        set(value) {
 
-        if (field == value)
-            return
+            if (field == value)
+                return
 
-        field = value
+            field = value
 
-        if (field)
-            setChecked()
-        else
-            setUnchecked()
-    }
+            if (field)
+                setChecked()
+            else
+                setUnchecked()
+        }
 
     override fun bind(item: Number) {
 

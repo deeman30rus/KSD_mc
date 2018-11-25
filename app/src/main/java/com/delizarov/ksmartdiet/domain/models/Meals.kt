@@ -3,8 +3,8 @@ package com.delizarov.ksmartdiet.domain.models
 import org.joda.time.DateTime
 import java.io.Serializable
 
-class MealType(
-        val name: String,
+data class MealType(
+        var name: String,
         val order: Int
 ) : Serializable
 

@@ -9,7 +9,6 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(ctx: Context) : UserRepository {
-
     private val preferences: SharedPreferences
 
     init {
@@ -54,6 +53,13 @@ class UserRepositoryImpl @Inject constructor(ctx: Context) : UserRepository {
 
                 it.onComplete()
             }
+
+    override fun clearUserData() {
+        preferences
+                .edit()
+                .clear()
+                .apply()
+    }
 
     companion object {
 
