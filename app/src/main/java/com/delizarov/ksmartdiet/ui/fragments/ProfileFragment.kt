@@ -6,12 +6,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.delizarov.common.transformations.CircleTransform
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.models.DietSettings
 import com.delizarov.ksmartdiet.domain.models.UserInfo
+import com.delizarov.ksmartdiet.extensions.isCorrect
 import com.delizarov.ksmartdiet.navigation.ScreenKeys
 import com.delizarov.ksmartdiet.presentation.ProfilePresenter
 import com.delizarov.ksmartdiet.presentation.ProfileView
@@ -31,6 +33,8 @@ class ProfileFragment : BaseFragment(), ScreenKeyHolder, ProfileView {
 
     private lateinit var settingsView: SettingsView
 
+    private lateinit var saveButton: Button
+
     override val screenKey: ScreenKey
         get() = ScreenKeys.ProfileScreenKey
 
@@ -39,6 +43,13 @@ class ProfileFragment : BaseFragment(), ScreenKeyHolder, ProfileView {
         val v = inflater.inflate(R.layout.fragment_profile, container, false)
 
         settingsView = v.findViewById(R.id.settings)
+        settingsView.onSettingsChanged = {
+
+            if (it.isCorrect)
+                enableSaveButton()
+            else
+                disableSaveButton()
+        }
 
         val userName = v.findViewById<TextView>(R.id.user_name)
         val userEmail = v.findViewById<TextView>(R.id.user_email)
@@ -55,6 +66,12 @@ class ProfileFragment : BaseFragment(), ScreenKeyHolder, ProfileView {
         userEmail.setOnClickListener { presenter.onUserEmailClicked() }
         v.findViewById<View>(R.id.icon_down).setOnClickListener { presenter.onIconDownClicked() }
 
+        saveButton = v.findViewById(R.id.save)
+        saveButton.setOnClickListener {
+
+            presenter.onSaveButtonClick()
+        }
+
         return v
     }
 
@@ -63,6 +80,22 @@ class ProfileFragment : BaseFragment(), ScreenKeyHolder, ProfileView {
 
         presenter.attachView(this@ProfileFragment)
         presenter.onViewCreated()
+    }
+
+    override fun showChangeSettingsWarning() {
+
+        val dialog = AlertDialog.Builder(context)
+                .setTitle(R.string.dialog_change_settings_warning_title)
+                .setMessage(R.string.dialog_change_settings_warning_message)
+                .setNegativeButton(R.string.dialog_change_settings_warning_disagree) { dialog, _ -> dialog.dismiss() }
+                .setPositiveButton(R.string.dialog_change_settings_warning_agree) { dialog, _ ->
+
+                    presenter.onSaveChangedSettings(settingsView.settings)
+                    dialog.dismiss()
+                }
+                .create()
+
+        dialog.show()
     }
 
     override fun displaySettings(settings: DietSettings) {
@@ -92,8 +125,20 @@ class ProfileFragment : BaseFragment(), ScreenKeyHolder, ProfileView {
         activity?.finish()
     }
 
+    override fun displayDietScreen() {
+        navController.back()
+    }
+
     override fun injectComponents() {
         appComponent.inject(this)
+    }
+
+    private fun enableSaveButton() {
+        saveButton.isEnabled = true
+    }
+
+    private fun disableSaveButton() {
+        saveButton.isEnabled = false
     }
 
     companion object {

@@ -2,7 +2,9 @@ package com.delizarov.ksmartdiet.domain.interactors
 
 import com.delizarov.ksmartdiet.data.DietRepository
 import com.delizarov.ksmartdiet.domain.models.DietSettings
+import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 import javax.inject.Inject
 
 class ReadDietSettingsUseCase @Inject constructor(
@@ -18,10 +20,12 @@ class ReadDietSettingsUseCase @Inject constructor(
 
 class SaveDietSettingsUseCase @Inject constructor(
         private val dietRepository: DietRepository
-) : UseCase<Any, DietSettings>() {
+) : UseCase<Unit, DietSettings>() {
 
-    override fun createObservable(params: DietSettings?) =
-            dietRepository.writeDietSettings(params!!)
-                    .subscribeOn(Schedulers.newThread())
+    override fun createObservable(params: DietSettings?) = Observable.fromCallable {
 
+        dietRepository.clearDietData()
+
+        dietRepository.writeDietSettings(params!!)
+    }.subscribeOn(Schedulers.newThread())
 }

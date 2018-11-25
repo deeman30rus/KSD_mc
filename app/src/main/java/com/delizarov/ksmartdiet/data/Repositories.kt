@@ -26,7 +26,12 @@ interface DietRepository {
      * */
     fun getDietSettings(): Observable<DietSettings>
 
-    fun writeDietSettings(dietSettings: DietSettings): Observable<Any>
+    /**
+     * Сохранение настроек диеты
+     *
+     * @param dietSettings объект настроек диеты
+     * */
+    fun writeDietSettings(dietSettings: DietSettings)
 
     /**
      * Возвращает список всех приёмов пищи для выбранного дня

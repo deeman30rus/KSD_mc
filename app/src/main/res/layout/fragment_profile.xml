@@ -86,5 +86,18 @@
         />
 
 
+    <Button
+        android:id="@+id/save"
+        style="@style/RoundCornerButtonStyle"
+        android:textAllCaps="true"
+        android:layout_width="162dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:text="@string/save_button_text"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </android.support.constraint.ConstraintLayout>

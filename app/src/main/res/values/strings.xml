@@ -1,5 +1,4 @@
-<resources
-    tools:ignore="ExtraTranslation" xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
     <string name="app_name">KSmartDiet</string>
     <string name="client_data_error">Ошибка клиентских данных</string>
     <string name="sign_in_error">Ошибка при авторизации</string>
@@ -54,5 +53,10 @@
     <string name="dialog_logout_message">Выход из приложения приведёт к потере всех данных. Вы действительно хотите выйти?</string>
     <string name="dialog_logout_cancel">Отмена</string>
     <string name="dialog_logout_ok">Выйти</string>
+
+    <string name="dialog_change_settings_warning_title">Изменение настроек диеты</string>
+    <string name="dialog_change_settings_warning_message">Изменение настроек диеты приведёт к полному изменению уже запланированных блюд. Продолжить?</string>
+    <string name="dialog_change_settings_warning_disagree">Нет</string>
+    <string name="dialog_change_settings_warning_agree">Да</string>
 
 </resources>

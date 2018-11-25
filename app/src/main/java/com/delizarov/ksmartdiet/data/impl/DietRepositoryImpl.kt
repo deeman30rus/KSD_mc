@@ -64,20 +64,17 @@ class DietRepositoryImpl @Inject constructor(
     }
 
 
-    override fun writeDietSettings(dietSettings: DietSettings): Observable<Any> =
-            Observable.create {
+    override fun writeDietSettings(dietSettings: DietSettings) {
 
-                preferences
-                        .edit()
-                        .putInt(DIET_SETTINGS_PLAN_DAYS, dietSettings.planDays)
-                        .apply()
+        preferences
+                .edit()
+                .putInt(DIET_SETTINGS_PLAN_DAYS, dietSettings.planDays)
+                .apply()
 
-                dietSettings.mealTypes.forEach {
-                    db.mealTypeDao().addMealType(it.dbEntity)
-                }
-
-                it.onComplete()
-            }
+        dietSettings.mealTypes.forEach {
+            db.mealTypeDao().addMealType(it.dbEntity)
+        }
+    }
 
     override fun getMealsForDate(date: DateTime): List<Meal> = getMealsForPeriod(date, date, null)
 
