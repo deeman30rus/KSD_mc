@@ -16,27 +16,25 @@ import com.delizarov.common.ui.viewholders.ViewHolderBase
 import com.delizarov.common.x.ui.bind
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.models.MealType
+import com.delizarov.ksmartdiet.presentation.MealTypesPresenter
+import com.delizarov.ksmartdiet.presentation.MealTypesView
 
 
-class EditMealTypesView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : ConstraintLayout(context, attrs, defStyleAttr) {
+class EditMealTypesView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : ConstraintLayout(context, attrs, defStyleAttr), MealTypesView {
 
-    var values: MutableList<MealType> = mutableListOf()
+    private val presenter = MealTypesPresenter()
+
+    var mealTypes: List<MealType>
+        get() = presenter.model
         set(value) {
-
-            field = value
-            adapter.clear()
-            adapter.addAll(field)
-
-            onDataSetChangedListener(field)
+            presenter.model = value.toMutableList()
         }
-
-    var onDataSetChangedListener: (List<MealType>) -> Unit = { }
 
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    private val mealTypes: RecyclerView by bind(R.id.meal_types_list)
+    private val mealTypesList: RecyclerView by bind(R.id.meal_types_list)
 
     private val newMealTypeButton: View by bind(R.id.new_meal_type)
 
@@ -51,50 +49,65 @@ class EditMealTypesView(context: Context, attrs: AttributeSet?, defStyleAttr: In
 
         override fun onBindViewHolder(holder: ViewHolderBase<MealType>, position: Int) {
 
-            holder.bind(get(position))
-            (holder as MealTypeViewHolder).onDismissClickListener = { _, item ->
+            val mealType = get(position)
 
-                remove(item)
-                values.removeAt(position)
+            holder.bind(mealType)
+            (holder as MealTypeViewHolder).onDismissClickListener = { _, _ ->
 
-                onDataSetChangedListener(values)
+                presenter.onRemoveMealTypeClicked(mealType)
             }
 
-            holder.onMealTypeNameChangedListener = { _, mealType ->
+            holder.onMealTypeNameChangedListener = { _, newName ->
 
-                values[position] = mealType
-
-                onDataSetChangedListener(values)
+                presenter.onMealTypeNameChanged(mealType, newName)
             }
+        }
+
+        override fun onViewDetachedFromWindow(holder: ViewHolderBase<MealType>) {
+
+            (holder as MealTypeViewHolder).onDismissClickListener = { _, _ -> }
+            holder.onMealTypeNameChangedListener = { _, _ -> }
         }
     }
 
-    init {
+    var onMealTypesChanged: (List<MealType>) -> Unit
+        set(value) {
+            presenter.onModelChanged = value
+        }
+        get() = presenter.onModelChanged
 
+    init {
         inflateView()
     }
+
+    override fun addMealType(mealType: MealType) {
+        adapter.add(mealType)
+    }
+
+    override fun addAllMealTypes(mealTypes: List<MealType>) = adapter.addAll(mealTypes)
+
+    override fun removeMealType(mealType: MealType) {
+
+        adapter.remove(mealType)
+    }
+
+    override fun clearMealTypes() = adapter.clear()
 
     private fun inflateView() {
 
         val inflater = LayoutInflater.from(context)
 
-        inflater.inflate(R.layout.edit_meal_type_view, this, true)
+        inflater.inflate(R.layout.view_edit_meal_type, this, true)
 
         newMealTypeButton.setOnClickListener {
 
-            val order = if (adapter.itemCount == 0) 0 else {
-                adapter.get(adapter.itemCount - 1).order + 1
-            }
-
-            val mealType = MealType("", order)
-
-            adapter.add(mealType)
-            values.add(mealType)
-
-            onDataSetChangedListener(values)
+            presenter.onAddNewMealTypeClick()
         }
 
-        mealTypes.adapter = adapter
+        mealTypesList.adapter = adapter
+
+        presenter.attachView(this)
+        presenter.onViewCreated()
     }
 }
 
@@ -107,9 +120,7 @@ internal class MealTypeViewHolder(itemView: View) : ViewHolderBase<MealType>(ite
         editText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
-                item.name = (s ?: "").toString()
-
-                onMealTypeNameChangedListener(this@MealTypeViewHolder, item)
+                onMealTypeNameChangedListener(this@MealTypeViewHolder, s.toString())
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -125,5 +136,5 @@ internal class MealTypeViewHolder(itemView: View) : ViewHolderBase<MealType>(ite
 
     var onDismissClickListener: (MealTypeViewHolder, MealType) -> Unit = { _, _ -> }
 
-    var onMealTypeNameChangedListener: (MealTypeViewHolder, MealType) -> Unit = { _, _ -> }
+    var onMealTypeNameChangedListener: (MealTypeViewHolder, String) -> Unit = { _, _ -> }
 }

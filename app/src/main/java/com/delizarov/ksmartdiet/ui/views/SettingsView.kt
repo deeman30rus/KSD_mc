@@ -3,7 +3,6 @@ package com.delizarov.ksmartdiet.ui.views
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
-import android.widget.Button
 import com.delizarov.common.x.ui.bind
 import com.delizarov.customviews.PlanDaysView
 import com.delizarov.ksmartdiet.R
@@ -18,7 +17,7 @@ class SettingsView(ctx: Context, attrs: AttributeSet?, defStyleAttr: Int) : Cons
             render()
         }
 
-    var onSettingsChangedListener: (DietSettings) -> Unit = {}
+    var onSettingsChanged: (DietSettings) -> Unit = {}
 
     private val planDays: PlanDaysView by bind(R.id.plan_days_amount)
     private val mealTypes: EditMealTypesView by bind(R.id.meal_types)
@@ -41,15 +40,16 @@ class SettingsView(ctx: Context, attrs: AttributeSet?, defStyleAttr: Int) : Cons
 
             settings.planDays = amount
 
-            onSettingsChangedListener(settings)
+            onSettingsChanged(settings)
         }
 
-        mealTypes.onDataSetChangedListener = {
+        mealTypes.mealTypes = settings.mealTypes
+        mealTypes.onMealTypesChanged = {
 
             settings.mealTypes.clear()
             settings.mealTypes.addAll(it)
 
-            onSettingsChangedListener(settings)
+            onSettingsChanged(settings)
         }
     }
 }

@@ -5,14 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import com.delizarov.customviews.PlanDaysView
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.interactors.SaveDietSettingsUseCase
-import com.delizarov.ksmartdiet.domain.models.DietSettings
-import com.delizarov.ksmartdiet.domain.models.MealType
 import com.delizarov.ksmartdiet.extensions.isCorrect
 import com.delizarov.ksmartdiet.navigation.ScreenKeys
-import com.delizarov.ksmartdiet.ui.views.EditMealTypesView
 import com.delizarov.ksmartdiet.ui.views.SettingsView
 import com.delizarov.navigation.ScreenKeyHolder
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -46,7 +42,7 @@ class SettingsFragment : BaseFragment(), ScreenKeyHolder {
         else
             disableSaveButton()
 
-        settingsView.onSettingsChangedListener = { settings ->
+        settingsView.onSettingsChanged = { settings ->
 
             if (settings.isCorrect)
                 enableSaveButton()
