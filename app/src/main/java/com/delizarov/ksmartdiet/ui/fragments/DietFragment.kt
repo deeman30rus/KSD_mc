@@ -48,6 +48,12 @@ class DietFragment : BaseFragment(), DietView, ScreenKeyHolder {
                 MealViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.viewholder_meal, parent, false), presenter) { recipeId -> presenter.onMealClicked(recipeId) }
 
         override fun onBindViewHolder(holder: ViewHolderBase<Meal>, position: Int) = holder.bind(get(position))
+
+        override fun onViewDetachedFromWindow(holder: ViewHolderBase<Meal>) {
+            super.onViewDetachedFromWindow(holder)
+
+            (holder as MealViewHolder).clear()
+        }
     }
 
     override fun showRecipeScreen(recipe: Recipe) = navController.forwardTo(ScreenKeys.RecipeScreenKey, recipe)

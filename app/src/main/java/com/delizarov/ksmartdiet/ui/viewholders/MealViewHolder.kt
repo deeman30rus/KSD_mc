@@ -68,4 +68,10 @@ class MealViewHolder(
             onItemClickListener(meal)
         }
     }
+
+    override fun clear() {
+        super.clear()
+
+        recipeTags.removeAllViews()
+    }
 }

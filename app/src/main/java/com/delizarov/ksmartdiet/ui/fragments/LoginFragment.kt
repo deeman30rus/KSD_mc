@@ -87,7 +87,10 @@ class LoginFragment : BaseFragment(), LoginView, ScreenKeyHolder {
         try {
             val account = completedTask.getResult(ApiException::class.java)
 
-            presenter.onSignInSuccess(account.displayName, account.idToken, account.photoUrl)
+            if (account == null)
+                presenter.onSignInFail()
+            else
+                presenter.onSignInSuccess(account.displayName, account.idToken, account.photoUrl)
 
         } catch (e: ApiException) {
             e.printStackTrace()
