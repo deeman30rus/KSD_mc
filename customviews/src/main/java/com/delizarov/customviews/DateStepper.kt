@@ -67,7 +67,7 @@ class DateStepper(ctx: Context?, attrs: AttributeSet?, defStyleAttr: Int) : Cons
             onSelectedDateChangedListener(value)
         }
 
-    private var maxDate = startDate
+    private var maxDate = startDate.plusDays(MAX_DAYS_DEFAULT)
 
     init {
         val inflater = ctx?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
