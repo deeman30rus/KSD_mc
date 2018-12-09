@@ -84,7 +84,7 @@ class DietRepositoryImpl @Inject constructor(
             db
                     .mealDao()
                     .getMeals(dateFrom, dateTo)
-                    .map { it.kModel(recipes[it.recipeId] ?: DEFAULT_RECIPE) }
+                    .map { it.kModel(recipes[it.recipeId]!!) }
                     .toList()
         else
             db
@@ -119,10 +119,7 @@ class DietRepositoryImpl @Inject constructor(
         private const val DIET_SETTINGS_PLAN_DAYS = "plan_days"
 
         private const val DIET_PREFERENCES = "diet_prefs"
-
-        //todo спрятать когда рецепты станут подконтрольны базе
-        val DEFAULT_RECIPE = default_recipe
     }
 
-    override fun getRecipeById(id: Long) = gRecipes[id] ?: DEFAULT_RECIPE
+    override fun getRecipeById(id: Long) = gRecipes[id]!!
 }

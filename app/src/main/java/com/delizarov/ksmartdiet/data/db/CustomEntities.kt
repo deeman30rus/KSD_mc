@@ -9,7 +9,7 @@ import org.joda.time.DateTime
 
 
 val MealWithVerboseTypeEntity.kModel: Meal
-    get() = Meal(type.kModel, gRecipes[recipeId] ?: DietRepositoryImpl.DEFAULT_RECIPE ,date)
+    get() = Meal(type.kModel, gRecipes[recipeId]!! ,date)
 
 class MealWithVerboseTypeEntity(
         @ColumnInfo(name = "recipe_id") val recipeId: Long,
