@@ -84,7 +84,6 @@ class DietRepositoryImpl @Inject constructor(
             db
                     .mealDao()
                     .getMeals(dateFrom, dateTo)
-                    .asSequence()
                     .map { it.kModel(recipes[it.recipeId] ?: DEFAULT_RECIPE) }
                     .toList()
         else

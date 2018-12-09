@@ -7,7 +7,7 @@ import io.reactivex.schedulers.Schedulers
 import org.joda.time.DateTime
 import javax.inject.Inject
 
-internal fun pickUpRecipe(dietRepository: DietRepository, strategy: MealPickStrategy, date: DateTime, type: MealType, excludedRecipes: List<Recipe>): Recipe {
+private fun pickUpRecipe(dietRepository: DietRepository, strategy: RecipePickStrategy, date: DateTime, type: MealType, excludedRecipes: List<Recipe>): Recipe {
     val dateFrom = date.minusDays(3).withTimeAtStartOfDay()
     val dateTo = date.plusDays(1).withTimeAtStartOfDay()
 
@@ -15,7 +15,7 @@ internal fun pickUpRecipe(dietRepository: DietRepository, strategy: MealPickStra
 
     val ration = dietRepository.getCurrentRation()
 
-    return strategy.pickMeal(ration, prevMeals, excludedRecipes)
+    return strategy.pickRecipe(ration, prevMeals, excludedRecipes)
 }
 
 sealed class MealReadParams
@@ -25,9 +25,12 @@ class DateParams(
         val settings: DietSettings
 ) : MealReadParams()
 
+/**
+ * Сценарий использования, для получения приёмов пищи
+ * */
 class GetMealUseCase @Inject constructor(
         private val dietRepository: DietRepository,
-        private val strategy: MealPickStrategy
+        private val strategy: RecipePickStrategy
 ) : UseCase<Meal, MealReadParams>() {
 
     override fun createObservable(params: MealReadParams?): Observable<Meal> =
@@ -73,14 +76,14 @@ class GetMealUseCase @Inject constructor(
 
     private fun pickUpMeal(date: DateTime, type: MealType) = Meal(
             type,
-            pickUpRecipe(dietRepository, strategy, date, type, listOf()),
+            pickUpRecipe(dietRepository, strategy, date, type, emptyList()),
             date
     )
 }
 
 class SuggestMealUseCase @Inject constructor(
         private val dietRepository: DietRepository,
-        private val strategy: MealPickStrategy
+        private val strategy: RecipePickStrategy
 ) : UseCase<Meal, Meal>() {
 
     override fun createObservable(params: Meal?): Observable<Meal> =
