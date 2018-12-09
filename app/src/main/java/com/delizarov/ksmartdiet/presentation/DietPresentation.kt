@@ -42,6 +42,8 @@ class DietPresenter @Inject constructor(
 
                     settings = it
                     renderDietScreen(settings)
+                    updateDayMeals(DateTime.now())
+
                 }, {
 
                     when (it) {
@@ -63,20 +65,7 @@ class DietPresenter @Inject constructor(
         view.showPlanDaysMenu(settings.planDays)
     }
 
-    fun onSelectedDateChanged(it: DateTime) {
-
-        val params = DateParams(it, settings)
-
-        getMealUseCase
-                .observable(params)
-                .observeOn(AndroidSchedulers.mainThread())
-                .toList()
-                .subscribe { meals ->
-                    view.showDailyMeals(meals)
-                }
-
-
-    }
+    fun onSelectedDateChanged(day: DateTime) = updateDayMeals(day)
 
     fun onSuggestButtonClicked(currentMeal: Meal) {
 
@@ -94,4 +83,18 @@ class DietPresenter @Inject constructor(
     fun onMealClicked(meal: Meal) = view.showRecipeScreen(meal.recipe)
 
     fun onProfileClicked(userInfo: UserInfo) = view.displayProfileScreen(userInfo)
+
+    private fun updateDayMeals(day: DateTime) {
+
+        val params = DateParams(day, settings)
+
+        getMealUseCase
+                .observable(params)
+                .observeOn(AndroidSchedulers.mainThread())
+                .toList()
+                .subscribe { meals ->
+                    view.showDailyMeals(meals)
+                }
+
+    }
 }
