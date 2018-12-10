@@ -11,19 +11,12 @@ class FragmentRouter(
         @IdRes private val containerId: Int
 ) : Router {
 
-    override fun forwardTo(screenKeyHolder: ScreenKeyHolder) {
-
+    override fun replaceTo(screenKeyHolder: ScreenKeyHolder) {
         val fragment = screenKeyHolder as Fragment
 
         fm
                 .beginTransaction()
                 .replace(containerId, fragment, screenKeyHolder.screenKey)
-                .addToBackStack(screenKeyHolder.screenKey)
                 .commit()
-    }
-
-    override fun back() {
-
-        fm.popBackStack()
     }
 }
