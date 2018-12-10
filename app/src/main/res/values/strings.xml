@@ -9,7 +9,7 @@
     <string name="pick_manually">Выбрать самому</string>
     <string name="suggest_meal">Выбрать автоматически</string>
     <string name="recipe_details_title">Details</string>
-    <string name="recipe_ingredients_title">Ingredients</string>
+    <string name="recipe_ingredients_title">Ингредиенты</string>
     <string name="recipe_directions_title">Directions</string>
     <string name="recipe_video_instructions_title">Video</string>
 
