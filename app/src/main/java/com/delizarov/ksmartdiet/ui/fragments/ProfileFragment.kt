@@ -51,6 +51,10 @@ class ProfileFragment : BaseFragment(), ScreenKeyHolder, ProfileView {
                 disableSaveButton()
         }
 
+        v.findViewById<View>(R.id.icon_back).setOnClickListener {
+            navController.back()
+        }
+
         val userName = v.findViewById<TextView>(R.id.user_name)
         val userEmail = v.findViewById<TextView>(R.id.user_email)
         val profilePic = v.findViewById<ImageView>(R.id.profile_pic)
