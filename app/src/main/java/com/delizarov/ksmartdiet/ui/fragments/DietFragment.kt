@@ -48,19 +48,26 @@ class DietFragment : BaseFragment(), DietView, ScreenKeyHolder {
                 MealViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.viewholder_meal, parent, false), presenter) { recipeId -> presenter.onMealClicked(recipeId) }
 
         override fun onBindViewHolder(holder: ViewHolderBase<Meal>, position: Int) = holder.bind(get(position))
+
+        override fun onViewDetachedFromWindow(holder: ViewHolderBase<Meal>) {
+            super.onViewDetachedFromWindow(holder)
+
+            (holder as MealViewHolder).clear()
+        }
     }
 
     override fun showRecipeScreen(recipe: Recipe) = navController.forwardTo(ScreenKeys.RecipeScreenKey, recipe)
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = inflater.inflate(R.layout.fragment_diet, container, false)
 
-        val v = inflater.inflate(R.layout.fragment_diet, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        currentDate = v.findViewById(R.id.current_date)
-        profilePic = v.findViewById(R.id.profile_pic)
-        userName = v.findViewById(R.id.user_name)
-        mealsView = v.findViewById(R.id.meals)
+        currentDate = view.findViewById(R.id.current_date)
+        profilePic = view.findViewById(R.id.profile_pic)
+        userName = view.findViewById(R.id.user_name)
+        mealsView = view.findViewById(R.id.meals)
 
         val itemOffsetDecoration = ItemOffsetDecoration(context!!, R.dimen.meal_vertical_offset)
         mealsView.addItemDecoration(itemOffsetDecoration)
@@ -70,12 +77,6 @@ class DietFragment : BaseFragment(), DietView, ScreenKeyHolder {
             if (it != null)
                 presenter.onSelectedDateChanged(it)
         }
-
-        return v
-    }
-
-    override fun onResume() {
-        super.onResume()
 
         mealsView.adapter = adapter
 

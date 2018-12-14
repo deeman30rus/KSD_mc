@@ -4,7 +4,7 @@ import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import com.delizarov.common.x.ui.bind
-import com.delizarov.customviews.PlanDaysView
+import com.delizarov.customviews.NumSelectView
 import com.delizarov.ksmartdiet.R
 import com.delizarov.ksmartdiet.domain.models.DietSettings
 
@@ -19,7 +19,7 @@ class SettingsView(ctx: Context, attrs: AttributeSet?, defStyleAttr: Int) : Cons
 
     var onSettingsChanged: (DietSettings) -> Unit = {}
 
-    private val planDays: PlanDaysView by bind(R.id.plan_days_amount)
+    private val planDays: NumSelectView by bind(R.id.plan_days_amount)
     private val mealTypes: EditMealTypesView by bind(R.id.meal_types)
 
     constructor(ctx: Context) : this(ctx, null)
@@ -35,10 +35,10 @@ class SettingsView(ctx: Context, attrs: AttributeSet?, defStyleAttr: Int) : Cons
 
     private fun render() {
 
-        planDays.amount = settings.planDays
-        planDays.onAmountChangedListener = { amount ->
+        planDays.selectedNum = settings.planDays
+        planDays.onNumberSelected = { number ->
 
-            settings.planDays = amount
+            settings.planDays = number
 
             onSettingsChanged(settings)
         }

@@ -1,9 +1,7 @@
 package com.delizarov.ksmartdiet.di
 
-import android.app.Activity
 import android.app.Application
 import android.content.Context
-import android.support.annotation.IdRes
 import com.delizarov.ksmartdiet.SmartDietApplication
 import com.delizarov.ksmartdiet.data.DietRepository
 import com.delizarov.ksmartdiet.data.UserRepository
@@ -11,13 +9,8 @@ import com.delizarov.ksmartdiet.data.db.DietDB
 import com.delizarov.ksmartdiet.data.impl.DietRepositoryImpl
 import com.delizarov.ksmartdiet.data.impl.UserRepositoryImpl
 import com.delizarov.ksmartdiet.domain.models.DiversityStrategy
-import com.delizarov.ksmartdiet.domain.models.MealPickStrategy
-import com.delizarov.ksmartdiet.navigation.impl.FragmentScreenFactory
-import com.delizarov.ksmartdiet.ui.activities.BaseActivity
+import com.delizarov.ksmartdiet.domain.models.RecipePickStrategy
 import com.delizarov.navigation.NavigationController
-import com.delizarov.navigation.Router
-import com.delizarov.navigation.ScreenFactory
-import com.delizarov.navigation.android.FragmentRouter
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -51,7 +44,7 @@ class DataRepositoryModule(app: Application) {
 class DietModule {
 
     @Provides
-    fun providesMealPickStrategy(strategy: DiversityStrategy): MealPickStrategy = strategy
+    fun providesMealPickStrategy(strategy: DiversityStrategy): RecipePickStrategy = strategy
 }
 
 @Module

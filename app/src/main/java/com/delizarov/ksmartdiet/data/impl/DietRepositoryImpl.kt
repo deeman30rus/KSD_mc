@@ -12,11 +12,15 @@ import javax.inject.Inject
 
 //todo удалить когда рецепты станут подконтрольны базе
 val gRecipes = mapOf(
-        1L to pancakes,
-        2L to oatmeal,
-        3L to friedEggs,
-        4L to friedPotatoes,
-        5L to lazies
+        pancakes.id to pancakes,
+        oatmeal.id to oatmeal,
+        friedEggs.id to friedEggs,
+        friedPotatoes.id to friedPotatoes,
+        lazies.id to lazies,
+        waffles.id to waffles,
+        sandwitches.id to sandwitches,
+        toasts.id to toasts,
+        boiledEggs.id to boiledEggs
 )
 
 class DietRepositoryImpl @Inject constructor(
@@ -84,8 +88,7 @@ class DietRepositoryImpl @Inject constructor(
             db
                     .mealDao()
                     .getMeals(dateFrom, dateTo)
-                    .asSequence()
-                    .map { it.kModel(recipes[it.recipeId] ?: DEFAULT_RECIPE) }
+                    .map { it.kModel(recipes[it.recipeId]!!) }
                     .toList()
         else
             db
@@ -120,10 +123,7 @@ class DietRepositoryImpl @Inject constructor(
         private const val DIET_SETTINGS_PLAN_DAYS = "plan_days"
 
         private const val DIET_PREFERENCES = "diet_prefs"
-
-        //todo спрятать когда рецепты станут подконтрольны базе
-        val DEFAULT_RECIPE = default_recipe
     }
 
-    override fun getRecipeById(id: Long) = gRecipes[id] ?: DEFAULT_RECIPE
+    override fun getRecipeById(id: Long) = gRecipes[id]!!
 }

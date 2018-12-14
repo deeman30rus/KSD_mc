@@ -33,7 +33,6 @@ class DateStepper(ctx: Context?, attrs: AttributeSet?, defStyleAttr: Int) : Cons
             field = value
             maxDate = startDate.plusDays(value)
 
-            selectedDate = SOME_DATE
             selectedDate = startDate
         }
 
@@ -41,15 +40,13 @@ class DateStepper(ctx: Context?, attrs: AttributeSet?, defStyleAttr: Int) : Cons
 
     }
 
-    var selectedDate: DateTime = SOME_DATE // любая дата в далёком прошлом, чтобы при первой установке инициировать вызов selected month changed
+    var selectedDate: DateTime = DateTime.now()
         private set(value) {
+
             if (value == field)
                 return
 
             field = value
-
-            if (value == SOME_DATE)
-                return
 
             month.text = value.toString(DATE_MONTH_FORMAT) ?: ""
             day.text = value.toString(DATE_DAY_FORMAT) ?: ""
@@ -67,7 +64,7 @@ class DateStepper(ctx: Context?, attrs: AttributeSet?, defStyleAttr: Int) : Cons
             onSelectedDateChangedListener(value)
         }
 
-    private var maxDate = startDate
+    private var maxDate = startDate.plusDays(MAX_DAYS_DEFAULT)
 
     init {
         val inflater = ctx?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -117,7 +114,5 @@ class DateStepper(ctx: Context?, attrs: AttributeSet?, defStyleAttr: Int) : Cons
         const val DATE_DAY_FORMAT = "dd"
 
         const val MAX_DAYS_DEFAULT = 4
-
-        val SOME_DATE = DateTime("2004-12-13T21:39:45.618-08:00") // служит для обновления даты
     }
 }

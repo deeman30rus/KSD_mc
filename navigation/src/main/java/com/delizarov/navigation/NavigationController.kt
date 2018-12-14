@@ -18,7 +18,7 @@ abstract class NavigationController(
         stack.clear()
         stack.push(sKey)
 
-        router.forwardTo(screen)
+        router.replaceTo(screen)
     }
 
     fun setRoot(sKey: ScreenKey) = setRoot(sKey, null)
@@ -28,7 +28,7 @@ abstract class NavigationController(
 
         stack.push(sKey)
 
-        router.forwardTo(screen)
+        router.replaceTo(screen)
     }
 
     fun <T, S> forwardTo(sKey: ScreenKey, data1: T?, data2: S?) = forwardTo(sKey, data1, data2, null)
@@ -42,10 +42,8 @@ abstract class NavigationController(
         val screen = screenFactory.createScreen(sKey, data1, data2, data3)
 
         stack.pop()
-        router.back()
-
         stack.push(sKey)
-        router.forwardTo(screen)
+        router.replaceTo(screen)
 
     }
 
@@ -61,14 +59,19 @@ abstract class NavigationController(
 
         if (stack.empty())
             closeNavigationTree()
-        else
-            router.back()
+        else {
+
+            val sKey = stack.peek()
+            val screen = screenFactory.createScreen(sKey)
+
+            router.replaceTo(screen)
+
+        }
     }
 
     fun backTo(sKey: ScreenKey) {
 
-        while (stack.isNotEmpty() && stack.peek() != sKey)
-            back()
+        TODO("implement")
     }
 
     abstract fun closeNavigationTree()
