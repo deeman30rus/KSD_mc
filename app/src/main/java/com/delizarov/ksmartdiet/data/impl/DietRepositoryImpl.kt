@@ -12,11 +12,15 @@ import javax.inject.Inject
 
 //todo удалить когда рецепты станут подконтрольны базе
 val gRecipes = mapOf(
-        1L to pancakes,
-        2L to oatmeal,
-        3L to friedEggs,
-        4L to friedPotatoes,
-        5L to lazies
+        pancakes.id to pancakes,
+        oatmeal.id to oatmeal,
+        friedEggs.id to friedEggs,
+        friedPotatoes.id to friedPotatoes,
+        lazies.id to lazies,
+        waffles.id to waffles,
+        sandwitches.id to sandwitches,
+        toasts.id to toasts,
+        boiledEggs.id to boiledEggs
 )
 
 class DietRepositoryImpl @Inject constructor(

@@ -263,3 +263,235 @@ val lazies = Recipe(
 
         )
 )
+
+val waffles = Recipe(
+        6L,
+        "Венские вафли",
+        "Невероятно вкусные, всеми любимые венские мягкие вафли можно приготовить в электровафельнице в домашних условиях, рецепты и пошаговые фото помогут Вам!",
+        emptyList(),
+        emptyList(),
+        30,
+        300,
+        setOf("сладкое", "печёное"),
+        30.bigDecimal,
+        40.bigDecimal,
+        50.bigDecimal,
+        listOf(
+                Ingredient(
+                        Grocery("Мука пшеничная"),
+                        175.bigDecimal,
+                        Unit.Gram
+                ),
+                Ingredient(
+                        Grocery("Молоко"),
+                        100.bigDecimal,
+                        Unit.MilliLiter
+                ),
+                Ingredient(
+                        Grocery("Масло сливочное"),
+                        75.bigDecimal,
+                        Unit.Gram
+                ),
+                Ingredient(
+                        Grocery("Яйца"),
+                        2.bigDecimal,
+                        Unit.Piece
+                ),
+                Ingredient(
+                        Grocery("Сахар"),
+                        50.bigDecimal,
+                        Unit.Gram
+                ),
+                Ingredient(
+                        Grocery("Разрыхлитель"),
+                        5.bigDecimal,
+                        Unit.Gram
+                ),
+                Ingredient(
+                        Grocery("Сок лимонный"),
+                        5.bigDecimal,
+                        Unit.MilliLiter
+                ),
+                Ingredient(
+                        Grocery("Соль"),
+                        1.bigDecimal,
+                        Unit.Optional
+                )
+        ),
+        listOf(
+                Direction(1, "Масло размягчить и растереть с сахаром"),
+                Direction(2, "Добавить молоко и яйца и размешать венчиком"),
+                Direction(3, "Добавить муку, разрыхлитель, соль и лимонный сок. Тщательно перемешать до однородной массы"),
+                Direction(4, "Установить панели. Включить Мультипекарь, закрыть крышку"),
+                Direction(5, "Когда загорится зелёный индикатор, открыть крышку, выложить тесто в формы, закрыть крышку, выпекать 5-6 минут.")
+        )
+)
+
+val sandwitches = Recipe(
+        7L,
+        "Сэндвич с яичницей, беконом и сыром",
+        "Сэндвич — блюдо, состоящее из двух или нескольких ломтиков хлеба и одного или нескольких слоёв мяса и/или других начинок.",
+        emptyList(),
+        emptyList(),
+        30,
+        300,
+        setOf("солёное", "жаренное"),
+        30.bigDecimal,
+        40.bigDecimal,
+        50.bigDecimal,
+        listOf(
+                Ingredient(
+                        Grocery("Бекон"),
+                        4.bigDecimal,
+                        Unit.Piece
+                ),
+                Ingredient(
+                        Grocery("Тостовый хлеб"),
+                        4.bigDecimal,
+                        Unit.Piece
+                ),
+                Ingredient(
+                        Grocery("Сыр эдам"),
+                        50.bigDecimal,
+                        Unit.Gram
+                ),
+                Ingredient(
+                        Grocery("Помидоры"),
+                        1.bigDecimal,
+                        Unit.Optional
+                ),
+                Ingredient(
+                        Grocery("Горчица"),
+                        1.bigDecimal,
+                        Unit.Optional
+                ),
+                Ingredient(
+                        Grocery("Кетчуп"),
+                        1.bigDecimal,
+                        Unit.Optional
+                ),
+                Ingredient(
+                        Grocery("Сливочное масло"),
+                        30.bigDecimal,
+                        Unit.Gram
+                ),
+                Ingredient(
+                        Grocery("Яйцо куриное"),
+                        2.bigDecimal,
+                        Unit.Piece
+                ),
+                Ingredient(
+                        Grocery("Листья латука"),
+                        4.bigDecimal,
+                        Unit.Piece
+                )
+        ),
+        listOf(
+                Direction(1, "Поджарить тонкие ломтики бекона до золотистой корочки."),
+                Direction(2, "Подогреть хлеб и одну половину сэндвича намазать кетчупом или горчицей (можно приготовить самостоятельно), на вторую положить сыр, ломтики помидоров, бекон и латук."),
+                Direction(3, "Тем временем на сливочном масле поджарить небольшую глазунью — такую, чтобы желток был полуготовым."),
+                Direction(4, "Выложить глазунью на латук, закрыть другой половинкой сэндвича и подавать.")
+        )
+)
+
+val toasts = Recipe(
+        8L,
+        "Французские тосты",
+        "Классические французские тосты",
+        emptyList(),
+        emptyList(),
+        30,
+        510,
+        setOf("Сладкое", "жаренное"),
+        13.bigDecimal,
+        26.bigDecimal,
+        52.bigDecimal,
+        listOf(
+                Ingredient(
+                        Grocery("Городская булка"),
+                        1.bigDecimal,
+                        Unit.Piece
+                ),
+                Ingredient(
+                        Grocery("Молоко"),
+                        3.bigDecimal,
+                        Unit.TableSpoon
+                ),
+                Ingredient(
+                        Grocery("Яйцо куриное"),
+                        2.bigDecimal,
+                        Unit.Piece
+                ),
+                Ingredient(
+                        Grocery("Соль"),
+                        BigDecimal(0.5),
+                        Unit.TeaSpoon
+                ),
+                Ingredient(
+                        Grocery("Сахар"),
+                        1.bigDecimal,
+                        Unit.TableSpoon
+                )
+        ),
+        listOf(
+                Direction(1, "Порезать хлеб"),
+                Direction(2, "Взбить яйца с молоком, сахаром и солью."),
+                Direction(3, "Нагреть сковороду и растопить сливочное масло."),
+                Direction(4, "Обмакнуть хлеб с двух сторон в смеси и отправить на сковороду."),
+                Direction(5, "Жарить по полторы минуты с каждой стороны (учитывайте особенности вашей плиты)."),
+                Direction(6, "Разогреть духовку до 180 градусов и отправить тосты допекаться в духовке до корочки.")
+        )
+)
+
+val boiledEggs = Recipe(
+        9L,
+        "Варёные яйца",
+        "Обычные варёные яйца",
+        emptyList(),
+        emptyList(),
+        30,
+        510,
+        setOf("солёное", "варёное"),
+        13.bigDecimal,
+        26.bigDecimal,
+        52.bigDecimal,
+        listOf(
+                Ingredient(
+                        Grocery("Сосиски"),
+                        3.bigDecimal,
+                        Unit.Piece
+                ),
+                Ingredient(
+                        Grocery("Помидоры"),
+                        1.bigDecimal,
+                        Unit.Optional
+                ),
+                Ingredient(
+                        Grocery("Яйцо куриное"),
+                        3.bigDecimal,
+                        Unit.Piece
+                ),
+                Ingredient(
+                        Grocery("Огурец"),
+                        1.bigDecimal,
+                        Unit.Optional
+                ),
+                Ingredient(
+                        Grocery("Булка городская"),
+                        BigDecimal(0.3),
+                        Unit.Piece
+                ),
+                Ingredient(
+                        Grocery("Горошек"),
+                        BigDecimal(3),
+                        Unit.TableSpoon
+                )
+        ),
+        listOf(
+                Direction(1, "Поставить яйца в холодную воду на огонь."),
+                Direction(2, "Как только вода закипит добавить к яйцам сосиски. Варить 9 минут"),
+                Direction(3, "Из хлеба нарезать бутерброды со сливочным маслом"),
+                Direction(4, "Помидор и огурец нарезать.")
+        )
+)
+
