@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <com.delizarov.ksmartdiet.ui.views.RecipeDetailsInfoView
+            android:id="@+id/info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.delizarov.ksmartdiet.ui.views.RecipeDetailsIngredients
+            android:id="@+id/recipe_ingredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            />
+
+        <com.delizarov.ksmartdiet.ui.views.RecipeDetailsDirections
+            android:id="@+id/recipe_directions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"/>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

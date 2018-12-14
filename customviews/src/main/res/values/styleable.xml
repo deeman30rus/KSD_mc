@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ExtendableList">
+        <attr name="el_label_text" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="SelectNearDateView">
+        <attr name="snd_background" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="DateStepper">
+        <attr name="start_date" format="string" />
+        <attr name="max_days" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="NumberedRadioButton">
+
+        <attr name="nrb_caption" format="string" />
+        <attr name="nrb_checked" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="NumberedRadioGroup">
+        <attr name="nrg_buttons_amount" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="PlanDaysView">
+        <attr name="pdv_max_plan_days" format="integer" />
+        <attr name="pdv_amount" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="NumSelectView">
+        <attr name="nsv_amount" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="EditMealTypesView">
+        <attr name="emtv_prop" format="string" />
+    </declare-styleable>
+
+</resources>

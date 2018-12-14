@@ -1,5 +1,62 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
     <string name="app_name">KSmartDiet</string>
     <string name="client_data_error">Ошибка клиентских данных</string>
     <string name="sign_in_error">Ошибка при авторизации</string>
+    <string name="save_caption">Сохранить</string>
+    <string name="plan_days_amount">Число дней планирования</string>
+    <string name="meal_types">Названия приёмов пищи</string>
+    <string name="empty_meal_types_error">Список пуст, либо содержит пустые строки</string>
+    <string name="pick_manually">Выбрать самому</string>
+    <string name="suggest_meal">Выбрать автоматически</string>
+    <string name="recipe_details_title">Details</string>
+    <string name="recipe_ingredients_title">Ингредиенты</string>
+    <string name="recipe_directions_title">Directions</string>
+    <string name="recipe_video_instructions_title">Video</string>
+
+    <string-array name="plan_days">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+
+    <string name="proteins">Протеины</string>
+    <string name="triglycerides">Жиры</string>
+    <string name="carbohydrates">Углеводы</string>
+
+    <string name="food_energy">Пищевая ценность</string>
+
+    <string name="calories">%d ккал</string>
+
+    <string name="recipe_direction_order_text">%d.</string>
+    <string name="sign_in_with_google">Войти через аккаунт Google</string>
+    <string name="settings_title">Настройки диеты</string>
+    <string name="plan_days_question">Насколько дней желаете распланировать диету?</string>
+    <string name="meal_types_title">Названия приемов пищи</string>
+    <string name="save_button_text">Сохранить</string>
+
+    <string name="kilo">кг</string>
+    <string name="gram">г</string>
+    <string name="liter">л</string>
+    <string name="milliliter">мл</string>
+    <string name="teaspoon">ч. ложка</string>
+    <string name="tablespoon">ст. ложка</string>
+    <string name="piece">шт.</string>
+    <string name="optional">по вкусу</string>
+    <string name="recipe_details_directions_title">Приготовление</string>
+    <string name="recipe_details_video_title">Видео к рецепту</string>
+    <string name="profile_title">Настройки профиля</string>
+    <string name="dialog_logout_title">Выход</string>
+    <string name="dialog_logout_message">Выход из приложения приведёт к потере всех данных. Вы действительно хотите выйти?</string>
+    <string name="dialog_logout_cancel">Отмена</string>
+    <string name="dialog_logout_ok">Выйти</string>
+
+    <string name="dialog_change_settings_warning_title">Изменение настроек диеты</string>
+    <string name="dialog_change_settings_warning_message">Изменение настроек диеты приведёт к полному изменению уже запланированных блюд. Продолжить?</string>
+    <string name="dialog_change_settings_warning_disagree">Нет</string>
+    <string name="dialog_change_settings_warning_agree">Да</string>
+
 </resources>

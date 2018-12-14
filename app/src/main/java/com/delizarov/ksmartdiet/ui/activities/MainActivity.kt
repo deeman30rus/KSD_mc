@@ -1,65 +1,62 @@
 package com.delizarov.ksmartdiet.ui.activities
 
 import android.os.Bundle
-import android.support.v4.app.FragmentManager
-import com.delizarov.ksmartdiet.NavController
+import android.view.View
+import android.view.WindowManager
 import com.delizarov.ksmartdiet.R
-import com.delizarov.ksmartdiet.ui.fargments.DietFragment
-import com.delizarov.ksmartdiet.ui.fargments.LoginFragment
+import com.delizarov.ksmartdiet.di.MainActivityComponent
+import com.delizarov.ksmartdiet.di.NavigationModule
+import com.delizarov.ksmartdiet.navigation.ScreenKeys
+import com.delizarov.ksmartdiet.navigation.impl.FragmentScreenFactory
+import com.delizarov.navigation.NavigationController
+import com.delizarov.navigation.android.FragmentRouter
 
-class MainActivity : BaseActivity(), NavController {
-    private lateinit var fm: FragmentManager
+class MainActivity : BaseActivity() {
+
+    val navController = object : NavigationController(FragmentScreenFactory(), FragmentRouter(supportFragmentManager, R.id.container)) {
+        override fun closeNavigationTree() = finish()
+    }
+
+    private val mainActivityComponent: MainActivityComponent by lazy {
+
+        appComponent.addMainActivityComponent(
+                NavigationModule(navController)
+        )
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.main_activity)
 
-        getAppComponent().inject(this)
-
-        fm = supportFragmentManager
-
-        val screen = intent.getIntExtra(SCREEN, NO_SCREEN)
+        val screen = intent.getStringExtra(SCREEN)
 
         when (screen) {
-            LOGIN_SCREEN -> navToLoginView()
-            DIET_SCREEN -> navToDietView()
-
-            NO_SCREEN -> finish()
+            ScreenKeys.SignInScreenKey -> navToLoginView()
+            ScreenKeys.SettingsScreenKey -> navToSettingsView()
+            ScreenKeys.DailyDietScreenKey -> navToDietView()
+            else -> finish()
         }
     }
 
-    override fun navToDietView() {
-
-        val fragment = DietFragment.build {
-
-            navController = this@MainActivity
-        }
-
-        fm
-                .beginTransaction()
-                .replace(R.id.container, fragment)
-                .commit()
+    override fun injectComponents() {
+        mainActivityComponent.inject(this)
     }
 
-    override fun navToLoginView() {
-        val fragment = LoginFragment.build {
+    private fun navToLoginView() = navController.setRoot(ScreenKeys.SignInScreenKey)
 
-            navController = this@MainActivity
-        }
+    private fun navToSettingsView() = navController.setRoot(ScreenKeys.SettingsScreenKey, true)
 
-        fm
-                .beginTransaction()
-                .replace(R.id.container, fragment)
-                .commit()
+    private fun navToDietView() = navController.setRoot(ScreenKeys.DailyDietScreenKey)
+
+    override fun onBackPressed() {
+
+        navController.back()
     }
 
     companion object {
 
         const val SCREEN = "Screen"
-
-        const val NO_SCREEN = -1
-        const val LOGIN_SCREEN = 1
-        const val DIET_SCREEN = 2
     }
 }

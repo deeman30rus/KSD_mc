@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="recipe_screen_primary_color">@color/colorPrimary</color>
+    <color name="recipe_selected_tab_color">@color/recipe_screen_primary_color</color>
+    <color name="recipe_unselected_tab_color">@color/grey_500</color>
+
+    <color name="recipe_chart_proteins_color">@color/seafoam_blue</color>
+    <color name="recipe_chart_triglycerides_color">@color/light_blue_grey</color>
+    <color name="recipe_chart_carbohydrates_color">@color/light_grey_grey</color>
+
+</resources>

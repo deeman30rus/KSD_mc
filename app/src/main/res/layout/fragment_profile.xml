@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
+
+    <ImageView
+        android:id="@+id/icon_back"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:padding="12dp"
+        android:src="@drawable/icon_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/profile_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="@string/profile_title"
+        android:textColor="@color/dark_plum"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/icon_back"
+        app:layout_constraintStart_toEndOf="@id/icon_back"
+        app:layout_constraintTop_toTopOf="@id/icon_back" />
+
+    <ImageView
+        android:id="@+id/profile_pic"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/icon_back" />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/dark_plum"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/user_email"
+        app:layout_constraintStart_toEndOf="@+id/profile_pic"
+        app:layout_constraintTop_toTopOf="@+id/profile_pic"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        tools:text="Иван Иванов" />
+
+    <TextView
+        android:id="@+id/user_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/dark_plum"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_pic"
+        app:layout_constraintStart_toEndOf="@+id/profile_pic"
+        app:layout_constraintTop_toBottomOf="@+id/user_name"
+        tools:text="some.email@host.com" />
+
+    <ImageView
+        android:id="@+id/icon_down"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/icon_drop_down"
+        app:layout_constraintBottom_toBottomOf="@id/user_email"
+        app:layout_constraintStart_toEndOf="@id/user_email"
+        app:layout_constraintTop_toTopOf="@id/user_email" />
+
+    <com.delizarov.ksmartdiet.ui.views.SettingsView
+        android:id="@+id/settings"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_pic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+    <Button
+        android:id="@+id/save"
+        style="@style/RoundCornerButtonStyle"
+        android:textAllCaps="true"
+        android:layout_width="162dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:text="@string/save_button_text"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>
